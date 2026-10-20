@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistemática Hernia3D</title>
+<meta name="description" content="A curva sai do centro cirúrgico: o curso de maestria em TAPP em quatro camadas — a curva de aprendizado, quem sustenta e quem ganha, o que se oferece e o que o residente vive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="brand-mark" aria-hidden="true">H³D</div>
+  <div class="title-block">
+    <div class="kicker">Sistemática Hernia3D · curso de maestria em TAPP</div>
+    <h1>A curva sai do centro cirúrgico.</h1>
+  </div>
+  <a class="nav-irma" href="../" data-irma>
+    <span class="irma-mark" aria-hidden="true">H³D</span><span>Plataforma do <b>residente</b></span>
+  </a>
+</header>
+
+<nav id="camadas" role="tablist" aria-label="as quatro camadas"></nav>
+
+<main class="palco">
+  <p class="pergunta" id="pergunta"></p>
+
+  <div class="vistas">
+    <section class="vista v-dupla" id="v-sistema" role="tabpanel" aria-label="Sistema">
+      <div class="cena"><svg id="curva" viewBox="0 0 900 510" role="img" aria-label="A curva de aprendizado do TAPP, hoje no paciente e, com o Hernia3D, no modelo"></svg></div>
+      <aside class="leitura" id="leitura-sis" aria-live="polite"></aside>
+    </section>
+
+    <section class="vista v-dupla" id="v-ecossistema" role="tabpanel" aria-label="Ecossistema">
+      <div class="cena"><svg id="eco" viewBox="0 0 900 530" role="img" aria-label="Quem sustenta o curso, o curso, e quem ganha com ele"></svg></div>
+      <aside class="leitura" id="leitura-eco" aria-live="polite"></aside>
+    </section>
+
+    <section class="vista v-dupla" id="v-servicos" role="tabpanel" aria-label="Serviços">
+      <div class="painel" id="matriz"></div>
+      <aside class="leitura" id="leitura-serv" aria-live="polite"></aside>
+    </section>
+
+    <section class="vista v-jornadas" id="v-jornadas" role="tabpanel" aria-label="Jornadas">
+      <div class="painel" id="blueprint"></div>
+      <aside class="leitura" id="leitura-jor"></aside>
+    </section>
+  </div>
+
+  <p class="legenda-procedencia">
+    <span class="lp lp-ok">confirmado</span>
+    <span class="lp lp-prov">provável, ou leitura nossa</span>
+    <span class="lp lp-aberto">em aberto, ou a confirmar</span>
+    <span class="lp-fonte">Base: vault do projeto Hernia3D, 20/10/2026. Sem valores em reais nesta peça.</span>
+  </p>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
