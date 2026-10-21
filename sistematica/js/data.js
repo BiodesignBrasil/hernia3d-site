@@ -12,8 +12,8 @@ window.H3D = {
   {
    "id": "comprador",
    "nome": "COMPRADOR DO CURSO",
-   "papel": "paga a taxa do curso: programa, Einstein ou o próprio residente",
-   "curto": "paga o curso · ainda indefinido",
+   "papel": "quem compra o curso: programa de residência, hospital de ensino ou Einstein, a confirmar",
+   "curto": "compra o curso · a confirmar",
    "lado": "dentro",
    "confianca": "aberto"
   },
@@ -44,16 +44,16 @@ window.H3D = {
   {
    "id": "industria",
    "nome": "INDÚSTRIA",
-   "papel": "patrocinador potencial do kit ou da câmera",
-   "curto": "patrocínio potencial do kit",
+   "papel": "telas e instrumental: patrocínio por turma, a explorar",
+   "curto": "patrocínio por turma · a explorar",
    "lado": "fora",
    "confianca": "aberto"
   },
   {
    "id": "inovacao",
    "nome": "VERBA DE INOVAÇÃO (HIAE)",
-   "papel": "financia o estudo de validação",
-   "curto": "financia o estudo de validação",
+   "papel": "paga o estudo de validação e dois modelos, não o curso",
+   "curto": "paga o estudo, não o curso",
    "lado": "fora",
    "confianca": "confirmado"
   },
@@ -147,7 +147,7 @@ window.H3D = {
    "id": "F1",
    "de": "inovacao",
    "para": "projeto",
-   "oque": "financia o estudo de validação dual-plataforma",
+   "oque": "paga o estudo de validação dual-plataforma e dois modelos, não o curso",
    "tipo": "pagamento",
    "enquadramento": "inovacao",
    "etapas": [
@@ -208,7 +208,7 @@ window.H3D = {
    "id": "F7",
    "de": "projeto",
    "para": "fornecedores",
-   "oque": "paga hospedagem de vídeo, certificação e administração",
+   "oque": "paga hospedagem e administração da plataforma",
    "tipo": "pagamento",
    "enquadramento": "custo",
    "etapas": [
@@ -289,12 +289,12 @@ window.H3D = {
    "id": "F11",
    "de": "industria",
    "para": "projeto",
-   "oque": "patrocinaria kit ou câmera numa trilha privada",
+   "oque": "patrocinaria turmas do curso, a explorar: a indústria quer ver a validação publicada",
    "tipo": "confirmar",
    "enquadramento": "curso",
    "etapas": [
-    "E1",
-    "E2"
+    "E3a",
+    "E3b"
    ]
   },
   {
@@ -845,7 +845,7 @@ window.H3D = {
   {
    "camada": "ecossistema",
    "titulo": "Quem paga não é quem ganha",
-   "texto": "o curso é comprado por um pagador ainda indefinido, e o ganho, a complicação evitada, volta para quem paga a cirurgia"
+   "texto": "quem compra o curso ainda está a confirmar (programa de residência, hospital de ensino ou Einstein). O ganho, a complicação evitada, volta para quem paga a cirurgia, e esse não paga o curso"
   },
   {
    "camada": "sistema",
@@ -891,6 +891,11 @@ window.H3D = {
    "camada": "fecho",
    "titulo": "O tempo do preceptor",
    "texto": "quantas horas de live e de presencial cabem na agenda de quem decide quem passa"
+  },
+  {
+   "camada": "ecossistema",
+   "titulo": "A verba paga a prova, não o curso",
+   "texto": "a verba de inovação paga o estudo de validação e dois modelos. O curso nasce sem caixa, e a indústria entra só como patrocínio por turma, a explorar, depois da validação publicada"
   },
   {
    "camada": "sistema",
