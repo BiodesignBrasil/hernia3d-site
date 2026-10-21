@@ -1,7 +1,7 @@
 /* Sistemática Hernia3D — "a curva sai do centro cirúrgico" (20/10/2026).
-   Cada camada responde UMA pergunta e aponta para a seguinte:
-     sistema     — a curva de aprendizado: hoje no paciente, com o Hernia3D no modelo
+   Cada camada responde UMA pergunta e aponta para a seguinte (de fora para dentro, 21/10/2026):
      ecossistema — quem sustenta o curso, e quem ganha com ele (o ganho não volta)
+     sistema     — a curva de aprendizado: hoje no paciente, com o Hernia3D no modelo
      serviços    — o que se oferece em cada etapa, e quem paga cada parte
      jornadas    — o que o residente vive, e o que roda por trás
    Dados: js/data.js, GERADO de 08_sintese/dados/*.csv (não editar à mão).
@@ -90,16 +90,16 @@
 
   /* ---------- as quatro camadas, como capítulos ---------- */
   var VISTAS = [
-    { id: "sistema", n: "01", rot: "A curva", cam: "sistema", perg: "Onde o residente aprende o TAPP, hoje e com o Hernia3D?" },
-    { id: "ecossistema", n: "02", rot: "Quem sustenta, quem ganha", cam: "ecossistema", perg: "Quem paga para deslocar a curva, e quem colhe o ganho?" },
+    { id: "ecossistema", n: "01", rot: "Quem sustenta, quem ganha", cam: "ecossistema", perg: "Quem paga para deslocar a curva, e quem colhe o ganho?" },
+    { id: "sistema", n: "02", rot: "A curva", cam: "sistema", perg: "Onde o residente aprende o TAPP, hoje e com o Hernia3D?" },
     { id: "servicos", n: "03", rot: "O que se oferece", cam: "serviços", perg: "O que o curso oferece em cada etapa, e quem paga cada parte?" },
     { id: "jornadas", n: "04", rot: "O que se vive", cam: "jornadas", perg: "O que o residente vive, e o que roda por trás?" }
   ];
   var PROXIMA = {
-    sistema: ["ecossistema", "e quem paga para deslocar a curva?"],
-    ecossistema: ["servicos", "o que, exatamente, se oferece?"],
+    ecossistema: ["sistema", "e que curva é essa que o curso desloca?"],
+    sistema: ["servicos", "o que, exatamente, se oferece?"],
     servicos: ["jornadas", "como o residente vive isso, etapa por etapa?"],
-    jornadas: ["sistema", "de volta à curva"]
+    jornadas: ["ecossistema", "de volta a quem sustenta"]
   };
   var botoes = {}, vistaAtual = null;
   var nav = document.getElementById("camadas");
@@ -542,5 +542,5 @@
   leituraSistema(null);
   leituraEcossistema(null, null);
   selecionaServico(null);
-  abre(q.get("vista") || "sistema", q.get("item") || undefined);
+  abre(q.get("vista") || "ecossistema", q.get("item") || undefined);
 })();
