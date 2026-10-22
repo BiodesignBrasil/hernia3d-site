@@ -7,6 +7,7 @@
 <meta name="description" content="Caso econômico do curso de maestria em TAPP Hernia3D: quanto custa, quanto evita, e para quem. Rodada 3 das premissas.">
 </head>
 <body>
+<meta charset="utf-8">
 <title>Caso Econômico Hernia3D</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap">
@@ -130,6 +131,13 @@ td.hoje{color:var(--risco)}td.com{color:var(--ouro)}
 .veredito h4{font-family:var(--serif);font-size:19px;margin:0;color:var(--tinta);text-wrap:balance}
 .veredito p{margin:0;font-size:13px;max-width:80ch}
 .aviso{font-size:12.5px;color:var(--risco);border-left:3px solid var(--risco);padding-left:10px}
+.formula{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11.5px;color:var(--cinza-escuro);background:var(--papel-2);border-radius:4px;padding:2px 6px;white-space:nowrap}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:860px){.tres{grid-template-columns:1fr}}
+.tres .item{border-top:2px solid var(--filete-forte);padding-top:8px;display:grid;gap:4px}
+.tres .item b{font-family:var(--serif);font-size:15px;color:var(--tinta)}
+.tres .item p{font-size:12.5px;margin:0}
+td.neg{color:var(--risco)}td.pos{color:var(--ok)}
 /* gaveta */
 details.gaveta{border:1px dashed var(--filete-forte);border-radius:10px;background:var(--papel-2);padding:0}
 details.gaveta summary{cursor:pointer;padding:14px 18px;font-weight:600;color:var(--tinta);list-style:none;display:flex;gap:10px;align-items:center}
@@ -178,6 +186,12 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
       </div>
     </div>
     <div class="bloco">
+      <h3>Por ator: quem paga, quem recebe</h3>
+      <h4 id="ator-h4"></h4>
+      <div class="tab-wrap"><table id="t-ator"></table></div>
+      <p class="leit" id="ator-leit"></p>
+    </div>
+    <div class="bloco">
       <h3>O detalhe, linha por linha</h3>
       <div class="tab-wrap"><table id="t-det"></table></div>
     </div>
@@ -221,6 +235,11 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
       <summary>Todas as premissas que o painel usa <span class="mais"></span></summary>
       <div class="corpo"><div class="tab-wrap"><table id="t-todas"></table></div></div>
     </details>
+    <div class="bloco">
+      <h3>Como a conta é feita</h3>
+      <h4>Cada número do painel sai de uma destas linhas, nesta ordem</h4>
+      <div class="tab-wrap"><table id="t-form"></table></div>
+    </div>
     <div class="bloco">
       <h3>Sensibilidade</h3>
       <div class="dois">
@@ -283,12 +302,12 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
     "<div class='linha'><span>Custo das complicações que restam</span><b>" + brl(R.custo_complic_com) + "</b></div>" +
     "<div class='linha'><span>Curso (preço de tabela)</span><b>" + brl(R.preco_curso) + "</b></div>" +
     "<div class='linha'><span><b>Custo total para o sistema</b></span><b>" + brl(R.total_com) + "</b></div>" +
-    "<div class='nota'>no caso-base empata: é o ponto em que o curso se paga</div></div>";
+    "<div class='nota'>empata por construção: o caso-base é o limiar, não um custo medido</div></div>";
 
   document.getElementById("resultado").innerHTML =
-    "<div><div class='k'>o que o curso muda</div><div class='v ouro'>" + num(evit, 2) + "</div><div class='d'>complicações intraoperatórias evitadas por residente, nos " + R.casos_janela + " primeiros casos (" + pct(1 - R.complicacoes_com / R.complicacoes_hoje) + " a menos)</div></div>" +
-    "<div><div class='k'>cada uma custa</div><div class='v'>" + brl(R.rcei) + "</div><div class='d'>preço ÷ complicações evitadas; " + brl(R.rcei_volume) + " no preço de volume</div></div>" +
-    "<div><div class='k'>o curso se paga se</div><div class='v'>≥ " + brl(base.custo_complicacao) + "</div><div class='d'>for o custo de uma complicação para quem paga a cirurgia</div></div>" +
+    "<div><div class='k'>o que o curso muda</div><div class='v ouro'>" + num(evit, 2) + "</div><div class='d'>" + num(R.complicacoes_hoje, 2) + " − " + num(R.complicacoes_com, 2) + " complicações por residente nos " + R.casos_janela + " primeiros casos (" + pct(1 - R.complicacoes_com / R.complicacoes_hoje) + " a menos)</div></div>" +
+    "<div><div class='k'>custo por complicação evitada</div><div class='v'>" + brl(R.rcei) + "</div><div class='d'>" + brl(R.preco_curso) + " ÷ " + num(evit, 2) + ". Existe independente de quanto custa uma complicação</div></div>" +
+    "<div><div class='k'>o curso se paga se</div><div class='v'>≥ " + brl(base.custo_complicacao) + "</div><div class='d'>for o custo de uma complicação para quem paga a cirurgia. Condição a confirmar (L-06), não resultado</div></div>" +
     "<div><div class='k'>e para a empresa</div><div class='v'>" + pct(E.margem_tabela, 1) + "</div><div class='d'>margem líquida no preço de tabela, com a supervisão nova</div></div>";
 
   // gráfico de cenários: custo líquido por residente (negativo = sobra)
@@ -311,7 +330,7 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
       }
     });
     svg.innerHTML = html;
-    document.getElementById("cen-leit").textContent = "Economia por residente = " + num(evit, 2) + " complicações evitadas × o custo de uma complicação. No piso (duas AIH do SUS) sobram " + brl(piso.economia) + " contra " + brl(R.preco_curso) + " de curso: custo-efetivo, mas não se paga sozinho. No teto é dominante. O caso-base é o ponto de virada por construção.";
+    document.getElementById("cen-leit").innerHTML = "<span class='formula'>custo líquido = " + brl(R.preco_curso) + " − " + num(evit, 2) + " × custo da complicação</span> No piso (duas AIH do SUS) sobram " + brl(piso.economia) + " contra " + brl(R.preco_curso) + " de curso: custo-efetivo, mas não se paga sozinho. No teto é dominante. O caso-base empata por construção: é o limiar, não um custo medido.";
   })();
 
   document.getElementById("emp-h4").textContent = "Custo de entrega " + brl(E.custo_entrega) + " por matriculado; margem líquida " + pct(E.margem_tabela, 1) + " na tabela, " + pct(E.margem_volume, 1) + " no volume";
@@ -323,6 +342,13 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
     "<tr><td>Lucro líquido (depois de OPEX 25% e impostos 34%)</td><td class='n'>" + brl(E.lucro_tabela, 2) + "</td><td class='n'>" + brl(E.lucro_volume, 2) + "</td></tr>" +
     "<tr class='forte'><td>Margem líquida</td><td class='n'>" + pct(E.margem_tabela, 1) + "</td><td class='n'>" + pct(E.margem_volume, 1) + "</td></tr>";
   document.getElementById("emp-leit").textContent = "O custo direto já amortiza o modelo 3D a " + brl(K.amortizacao_por_matriculado) + " por matriculado (" + brl(K.custo_modelo) + " ÷ 30 residentes em 5 anos). Até " + num(E.folga_horas_aprovado, 1) + " h de preceptor por aprovado cabem no preço de tabela mantendo a margem de 24,6% da rodada anterior; a hora do preceptor é a premissa que mais move a margem.";
+
+  // por ator: quem paga, quem recebe
+  document.getElementById("ator-h4").textContent = "O saldo do sistema é economia − " + brl(R.preco_curso) + "; o saldo de cada ator, não";
+  document.getElementById("t-ator").innerHTML = "<tr><th>por residente treinado</th><th class='n'>quem compra o curso</th><th class='n'>quem paga a cirurgia</th><th class='n'>o sistema</th></tr>" + S.map(function(sc){
+    var liq = -sc.liquido;
+    return "<tr" + (sc.nome === "base" ? " class='forte'" : "") + "><td>" + esc(sc.rotulo) + " <span class='formula'>" + brl(sc.custo_complicacao) + "</span></td><td class='n neg'>−" + brl(R.preco_curso) + "</td><td class='n pos'>+" + brl(sc.economia) + "</td><td class='n " + (liq > 0 ? "pos" : liq < 0 ? "neg" : "") + "'>" + (liq > 0 ? "+" : "") + brl(liq) + "</td></tr>"; }).join("");
+  document.getElementById("ator-leit").textContent = "Quem compra o curso paga " + brl(R.preco_curso) + " e não recebe nada de volta em nenhum cenário: para ele o argumento é formação e segurança, não retorno financeiro. Quem paga a cirurgia recebe a economia sem ter pago o curso. O retorno financeiro só existe se o pagador da cirurgia entrar no financiamento.";
 
   // tabela detalhada
   var det = [
@@ -392,8 +418,13 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
   document.getElementById("ad-leit").textContent = "No SUS, que paga a maioria dos casos, a via que o curso ensina é paga " + pct(-P.sus_delta / P.sus_aberta) + " abaixo da aberta: o único argumento é menos complicação. Na saúde suplementar a via por vídeo paga mais, mas a operadora não financia formação.";
 
   document.getElementById("veredito").innerHTML =
-    "<div class='rot'>Veredito</div><h4>Custo-efetivo: cada complicação evitada custa " + brl(R.rcei) + ". Se para quem paga a cirurgia uma complicação custar isso ou mais, o curso se paga.</h4>" +
-    "<p>No piso do SUS (duas AIH, " + brl(piso.custo_complicacao, 2) + ") ele não se paga sozinho: devolve " + pct(piso.economia / R.preco_curso) + " do preço. No teto (" + brl(teto.custo_complicacao) + ") é dominante. O ganho vai para quem paga a cirurgia, não para quem compra o curso: a conversa com o pagador institucional é a que fecha o caso.</p>" +
+    "<div class='rot'>O que a conta diz, e o que ainda não diz</div>" +
+    "<div class='tres'>" +
+    "<div class='item'><b>1 · Custo por complicação evitada: " + brl(R.rcei) + "</b><p>" + brl(R.preco_curso) + " ÷ " + num(evit, 2) + ". É o número que existe hoje, com o efeito medido em TEP. Diz quanto custa cada complicação evitada; não diz se isso é barato ou caro.</p></div>" +
+    "<div class='item'><b>2 · Custo-efetivo não é o mesmo que se pagar</b><p>Se uma complicação custar menos que " + brl(R.rcei) + " (piso: " + brl(piso.custo_complicacao) + "), o curso é custo-efetivo e devolve " + pct(piso.economia / R.preco_curso) + " do preço. Se custar mais (teto: " + brl(teto.custo_complicacao) + "), é dominante: melhora o resultado e ainda poupa. O caso-base no limiar empata por construção.</p></div>" +
+    "<div class='item'><b>3 · O retorno vai a outro ator</b><p>Quem compra o curso tem retorno financeiro zero em qualquer cenário; quem paga a cirurgia recebe a economia sem pagar o curso. Para o comprador o argumento é formação e segurança; o retorno só existe se o pagador da cirurgia financiar.</p></div>" +
+    "</div>" +
+    "<p><b>O que demonstraria:</b> o custo real de uma complicação no Brasil (L-06; acima de " + brl(R.rcei) + ", a dominância fica demonstrada para quem paga a cirurgia) e o efeito medido no TAPP (L-01).</p>" +
     "<div class='aviso'>Efeito medido em TEP (Zendejas 2011), num currículo supervisionado. A transferência no TAPP não foi demonstrada: é o que o ensaio de transferibilidade vai medir (L-01).</div>";
 
   document.getElementById("t-todos").innerHTML =
@@ -411,6 +442,25 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
     return "<tr><td>" + esc(p.id) + "</td><td>" + esc(p.premissa) + "</td><td class='n'>" + valor(p) + "</td><td>" + mk(p.status) + "</td><td class='d'>" + esc(p.fonte) + (p.derivacao ? "<br><i>" + esc(p.derivacao) + "</i>" : "") + "</td><td>" + esc(p.pergunta || "—") + "</td></tr>"; }).join("");
   document.getElementById("t-todas").innerHTML = "<tr><th>linha</th><th>premissa</th><th class='n'>valor</th><th>status</th><th>camada</th><th>fonte</th><th>atualizado</th></tr>" + C.premissas.map(function(p){
     return "<tr><td>" + p.linha + "</td><td>" + esc(p.premissa) + "</td><td class='n'>" + valor(p) + "</td><td>" + mk(p.status) + "</td><td>" + esc(p.camada) + "</td><td class='d'>" + esc(p.fonte) + "</td><td>" + esc(p.atualizado || "") + "</td></tr>"; }).join("");
+  var F = [
+    ["Complicações evitadas por residente", "(taxa hoje − taxa com o curso) × casos da janela", "(" + pct(R.taxa_hoje, 1) + " − " + pct(R.taxa_com, 1) + ") × " + R.casos_janela, num(evit, 2)],
+    ["Custo por complicação evitada (RCEI)", "preço do curso ÷ complicações evitadas", brl(R.preco_curso) + " ÷ " + num(evit, 2), brl(R.rcei, 2)],
+    ["Economia para quem paga a cirurgia", "complicações evitadas × custo de uma complicação", num(evit, 2) + " × " + brl(base.custo_complicacao, 2) + " (caso-base)", brl(base.economia)],
+    ["Custo líquido por residente", "preço − economia", brl(R.preco_curso) + " − " + brl(base.economia), brl(base.liquido)],
+    ["Hora do preceptor por aprovado", "devolutiva ÷ (1 − (presencial + live) × encontros ÷ horas do preceptor no ano)", num(K.devolutiva_h, 2) + " ÷ (1 − (" + K.presencial_h + " + " + K.live_h + ") × " + K.encontros_ano + " ÷ " + (K.horas_mes * 12) + ")", num(K.horas_por_aprovado, 2) + " h"],
+    ["Preceptor por matriculado", "hora por aprovado × custo-hora ÷ taxa de maestria", num(K.horas_por_aprovado, 2) + " × " + brl(E.custo_hora) + " ÷ " + pct(E.taxa_maestria), brl(E.preceptor_por_matriculado, 2)],
+    ["Custo de entrega por matriculado", "(modelo + kit + consumíveis + preceptor + hospedagem) × (1 + contingência)", "(" + brl(K.amortizacao_por_matriculado) + " + R$145,83 + R$350 + " + brl(E.preceptor_por_matriculado, 2) + " + R$250) × 1,4", brl(E.custo_entrega, 2)],
+    ["Margem líquida", "(preço − entrega − OPEX 25%) × (1 − impostos 34%) ÷ preço", "(" + brl(E.preco_tabela) + " − " + brl(E.custo_entrega, 2) + " − " + brl(E.preco_tabela * 0.25) + ") × 0,66 ÷ " + brl(E.preco_tabela), pct(E.margem_tabela, 1)],
+    ["Capacidade (aprovados por ano)", "horas do preceptor por mês × 12 ÷ hora por aprovado", K.horas_mes + " × 12 ÷ " + num(K.horas_por_aprovado, 2), num(K.capacidade_ano, 1)],
+    ["Matrículas por ano", "aprovados ÷ taxa de maestria", num(K.capacidade_ano, 1) + " ÷ " + pct(E.taxa_maestria), num(K.matriculados_ano)],
+    ["Residentes por encontro", "aprovados ÷ encontros por ano", num(K.capacidade_ano, 1) + " ÷ " + K.encontros_ano, num(K.residentes_por_encontro, 1)],
+    ["Modelos necessários", "⌈aprovados ÷ 6 por modelo por ano⌉; a imprimir = necessários − 3 existentes", "⌈" + num(K.capacidade_ano, 1) + " ÷ " + num(K.residentes_por_modelo_ano) + "⌉ − " + K.modelos, K.modelos_necessarios + " (" + K.modelos_a_imprimir + " a imprimir, " + brl(K.capex_modelos) + ")"],
+    ["Amortização do modelo no preço", "custo do modelo ÷ 30 residentes em 5 anos; recolhida = matrículas × amortização × 5", brl(K.custo_modelo) + " ÷ 30 · " + num(K.matriculados_ano) + " × " + brl(K.amortizacao_por_matriculado) + " × 5", brl(K.amortizacao_por_matriculado) + " · " + brl(K.amortizacao_5_anos) + " ≥ " + brl(K.custo_modelos_necessarios)],
+    ["Economia por ano, na capacidade", "aprovados × complicações evitadas × custo da complicação", num(K.capacidade_ano, 1) + " × " + num(evit, 2) + " × " + brl(base.custo_complicacao), brl(K.economia_ano_base)],
+    ["Receita por ano, na capacidade", "matrículas × preço (quem não chega à maestria também paga)", num(K.matriculados_ano) + " × " + brl(E.preco_tabela), brl(K.receita_ano)]
+  ];
+  document.getElementById("t-form").innerHTML = "<tr><th>o que</th><th>fórmula</th><th>com os valores de hoje</th><th class='n'>resultado</th></tr>" + F.map(function(f){
+    return "<tr><td>" + esc(f[0]) + "</td><td><span class='formula'>" + esc(f[1]) + "</span></td><td class='d'>" + esc(f[2]) + "</td><td class='n'>" + esc(f[3]) + "</td></tr>"; }).join("");
   document.getElementById("t-sp").innerHTML = "<tr><th class='n'>preço</th><th class='n'>por complicação</th><th class='n'>líquido no piso</th><th class='n'>no caso-base</th><th class='n'>no teto</th></tr>" + C.sensibilidade.preco.map(function(s){
     return "<tr><td class='n'>" + brl(s.preco) + "</td><td class='n'>" + brl(s.rcei) + "</td><td class='n'>" + brl(s.liq_piso) + "</td><td class='n'>" + brl(s.liq_base) + "</td><td class='n'>" + brl(s.liq_teto) + "</td></tr>"; }).join("");
   document.getElementById("t-sh").innerHTML = "<tr><th class='n'>h/aprovado</th><th class='n'>custo de entrega</th><th class='n'>lucro líquido</th><th class='n'>margem</th></tr>" + C.sensibilidade.horas.map(function(s){
@@ -419,7 +469,7 @@ footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
   document.getElementById("rodape").textContent = "Fonte: " + C.fonte + " (rodada " + C.rodada + ", " + C.atualizado + "). Valores em reais de 2024–2026, sem desconto.";
 
   /* ---------- abas ---------- */
-  var PERG = {residente: "Por residente treinado: o que o curso custa, o que evita, e para quem.", pagador: "Quem paga a cirurgia colhe o ganho; quem compra o curso paga a conta. Em que escala?", premissas: "O que está assumido, por quê, e o que ainda falta."};
+  var PERG = {residente: "Por residente treinado: o que o curso custa, o que evita, e para quem.", pagador: "Quem paga a cirurgia colhe o ganho; quem compra o curso paga a conta. Em que escala?", premissas: "O que está assumido, por quê, como a conta é feita, e o que ainda falta."};
   var abas = document.querySelectorAll(".aba");
   function abre(id){ if (!PERG[id]) id = "residente";
     ["residente", "pagador", "premissas"].forEach(function(v){ document.getElementById("v-" + v).hidden = v !== id; });
