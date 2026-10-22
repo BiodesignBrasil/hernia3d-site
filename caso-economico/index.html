@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Caso econômico do curso de maestria em TAPP Hernia3D: quanto custa, quanto evita, e para quem. Rodada 3 das premissas.">
+</head>
+<body>
+<title>Caso Econômico Hernia3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: duas vistas em abas (por residente · para quem paga a cirurgia), uma gaveta fechada com as premissas.
+   Identidade da Sistemática Hernia3D: papel, tinta navy, ouro, vermelho de risco. */
+:root{
+  --papel:#FAF8F3; --papel-2:#F3EFE5; --papel-3:#EBE6D8; --tinta:#0C325A; --primary:#14477A; --ouro:#B8860B; --ouro-claro:#F4EAD2;
+  --risco:#B3261E; --risco-claro:#F6E3E0; --ok:#2E6B3E; --ok-claro:#E3EFE4;
+  --filete:#DCD6C8; --filete-forte:#BDB5A3; --cinza:#6B6A64; --cinza-escuro:#45443F; --texto:#1F1F1D; --branco:#FFFFFF;
+  --font:"Inter","Segoe UI",system-ui,sans-serif; --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --papel:#141A22; --papel-2:#1B2330; --papel-3:#242E3D; --tinta:#DCE6F2; --primary:#8FB4DE; --ouro:#D9A93A; --ouro-claro:#3A3018;
+  --risco:#E07A6E; --risco-claro:#3A1F1C; --ok:#7CC08A; --ok-claro:#1E3324;
+  --filete:#2E3A4A; --filete-forte:#45546A; --cinza:#9AA3B2; --cinza-escuro:#C3CBD6; --texto:#ECEFF3; --branco:#1B2330; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papel:#141A22; --papel-2:#1B2330; --papel-3:#242E3D; --tinta:#DCE6F2; --primary:#8FB4DE; --ouro:#D9A93A; --ouro-claro:#3A3018;
+  --risco:#E07A6E; --risco-claro:#3A1F1C; --ok:#7CC08A; --ok-claro:#1E3324;
+  --filete:#2E3A4A; --filete-forte:#45546A; --cinza:#9AA3B2; --cinza-escuro:#C3CBD6; --texto:#ECEFF3; --branco:#1B2330; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);background:var(--papel);color:var(--texto);line-height:1.5;-webkit-font-smoothing:antialiased;font-size:14px}
+a{color:var(--primary)}
+header{background:linear-gradient(120deg,#0C325A 0%,#0A2A4D 100%);color:#fff;border-bottom:2px solid #B8860B}
+.band{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto}
+header .wrap{display:flex;align-items:center;gap:16px;min-height:68px;padding-block:10px}
+.marca{width:36px;height:36px;border-radius:6px;background:#B8860B;color:#0C325A;font-family:var(--serif);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kicker{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.65}
+header h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+.irma{margin-left:auto;color:rgba(255,255,255,.85);text-decoration:none;font-size:12.5px;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 12px;white-space:nowrap}
+.irma b{color:#fff}
+nav{border-bottom:1px solid var(--filete);background:var(--papel)}
+nav .wrap{display:flex;gap:24px;align-items:stretch;overflow-x:auto}
+.aba{background:none;border:0;border-bottom:2px solid transparent;color:var(--cinza);padding:12px 0;cursor:pointer;display:flex;gap:8px;align-items:baseline;white-space:nowrap;font:inherit}
+.aba .n{font-family:var(--serif);font-size:13px;color:var(--filete-forte)}
+.aba .t{font-size:13px;font-weight:600}
+.aba.on{color:var(--tinta);border-bottom-color:var(--ouro)}
+.aba:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+main .wrap{padding-block:20px 32px;display:grid;gap:20px}
+main .wrap>*{min-width:0}
+.vista{display:grid;gap:14px;min-width:0}
+@media (max-width:600px){.irma{display:none}}
+.pergunta{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--cinza-escuro);margin:0}
+.vista[hidden]{display:none}
+/* faixa de premissas-chave */
+.faixa{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.chip{background:var(--papel-2);border:1px solid var(--filete);border-radius:6px;padding:8px 10px;min-width:0}
+.chip .l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);display:flex;justify-content:space-between;gap:6px}
+.chip .v{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--tinta);margin-top:2px;font-variant-numeric:tabular-nums}
+.chip .s{font-size:11px;color:var(--cinza)}
+.mk{font-size:10px;font-weight:600;border-radius:3px;padding:0 5px;letter-spacing:.04em}
+.mk.fonte{background:var(--ok-claro);color:var(--ok)}
+.mk.hip{background:var(--ouro-claro);color:var(--ouro)}
+.mk.dec{background:var(--ouro-claro);color:var(--ouro);border:1px dashed var(--ouro)}
+.mk.falta{background:var(--papel-3);color:var(--cinza);border:1px dashed var(--filete-forte)}
+/* cartões hoje × com */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+.cartao{border-radius:10px;padding:16px 18px;border:1px solid var(--filete);background:var(--branco);display:grid;gap:8px;min-width:0}
+.cartao.hoje{border-color:var(--risco);background:var(--risco-claro)}
+.cartao.com{border-color:var(--ouro);background:var(--ouro-claro)}
+.cartao .rot{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.hoje .rot{color:var(--risco)}.com .rot{color:var(--ouro)}
+.cartao h2{font-family:var(--serif);font-size:18px;margin:0;font-weight:600;color:var(--tinta)}
+.linha{display:flex;justify-content:space-between;gap:12px;font-size:13px;border-top:1px dashed var(--filete-forte);padding-top:6px}
+.linha b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.grande{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.grande .num{font-family:var(--serif);font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.hoje .num{color:var(--risco)}.com .num{color:var(--ouro)}
+.grande small{font-size:12px;color:var(--cinza-escuro)}
+.nota{font-size:12px;color:var(--cinza-escuro);font-style:italic}
+/* faixa de resultado */
+.resultado{background:var(--tinta);color:#fff;border-radius:10px;padding:16px 18px;display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:14px;align-items:center}
+:root[data-theme="dark"] .resultado{color:#0C325A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .resultado{color:#0C325A}}
+@media (max-width:860px){.resultado{grid-template-columns:1fr 1fr}}
+.resultado .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.resultado .v{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.resultado .v.ouro{color:#E9C46A}
+:root[data-theme="dark"] .resultado .v.ouro{color:#7A5A10}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .resultado .v.ouro{color:#7A5A10}}
+.resultado .d{font-size:12px;opacity:.85;margin-top:2px}
+/* gráfico de cenários */
+.bloco{border:1px solid var(--filete);border-radius:10px;background:var(--branco);padding:16px 18px;display:grid;gap:10px;min-width:0}
+.bloco h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin:0;font-weight:700}
+.bloco h4{font-family:var(--serif);font-size:17px;margin:0;font-weight:600;color:var(--tinta);text-wrap:balance}
+.bloco p{margin:0;font-size:13px;max-width:70ch}
+svg text{font-family:var(--font)}
+.cen{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+@media (max-width:860px){.cen{grid-template-columns:1fr}}
+/* tabela */
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--filete);vertical-align:top}
+th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.grupo td{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);background:var(--papel-2);font-weight:700;padding-top:10px}
+tr.forte td{font-weight:600;color:var(--tinta)}
+td.hoje{color:var(--risco)}td.com{color:var(--ouro)}
+.tab-wrap{overflow-x:auto}
+.leit{font-size:12px;color:var(--cinza-escuro)}
+/* tiles e funil */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tile{background:var(--branco);border:1px solid var(--filete);border-radius:8px;padding:12px 14px;border-top:3px solid var(--primary);min-width:0}
+.tile.ouro{border-top-color:var(--ouro)}.tile.risco{border-top-color:var(--risco)}.tile.ok{border-top-color:var(--ok)}
+.tile .l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza)}
+.tile .v{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--tinta);line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:11.5px;color:var(--cinza-escuro);margin-top:2px}
+.dois{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:860px){.dois{grid-template-columns:1fr}}
+.funil{display:grid;gap:6px}
+.degrau{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;font-size:13px}
+.degrau .barra{height:30px;border-radius:4px;background:var(--primary);color:#fff;display:flex;align-items:center;padding:0 10px;font-weight:600;font-variant-numeric:tabular-nums;min-width:max-content;white-space:nowrap}
+.degrau .barra.ouro{background:var(--ouro)}.degrau .barra.ok{background:var(--ok)}
+.degrau .barra.vazia{background:var(--papel-3);color:var(--cinza-escuro);border:1px dashed var(--filete-forte)}
+.degrau .nome{color:var(--cinza-escuro);text-align:right;line-height:1.25}
+.degrau .nome b{color:var(--texto);display:block}
+.seta{text-align:center;color:var(--filete-forte);font-size:12px;line-height:1}
+.veredito{border-radius:10px;padding:16px 18px;background:var(--ok-claro);border:1px solid var(--ok);display:grid;gap:6px}
+.veredito .rot{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok);font-weight:700}
+.veredito h4{font-family:var(--serif);font-size:19px;margin:0;color:var(--tinta);text-wrap:balance}
+.veredito p{margin:0;font-size:13px;max-width:80ch}
+.aviso{font-size:12.5px;color:var(--risco);border-left:3px solid var(--risco);padding-left:10px}
+/* gaveta */
+details.gaveta{border:1px dashed var(--filete-forte);border-radius:10px;background:var(--papel-2);padding:0}
+details.gaveta summary{cursor:pointer;padding:14px 18px;font-weight:600;color:var(--tinta);list-style:none;display:flex;gap:10px;align-items:center}
+details.gaveta summary::-webkit-details-marker{display:none}
+details.gaveta summary .mais{margin-left:auto;font-size:12px;color:var(--cinza);font-weight:400}
+details.gaveta[open] summary .mais::before{content:"fechar"}
+details.gaveta:not([open]) summary .mais::before{content:"abrir"}
+details.gaveta .corpo{padding:0 18px 18px;display:grid;gap:10px}
+.gaveta table{font-size:12px}
+.gaveta td.d{color:var(--cinza-escuro);max-width:52ch}
+footer{border-top:1px solid var(--filete);color:var(--cinza);font-size:12px}
+footer .wrap{padding-block:14px;display:flex;flex-wrap:wrap;gap:8px 20px}
+@media (prefers-reduced-motion:no-preference){.aba{transition:color .15s}}
+</style>
+
+<header class="band"><div class="wrap">
+  <div class="marca" aria-hidden="true">H³D</div>
+  <div><div class="kicker">Caso econômico Hernia3D · rodada 3 · 21/10/2026</div><h1>Quanto custa, quanto evita.</h1></div>
+  <a class="irma" href="https://biodesignbrasil.github.io/hernia3d-site/sistematica/">Sistemática <b>Hernia3D</b></a>
+</div></header>
+<nav class="band" aria-label="vistas"><div class="wrap">
+  <button class="aba on" type="button" id="aba-residente" data-vista="residente"><span class="n">01</span><span class="t">Por residente</span></button>
+  <button class="aba" type="button" id="aba-pagador" data-vista="pagador"><span class="n">02</span><span class="t">Para quem paga a cirurgia</span></button>
+  <button class="aba" type="button" id="aba-premissas" data-vista="premissas"><span class="n">··</span><span class="t">Premissas e ressalvas</span></button>
+</div></nav>
+
+<main class="band"><div class="wrap">
+  <p class="pergunta" id="pergunta"></p>
+
+  <section class="vista" id="v-residente">
+    <div class="faixa" id="faixa"></div>
+    <div class="duo" id="duo"></div>
+    <div class="resultado" id="resultado"></div>
+    <div class="cen">
+      <div class="bloco">
+        <h3>Para quem paga a cirurgia</h3>
+        <h4>Quanto sobra, ou falta, por residente treinado</h4>
+        <svg id="g-cen" viewBox="0 0 560 200" role="img" aria-label="Custo líquido por residente nos três cenários de custo da complicação"></svg>
+        <p class="leit" id="cen-leit"></p>
+      </div>
+      <div class="bloco">
+        <h3>A empresa que entrega o curso</h3>
+        <h4 id="emp-h4"></h4>
+        <div class="tab-wrap"><table id="t-emp"></table></div>
+        <p class="leit" id="emp-leit"></p>
+      </div>
+    </div>
+    <div class="bloco">
+      <h3>O detalhe, linha por linha</h3>
+      <div class="tab-wrap"><table id="t-det"></table></div>
+    </div>
+  </section>
+
+  <section class="vista" id="v-pagador" hidden>
+    <div class="tiles" id="tiles"></div>
+    <div class="dois">
+      <div class="bloco">
+        <h3>Do país à turma</h3>
+        <h4 id="fun-h4"></h4>
+        <div class="funil" id="funil"></div>
+        <p class="leit" id="fun-leit"></p>
+      </div>
+      <div class="bloco">
+        <h3>Antes e depois, por ano, na capacidade de hoje</h3>
+        <h4 id="ad-h4"></h4>
+        <div class="tab-wrap"><table id="t-ad"></table></div>
+        <svg id="g-reemb" viewBox="0 0 560 120" role="img" aria-label="O que o SUS e a saúde suplementar pagam a mais ou a menos pela via laparoscópica"></svg>
+        <p class="leit" id="ad-leit"></p>
+      </div>
+    </div>
+    <div class="veredito" id="veredito"></div>
+    <div class="bloco">
+      <h3>Se todos os novos residentes treinassem</h3>
+      <div class="tab-wrap"><table id="t-todos"></table></div>
+      <p class="leit" id="todos-leit"></p>
+    </div>
+  </section>
+
+  <section class="vista" id="v-premissas" hidden>
+    <div class="bloco">
+      <h3>Como ler</h3>
+      <p>Toda premissa tem fonte, status e data. <span class="mk fonte">fonte</span> tem documento. <span class="mk hip">hipótese</span> é proxy ou decisão de sessão. <span class="mk dec">declarado</span> é um valor assumido nesta rodada, no lugar de um branco, com a derivação ao lado. <span class="mk falta">falta</span> é o único dado ainda em branco. A fonte única é <code>05_avaliacao_economica/custo_efetividade_hernia3d.xlsx</code>, aba Dados_Input, onde estas colunas ficam ocultas.</p>
+    </div>
+    <details class="gaveta" id="gaveta">
+      <summary>As premissas declaradas na rodada 3, com derivação e ressalvas <span class="mais"></span></summary>
+      <div class="corpo"><div class="tab-wrap"><table id="t-dec"></table></div></div>
+    </details>
+    <details class="gaveta">
+      <summary>Todas as premissas que o painel usa <span class="mais"></span></summary>
+      <div class="corpo"><div class="tab-wrap"><table id="t-todas"></table></div></div>
+    </details>
+    <div class="bloco">
+      <h3>Sensibilidade</h3>
+      <div class="dois">
+        <div><h4>Preço do curso → custo líquido por residente</h4><div class="tab-wrap"><table id="t-sp"></table></div></div>
+        <div><h4>Horas do preceptor → margem da empresa</h4><div class="tab-wrap"><table id="t-sh"></table></div></div>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<footer class="band"><div class="wrap">
+  <span id="rodape"></span>
+  <a href="https://github.com/BiodesignBrasil/hernia-3d-model/tree/main/05_avaliacao_economica">livro e scripts no repositório</a>
+  <span>efeito clínico medido em TEP (Zendejas 2011); transferência no TAPP não demonstrada</span>
+</div></footer>
+
+<script id="caso-json" type="application/json">
+/*CASO_JSON*/{"rodada": 3, "atualizado": "2026-10-21", "fonte": "05_avaliacao_economica/custo_efetividade_hernia3d.xlsx", "por_residente": {"casos_janela": 10, "taxa_hoje": 0.293, "taxa_com": 0.069, "complicacoes_hoje": 2.93, "complicacoes_com": 0.69, "evitadas": 2.24, "custo_complic_hoje": 9810.27, "custo_complic_com": 2310.27, "preco_curso": 7500, "total_hoje": 9810.27, "total_com": 9810.27, "diferenca": 0, "rcei": 3348.21, "rcei_volume": 2444.2}, "cenarios": [{"nome": "piso", "rotulo": "Piso: duas AIH do SUS", "custo_complicacao": 1936.1, "economia": 4336.86, "liquido": 3163.14, "leitura": "custo-efetivo, não se paga sozinho"}, {"nome": "base", "rotulo": "Caso-base: o limiar", "custo_complicacao": 3348.21, "economia": 7500, "liquido": 0, "leitura": "empata por construção"}, {"nome": "teto", "rotulo": "Teto: complicação grave", "custo_complicacao": 10000, "economia": 22400, "liquido": -14900, "leitura": "dominante: o curso se paga e sobra"}], "capacidade": {"agenda_aprovados_ano": 44.8, "capacidade_ano": 44.8, "matriculados_ano": 56, "modelos_necessarios": 8, "modelos_a_imprimir": 5, "capex_modelos": 22500, "amortizacao_por_matriculado": 150, "amortizacao_5_anos": 42000, "custo_modelos_necessarios": 36000, "evitadas_ano": 100.35, "economia_ano_base": 336000, "economia_ano_piso": 194291.51, "economia_ano_teto": 1003520, "receita_ano": 420000, "lucro_ano": 126896, "turma_evitadas": 13.44, "turma_economia": 45000, "horas_mes": 8, "horas_por_aprovado": 2.14285714285714, "modelos": 3, "residentes_por_modelo_ano": 6.0, "turma": 6, "custo_modelo": 4500, "encontros_ano": 4, "residentes_por_encontro": 11.2, "presencial_h": 8, "live_h": 2, "devolutiva_h": 1.25}, "pagador": {"internacoes_sp": 29194, "por_video": 671.46, "fracao_video": 0.023, "sus_aberta": 968.05, "sus_video": 586.88, "sus_delta": -381.17, "suplementar_aberta": 586.93, "suplementar_video": 1259.36, "suplementar_delta": 672.43, "residentes_ativos": 4299, "residentes_r1": 1537, "todos_evitadas_ano": 3442.88, "todos_economia_ano": 11527500, "todos_custo_ano": 11527500}, "empresa": {"custo_entrega": 2191.67, "lucro_tabela": 2266, "lucro_volume": 1263.62, "margem_tabela": 0.3, "margem_volume": 0.23, "folga_horas_aprovado": 3.6, "preco_tabela": 7500, "preco_volume": 5475, "custo_direto_sem_supervisao": 1254.17, "preceptor_por_matriculado": 669.64, "custo_hora": 250, "taxa_maestria": 0.8}, "sensibilidade": {"preco": [{"preco": 4000, "rcei": 1785.71, "liq_piso": -336.86, "liq_base": -3500, "liq_teto": -18400}, {"preco": 5475, "rcei": 2444.2, "liq_piso": 1138.14, "liq_base": -2025, "liq_teto": -16925}, {"preco": 6000, "rcei": 2678.57, "liq_piso": 1663.14, "liq_base": -1500, "liq_teto": -16400}, {"preco": 6750, "rcei": 3013.39, "liq_piso": 2413.14, "liq_base": -750, "liq_teto": -15650}, {"preco": 7500, "rcei": 3348.21, "liq_piso": 3163.14, "liq_base": 0, "liq_teto": -14900}, {"preco": 9500, "rcei": 4241.07, "liq_piso": 5163.14, "liq_base": 2000, "liq_teto": -12900}], "horas": [{"horas": 1.25, "preceptor": 390.62, "entrega": 1801.04, "lucro": 2523.81, "margem": 0.34}, {"horas": 2.5, "preceptor": 781.25, "entrega": 2347.92, "lucro": 2162.88, "margem": 0.29}, {"horas": 3.75, "preceptor": 1171.88, "entrega": 2894.79, "lucro": 1801.94, "margem": 0.24}, {"horas": 4.5, "preceptor": 1406.25, "entrega": 3222.92, "lucro": 1585.38, "margem": 0.21}, {"horas": 6, "preceptor": 1875, "entrega": 3879.17, "lucro": 1152.25, "margem": 0.15}], "custo_hora": [{"custo_hora": 150, "preceptor": 401.79, "entrega": 1816.67, "lucro": 2513.5, "margem": 0.34}, {"custo_hora": 250, "preceptor": 669.64, "entrega": 2191.67, "lucro": 2266, "margem": 0.3}, {"custo_hora": 400, "preceptor": 1071.43, "entrega": 2754.17, "lucro": 1894.75, "margem": 0.25}]}, "projecao": {"adocao": [0.02, 0.05, 0.1, 0.18, 0.28], "matriculados": [31, 77, 154, 277, 430], "receita": [232500, 577500, 1155000, 2077500, 3225000], "lucro": [70246, 174482, 348964, 627682, 974380], "modelos": [5, 11, 21, 37, 58], "horas_mes": [4.43, 11, 22, 39.57, 61.43], "capex": [9000, 27000, 45000, 72000, 94500], "fluxo": [61246, 147482, 303964, 555682, 879880], "vpl": 1119805.09, "gasto_adotantes_total": 7267500, "economia_total": 5814000, "impacto_liquido_total": 1453500}, "premissas": [{"linha": 6, "id": "—", "premissa": "Novos residentes R1/ano (Brasil)", "valor": 1537, "unidade": "residentes/ano", "fonte": "Scheffer 2024 (CNRM/MEC)", "status": "✅ fonte", "camada": "A", "derivacao": "É a base de 'se todos treinassem' e da curva de adoção. ATENÇÃO: não é a capacidade do curso (ver linha 48 e Caso_Economico).", "ja_se_sabe": "Scheffer 2024", "pergunta": "—", "atualizado": "2026-08-19"}, {"linha": 7, "id": "—", "premissa": "Casos TAPP na janela de risco (desfecho primario do ECR)", "valor": 10, "unidade": "casos/residente", "fonte": "parametros_ecr.md, secao 1 - desfecho primario", "status": "⚠️ hipótese", "camada": "A", "derivacao": "Janela do desfecho primário do ECR (parametros_ecr.md). RESSALVA: a curva do TAPP dura 37,5 casos (Sivakumar 2023); a janela de 10 é onde o Zendejas mediu complicação, não o fim da curva.", "ja_se_sabe": "parametros_ecr.md §1", "pergunta": "—", "atualizado": "2026-09-23"}, {"linha": 10, "id": "P29", "premissa": "Taxa complicacao intraoperatoria - SEM mastery learning (controle)", "valor": 0.29, "unidade": "proporcao/caso", "fonte": "Zendejas 2011 Table 3", "status": "✅ fonte", "camada": "A", "derivacao": "Zendejas 2011 é TEP, com currículo supervisionado. A transferência no TAPP não foi demonstrada (L-01): o efeito entra como proxy. As taxas pós-operatórias (linhas 13–15) ficam como referência e NÃO entram na conta.", "ja_se_sabe": "Zendejas 2011, Table 3", "pergunta": "—", "atualizado": "2026-08-24"}, {"linha": 11, "id": "—", "premissa": "Taxa complicacao intraoperatoria - COM mastery learning (intervencao)", "valor": 0.07, "unidade": "proporcao/caso", "fonte": "Zendejas 2011 Table 3", "status": "✅ fonte", "camada": "A", "derivacao": "Zendejas 2011 é TEP, com currículo supervisionado. A transferência no TAPP não foi demonstrada (L-01): o efeito entra como proxy. As taxas pós-operatórias (linhas 13–15) ficam como referência e NÃO entram na conta.", "ja_se_sabe": "Zendejas 2011, Table 3", "pergunta": "—", "atualizado": "2026-08-24"}, {"linha": 25, "id": "P30", "premissa": "Custo de uma complicação - PISO (sensibilidade)", "valor": 1936.1, "unidade": "R$/complicacao", "fonte": "Estimativa - Dobro de uma internação normal (2 × R$968,05, tabela SUS 2024)", "status": "⚠️ hipótese", "camada": "A", "derivacao": "2 × AIH de hérnia inguinal aberta no SUS-SP 2024 (2 × R$968,05). RESSALVA: nenhum estudo brasileiro mede o custo da complicação diretamente (busca de 24/08/2026); é um piso, não uma média.", "ja_se_sabe": "SIH-SUS 2024", "pergunta": "5.1", "atualizado": "2026-08-24"}, {"linha": 26, "id": "P43", "premissa": "Custo de uma complicação - TETO (sensibilidade)", "valor": 10000, "unidade": "R$/complicacao", "fonte": "Complicação estimativa por julgamento, não cálculo", "status": "⚠️ hipótese", "camada": "B", "derivacao": "Juízo, não cálculo: complicação grave com reoperação. Só entra como sensibilidade (dominância).", "ja_se_sabe": null, "pergunta": "5.1", "atualizado": "2026-08-24"}, {"linha": 33, "id": "P01", "premissa": "Preco do curso (tabela / avulso) BASE DO RCEI]", "valor": 7500, "unidade": "R$/residente", "fonte": "conclusao sessao 31/08 - dossie CONITEC / residencia SUS. Perspectiva SUS-comprador: e este valor, nao o custo de entrega, que entra no RCEI. Preco-ANCORA (referencia/lista), sessao 02/09/2026: fica no cenario baseado em evidencia (duracao teto) com folga e só excede o limiar no canto duplamente conservador (duracao piso x reducao pos-op). Banda de negociacao/piso de acordo: R$5.500-6.000, que passa em todos os cenarios.", "status": "⚠️ hipótese", "camada": "A", "derivacao": "Decisão de projeto (D-05), não disposição a pagar medida (L-02). A ficha da conversa (pergunta 6) é a fonte prevista.", "ja_se_sabe": "IRCAD: R$2.000 teórico · R$13.000 teórico+prático · R$4.200 Barretos", "pergunta": "6", "atualizado": "2026-09-02"}, {"linha": 34, "id": "P02", "premissa": "Preco/curso - maior faixa de volume (20+)", "valor": 5475, "unidade": "R$/residente", "fonte": "conclusao 31/08 - cirurgiao em transicao; NAO avaliado vs limiar CONITEC", "status": "⚠️ hipótese", "camada": "A", "derivacao": "Escada de volume da D-05: 5–9 R$6.750 · 10–19 R$6.000 · 20+ R$5.475.", "ja_se_sabe": null, "pergunta": "6", "atualizado": "2026-09-02"}, {"linha": 35, "id": "P18", "premissa": "CAPEX kit laparoscopico de baixo custo", "valor": 3500, "unidade": "R$/kit", "fonte": "camera USB + monitor COMUM + box trainer + pincas + trocartes; sem torre, sem eletrocauterio. Kurashima 2011 / Hanssen-JAWS 2022 / Nishihara 2017 (01_evidencias/solucoes/competidores/)", "status": "⚠️ hipótese", "camada": "B", "derivacao": "Câmera USB + monitor comum + box trainer + pinças + trocartes; sem torre. Cotação por fazer (L-11).", "ja_se_sabe": null, "pergunta": "4", "atualizado": "2026-08-31"}, {"linha": 36, "id": "P16", "premissa": "N residentes por modelo 3D (vida útil 5 anos, D-17)", "valor": 30, "unidade": "residentes", "fonte": "D-17 (13/10/2026): 5 anos / 30 residentes. Substituiu 3 anos / 18 (sessão 31/08).", "status": "✅ fonte", "camada": "B", "derivacao": "6 residentes por modelo por ano. O modelo custa R$4.500 e é amortizado no preço: R$150 por residente (30 em 5 anos). Modelos a mais são impressos sob demanda; não são gargalo (Caso_Economico, bloco C).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 38, "id": "P23", "premissa": "Consumiveis por residente (SEM tacks; inclui reposicao EVA estimada)", "valor": 350, "unidade": "R$/residente", "fonte": "premissa 31/08 - GAP: custo/frequencia EVA", "status": "⚠️ hipótese", "camada": "B", "derivacao": "Sem fonte para a reposição do EVA (L-10); no MATTU cada peritônio de USD 100 aguentou ~150 tentativas (Zendejas 2012).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-08-31"}, {"linha": 39, "id": "P07", "premissa": "Horas do preceptor por residente APROVADO (devolutiva + presencial e live diluídos pela turma, D-11)", "valor": 2.14, "unidade": "h/aprovado", "fonte": "Fórmula sobre as premissas do encontro (linhas 77–80): devolutiva ÷ (1 − (presencial + live) × encontros ÷ horas do preceptor no ano). Com 4 encontros de 8 h, live de 2 h e devolutiva de 1,25 h em 96 h/ano: 2,14 h por aprovado (eram 2,5 h com 6 encontros de 6 h). Limiar: até 4,5 h cabem no preço de tabela com margem de 24,6% (rodada 2, C16).", "status": "⚠️ declarado", "camada": "A", "derivacao": "RESSALVA: o modelo descartado (D-06) gastava 4 h de vídeo individual por residente; o novo (D-11) é em grupo e só para quem chegou à maestria. A devolutiva (1,25 h) é mais da metade: um assistente triando os registros libera mais horas do que juntar encontros. ATENÇÃO: é a premissa que mais move a margem (R$250 por hora).", "ja_se_sabe": "modelo antigo: 4 h por residente", "pergunta": "2.2", "atualizado": "2026-10-21"}, {"linha": 40, "id": "P08", "premissa": "Custo-hora do preceptor", "valor": 250, "unidade": "R$/hora", "fonte": "premissa 31/08 (faixa 150-400)", "status": "⚠️ hipótese", "camada": "B", "derivacao": "Faixa R$150–400 (sessão 31/08). Sensibilidade na aba Analise_Sensibilidade.", "ja_se_sabe": null, "pergunta": "2.2", "atualizado": "2026-08-31"}, {"linha": 41, "id": "P24", "premissa": "Hosting de video + certificacao + admin por residente", "valor": 250, "unidade": "R$/residente", "fonte": "DigitalSys FORA do escopo - premissa 31/08", "status": "⚠️ hipótese", "camada": "B", "derivacao": "DigitalSys (R$123.000) fora do curso (D-04); hospedagem interina enxuta.", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-08-31"}, {"linha": 42, "id": "P25", "premissa": "Contingencia sobre o custo direto de entrega", "valor": 0.4, "unidade": "fracao", "fonte": "premissa 31/08", "status": "⚠️ hipótese", "camada": "B", "derivacao": "Cobre EVA, hospedagem e deslocamento sem fonte.", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-08-31"}, {"linha": 43, "id": "P26", "premissa": "OPEX", "valor": 0.25, "unidade": "fracao da receita", "fonte": "premissa 31/08 (v1 tinha OPEX = 0)", "status": "⚠️ hipótese", "camada": "B", "derivacao": "Premissa de sessão, não dado do projeto; nenhum custo de vendas/BD foi levantado.", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-08-31"}, {"linha": 46, "id": "P05", "premissa": "Taxa que chega à maestria (fração dos matriculados que faz a live e o presencial)", "valor": 0.8, "unidade": "fração", "fonte": "Hipótese desta análise: Zendejas 2012 teve 100% em currículo supervisionado; no autoguiado de 12 semanas, assumir 80%. Sem limiar: só muda o custo por matriculado (rateio da supervisão), não a conclusão.", "status": "⚠️ declarado", "camada": "B", "derivacao": "ALTERNATIVA: 60% sobe o custo do preceptor por matriculado de R$781 para R$1.042; 100% desce para R$625. RESSALVA: como o residente corrige erro sem supervisor nas ≥16 sessões é o risco pedagógico (L-04).", "ja_se_sabe": "Zendejas 2012: 100%, mas supervisionado", "pergunta": "2.1", "atualizado": "2026-10-21"}, {"linha": 47, "id": "P31", "premissa": "Custo de uma complicação intraoperatória - CASO-BASE (= limiar: o valor em que o curso se paga)", "valor": 3348.21, "unidade": "R$/complicação", "fonte": "Decisão de 21/10/2026: o caso-base é o próprio ponto de virada (preço de tabela ÷ complicações evitadas = R$3.348,21). Leitura: 'se uma complicação custar isto ou mais para quem paga a cirurgia, o curso se paga'. Substituir pela fórmula o dado do Dr. Paulo (linha 57) quando chegar.", "status": "⚠️ declarado", "camada": "A", "derivacao": "RESSALVA: é circular por construção (custo líquido = 0 no caso-base); por isso o piso (linha 25) e o teto (linha 26) entram sempre ao lado. ATENÇÃO: se o preço mudar, o caso-base muda junto.", "ja_se_sabe": "faixa R$1.936–10.000 sem fonte primária", "pergunta": "5.1", "atualizado": "2026-10-21"}, {"linha": 48, "id": "P11", "premissa": "Horas/mês do Dr. Paulo para o curso", "valor": 8, "unidade": "h/mês", "fonte": "Hipótese desta análise: 2 h por semana (uma tarde a cada duas semanas). Capacidade = 8 ÷ 2,5 h = 3,2 aprovados/mês ≈ 38/ano. É o único teto do curso: os modelos imprimem-se sob demanda (R$4.500, 6 aprovados por modelo por ano) e são amortizados no preço (R$150 por matriculado).", "status": "⚠️ declarado", "camada": "A", "derivacao": "ATENÇÃO: 38 aprovados/ano pedem 7 modelos (4 a imprimir, R$18.000); os 48 matriculados/ano recolhem R$36.000 de amortização em 5 anos, mais que os R$31.500 dos 7 modelos. ALTERNATIVA: alugar ou vender o modelo ao residente em vez de amortizar no preço (D-13 prevê os três caminhos). RESSALVA: nada no vault confirma a disponibilidade; pergunta 2.5 do roteiro.", "ja_se_sabe": "é o teto do curso; nada no vault responde", "pergunta": "2.5", "atualizado": "2026-10-21"}, {"linha": 49, "id": "P03", "premissa": "Preço do curso - piloto", "valor": 5475, "unidade": "R$/residente", "fonte": "Hipótese desta análise: o piloto cobra o preço de volume (R$5.475, D-05). Se for interno, zero: a conta vira custo do estudo. Limiar: R$1.672,22 (rodada 2, C33).", "status": "⚠️ declarado", "camada": "B", "derivacao": "ALTERNATIVA: piloto gratuito para os 18 do estudo 2.0 = R$42.262 de custo de entrega sem receita.", "ja_se_sabe": "pode ser interno ou zero", "pergunta": "1.3", "atualizado": "2026-10-21"}, {"linha": 50, "id": "P04", "premissa": "Residentes por coorte no piloto", "valor": 6, "unidade": "residentes", "fonte": "Hipótese desta análise: 6 por coorte, como no estudo 2.0 (3 coortes × 6 = 18). Limiar: 3,1 residentes amortizam os modelos (rodada 2, C34).", "status": "⚠️ declarado", "camada": "B", "derivacao": "RESSALVA: vale para o piloto; na operação a turma do encontro é a linha 81 (aprovados ÷ encontros).", "ja_se_sabe": "6/coorte (31/08) · 18 no estudo", "pergunta": "1.2", "atualizado": "2026-10-21"}, {"linha": 51, "id": "P12", "premissa": "Deslocamento e espaço do encontro presencial - custo para o curso, por turma", "valor": 0, "unidade": "R$/turma", "fonte": "Zero declarado: o Einstein cede espaço, torre, robótica e RV (fluxo F12 da Sistemática); o deslocamento é do residente. Com 0, o custo do presencial deixa de ficar ⚪.", "status": "⚠️ declarado", "camada": "B", "derivacao": "RESSALVA: a contingência de 40% absorve até R$358,33 por residente (rodada 2, C36) se o espaço vier a ser cobrado.", "ja_se_sabe": "nunca entrou em planilha", "pergunta": "2.3", "atualizado": "2026-10-21"}, {"linha": 52, "id": "P20", "premissa": "Aluguel do kit - nível 1, por residente (receita do curso)", "valor": 145.83, "unidade": "R$/residente", "fonte": "Hipótese desta análise: repasse do custo diluído do kit (R$3.500 ÷ 24 = R$145,83), sem margem. Preço comercial a definir (L-11).", "status": "⚠️ declarado", "camada": "B", "derivacao": "RESSALVA: abaixo disto o aluguel subsidia o residente; acima, vira receita. O residente dos níveis 2 e 3 compra o próprio kit (D-13).", "ja_se_sabe": "a aba Kit da plataforma tem CTA sem preço", "pergunta": "3.1", "atualizado": "2026-10-21"}, {"linha": 53, "id": "P21", "premissa": "Envio e devolução do kit, por residente", "valor": 120, "unidade": "R$/residente", "fonte": "Hipótese desta análise: caixa de 5 kg, ida e volta por transportadora, SP → capitais. Faixa R$80–150.", "status": "⚠️ declarado", "camada": "B", "derivacao": "RESSALVA: sem cotação; entra no custo do curso só se o aluguel não cobrir.", "ja_se_sabe": "sem cotação no vault", "pergunta": "3.2", "atualizado": "2026-10-21"}, {"linha": 54, "id": "P28", "premissa": "Produção dos pré-módulos (custo fixo)", "valor": 0, "unidade": "R$", "fonte": "Zero declarado: os 4 módulos de nivelamento já existem na plataforma e são produzidos pela equipe. Com 0, o ponto de equilíbrio deixa de ficar ⚪. Limiar: até R$78.675 mantêm o equilíbrio (rodada 2, C38).", "status": "⚠️ declarado", "camada": "B", "derivacao": "ALTERNATIVA: terceirizar a produção (vídeo + roteiro) custa R$15.000–40.000 por estimativa de mercado, dentro do limiar.", "ja_se_sabe": "4 módulos na plataforma", "pergunta": "4.1", "atualizado": "2026-10-21"}, {"linha": 55, "id": "P42", "premissa": "Logística de robótica e RV do estudo 2.0", "valor": 0, "unidade": "R$", "fonte": "Zero declarado: o Einstein cede torre, robótica e RV (F12); a verba livre é R$0 (D-21), qualquer custo quebra o orçamento.", "status": "⚠️ declarado", "camada": "B", "derivacao": "ATENÇÃO: lacuna L-07 continua aberta; o zero é o único valor compatível com a verba.", "ja_se_sabe": "verba livre zerada", "pergunta": "6.1", "atualizado": "2026-10-21"}, {"linha": 56, "id": "P27", "premissa": "Impostos sobre o EBIT", "valor": 0.34, "unidade": "fração", "fonte": "D-04: 34% do EBIT (IRPJ + CSLL, lucro real). Antes estava fixo dentro das fórmulas de Economia_Unitaria.", "status": "✅ fonte", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 57, "id": "P31", "premissa": "Custo de uma complicação na prática do Dr. Paulo", "valor": null, "unidade": "R$/complicação", "fonte": "Prometido na reunião de 23/09/2026 (L-06). Quando chegar: digitar aqui e trocar a fórmula da linha 47 por =B57.", "status": "⚪ falta", "camada": "A", "derivacao": null, "ja_se_sabe": "faixa R$1.936–10.000 sem fonte primária; o caso-base (linha 47) ocupa o lugar até lá", "pergunta": "5.1", "atualizado": "2026-10-21"}, {"linha": 60, "id": "—", "premissa": "Internações por hérnia inguinal no SUS-SP em 2024", "valor": 29194, "unidade": "internações", "fonte": "SIH-SUS 2024 (datasus_sih_hernia_sp_2024_extraido.md)", "status": "✅ fonte", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 61, "id": "—", "premissa": "Fração por videolaparoscopia no SUS-SP em 2024", "valor": 0.02, "unidade": "fração", "fonte": "SIH-SUS 2024: 2,30% das internações. (0,78% nacional e 1,37% são números antigos; não usar.)", "status": "✅ fonte", "camada": "B", "derivacao": "ATENÇÃO: o Mercado do programa dizia 0,62% sem fonte; o vault registra 2,30% em SP.", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 62, "id": "—", "premissa": "SUS paga por hérnia inguinal aberta (AIH)", "valor": 968.05, "unidade": "R$/caso", "fonte": "SIH-SUS 2024", "status": "✅ fonte", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 63, "id": "P32", "premissa": "SUS paga por hérnia inguinal por vídeo (AIH)", "valor": 586.88, "unidade": "R$/caso", "fonte": "SIH-SUS 2024: −R$381,17 (−39%) em relação à aberta", "status": "✅ fonte", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 64, "id": "—", "premissa": "Saúde suplementar paga por hérnia aberta", "valor": 586.93, "unidade": "R$/caso", "fonte": "D-TISS 2024", "status": "✅ fonte", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 65, "id": "P33", "premissa": "Saúde suplementar paga por hérnia por vídeo", "valor": 1259.36, "unidade": "R$/caso", "fonte": "D-TISS 2024: +R$672,43 (+115%)", "status": "✅ fonte", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 66, "id": "P17", "premissa": "Modelos 3D já existentes (unidades)", "valor": 3, "unidade": "modelos", "fonte": "D-21: 1 existente + 2 unidades da verba (GK Ivamoto). Os demais são impressos sob demanda (linha 18) e amortizados no preço.", "status": "✅ fonte", "camada": "B", "derivacao": "Não é gargalo: cada modelo a mais (R$4.500) atende 6 aprovados/ano e se paga com a amortização de R$150 por matriculado.", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 70, "id": "—", "premissa": "Adoção no ano 1", "valor": 0.02, "unidade": "fração", "fonte": "Hipótese de sessão (22/09/2026): 2% → 28%, não validada (L-20).", "status": "⚠️ hipótese", "camada": "B", "derivacao": "ATENÇÃO: a adoção exige modelos e preceptores que o curso não tem (Projecao_5_anos, linhas de capacidade).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 71, "id": "—", "premissa": "Adoção no ano 2", "valor": 0.05, "unidade": "fração", "fonte": "Hipótese de sessão (22/09/2026): 2% → 28%, não validada (L-20).", "status": "⚠️ hipótese", "camada": "B", "derivacao": "ATENÇÃO: a adoção exige modelos e preceptores que o curso não tem (Projecao_5_anos, linhas de capacidade).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 72, "id": "—", "premissa": "Adoção no ano 3", "valor": 0.1, "unidade": "fração", "fonte": "Hipótese de sessão (22/09/2026): 2% → 28%, não validada (L-20).", "status": "⚠️ hipótese", "camada": "B", "derivacao": "ATENÇÃO: a adoção exige modelos e preceptores que o curso não tem (Projecao_5_anos, linhas de capacidade).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 73, "id": "—", "premissa": "Adoção no ano 4", "valor": 0.18, "unidade": "fração", "fonte": "Hipótese de sessão (22/09/2026): 2% → 28%, não validada (L-20).", "status": "⚠️ hipótese", "camada": "B", "derivacao": "ATENÇÃO: a adoção exige modelos e preceptores que o curso não tem (Projecao_5_anos, linhas de capacidade).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 74, "id": "—", "premissa": "Adoção no ano 5", "valor": 0.28, "unidade": "fração", "fonte": "Hipótese de sessão (22/09/2026): 2% → 28%, não validada (L-20).", "status": "⚠️ hipótese", "camada": "B", "derivacao": "ATENÇÃO: a adoção exige modelos e preceptores que o curso não tem (Projecao_5_anos, linhas de capacidade).", "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}, {"linha": 77, "id": "—", "premissa": "Encontros presenciais por ano", "valor": 4, "unidade": "encontros/ano", "fonte": "Hipótese desta análise (D-29): um encontro ao fim de cada ciclo de 12 semanas. Espera de até 3 meses entre a maestria e o presencial.", "status": "⚠️ declarado", "camada": "A", "derivacao": "ALTERNATIVA: 6 encontros (turma de 6, espera de até 2 meses, 2,5 h por aprovado) ou 3 (turma de 13, espera de até 4 meses, 2,0 h). RESSALVA: concentrar em poucas datas transforma o fluxo do mastery learning em lotes e cria fila no gargalo.", "ja_se_sabe": null, "pergunta": "2.3", "atualizado": "2026-10-21"}, {"linha": 78, "id": "—", "premissa": "Duração do encontro presencial", "valor": 8, "unidade": "h/encontro", "fonte": "Hipótese desta análise: 8 h com turma de ~11 em duas estações (torre e robótica cedidas pelo Einstein, F12), cerca de 1 h de mão na torre por residente. Com turma de 6, 6 h.", "status": "⚠️ declarado", "camada": "B", "derivacao": "RESSALVA: a segunda estação pede um assistente ou residente-chefe.", "ja_se_sabe": null, "pergunta": "2.2", "atualizado": "2026-10-21"}, {"linha": 79, "id": "—", "premissa": "Duração da live por turma", "valor": 2, "unidade": "h/encontro", "fonte": "Hipótese desta análise: uma live de 2 h por turma antes do presencial (1,5 h com turma de 6).", "status": "⚠️ declarado", "camada": "B", "derivacao": null, "ja_se_sabe": null, "pergunta": "2.2", "atualizado": "2026-10-21"}, {"linha": 80, "id": "—", "premissa": "Devolutiva individual por aprovado (registros de maestria)", "valor": 1.25, "unidade": "h/aprovado", "fonte": "Hipótese desta análise: conferência dos registros das 2 sessões de maestria e devolutiva individual. É o componente que não dilui com a turma.", "status": "⚠️ declarado", "camada": "A", "derivacao": "ALTERNATIVA: assistente faz a triagem e o Dr. Paulo só valida: 0,5 h, o que leva a capacidade de 45 para 75 aprovados/ano. RESSALVA: sem fonte; pergunta 2.2 do roteiro.", "ja_se_sabe": null, "pergunta": "2.2", "atualizado": "2026-10-21"}, {"linha": 81, "id": "—", "premissa": "Residentes por encontro (resultado, não premissa)", "valor": 11.2, "unidade": "residentes/encontro", "fonte": "Saída: aprovados por ano ÷ encontros por ano. Com 4 encontros, cerca de 11.", "status": "✅ fonte", "camada": "—", "derivacao": null, "ja_se_sabe": null, "pergunta": "—", "atualizado": "2026-10-21"}]}/*FIM_CASO_JSON*/
+</script>
+<script>
+(function(){
+  "use strict";
+  var raw = document.getElementById("caso-json").textContent.replace(/\/\*CASO_JSON\*\/|\/\*FIM_CASO_JSON\*\//g, "").trim();
+  var C = JSON.parse(raw);
+  if (!C.por_residente) { document.getElementById("pergunta").textContent = "Painel sem dados: rode exporta_caso_economico.py."; return; }
+  var R = C.por_residente, S = C.cenarios, K = C.capacidade, P = C.pagador, E = C.empresa;
+  var base = S[1], piso = S[0], teto = S[2];
+
+  function brl(x, dec){ if (x === null || x === undefined) return "—"; var neg = x < 0; var s = Math.abs(x).toLocaleString("pt-BR", {minimumFractionDigits: dec||0, maximumFractionDigits: dec||0}); return (neg ? "−" : "") + "R$" + s; }
+  function num(x, dec){ return x.toLocaleString("pt-BR", {minimumFractionDigits: dec||0, maximumFractionDigits: dec||0}); }
+  function pct(x, dec){ return num(x*100, dec||0) + "%"; }
+  function mil(x){ return x >= 1e6 ? "R$" + num(x/1e6, 1) + " mi" : x >= 1e3 ? "R$" + num(Math.round(x/1e3)) + " mil" : brl(x); }
+  function esc(s){ return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function mk(status){ var s = status || ""; var cls = s.indexOf("declarado") >= 0 ? "dec" : s.indexOf("fonte") >= 0 ? "fonte" : s.indexOf("falta") >= 0 ? "falta" : "hip";
+    var rot = cls === "dec" ? "declarado" : cls === "fonte" ? "fonte" : cls === "falta" ? "falta" : "hipótese"; return "<span class='mk " + cls + "'>" + rot + "</span>"; }
+  function prem(id){ for (var i = 0; i < C.premissas.length; i++) if (C.premissas[i].id === id) return C.premissas[i]; return null; }
+  function premL(linha){ for (var i = 0; i < C.premissas.length; i++) if (C.premissas[i].linha === linha) return C.premissas[i]; return null; }
+  var evit = R.evitadas;
+
+  /* ---------- vista 01: por residente ---------- */
+  var chips = [
+    {l: "efeito, em TEP", v: pct(R.taxa_hoje, 1) + " → " + pct(R.taxa_com, 1), s: "complicação por caso, Zendejas 2011", p: premL(10)},
+    {l: "janela", v: R.casos_janela + " casos", s: "os primeiros do residente", p: premL(7)},
+    {l: "preço do curso", v: brl(R.preco_curso), s: "tabela, por residente", p: premL(33)},
+    {l: "uma complicação custa", v: brl(base.custo_complicacao), s: "caso-base: o limiar", p: premL(47)},
+    {l: "preceptor", v: num(K.horas_por_aprovado, 1) + " h", s: "por aprovado: devolutiva + " + K.encontros_ano + " encontros/ano", p: premL(39)},
+    {l: "chegam à maestria", v: pct(E.taxa_maestria), s: "dos matriculados", p: premL(46)}
+  ];
+  document.getElementById("faixa").innerHTML = chips.map(function(c){ return "<div class='chip'><div class='l'><span>" + c.l + "</span>" + mk(c.p && c.p.status) + "</div><div class='v'>" + c.v + "</div><div class='s'>" + c.s + "</div></div>"; }).join("");
+
+  document.getElementById("duo").innerHTML =
+    "<div class='cartao hoje'><div class='rot'>Hoje · a curva no paciente</div><h2>O residente aprende operando</h2>" +
+    "<div class='grande'><span class='num'>" + num(R.complicacoes_hoje, 2) + "</span><small>complicações intraoperatórias esperadas nos " + R.casos_janela + " primeiros casos</small></div>" +
+    "<div class='linha'><span>Custo dessas complicações (caso-base)</span><b>" + brl(R.custo_complic_hoje) + "</b></div>" +
+    "<div class='linha'><span>Curso</span><b>R$0</b></div>" +
+    "<div class='linha'><span><b>Custo total para o sistema</b></span><b>" + brl(R.total_hoje) + "</b></div>" +
+    "<div class='nota'>o risco fica escondido: ninguém paga um curso, todos pagam a complicação</div></div>" +
+    "<div class='cartao com'><div class='rot'>Com o Hernia3D · a curva no modelo</div><h2>O residente chega proficiente</h2>" +
+    "<div class='grande'><span class='num'>" + num(R.complicacoes_com, 2) + "</span><small>complicações esperadas nos mesmos " + R.casos_janela + " casos</small></div>" +
+    "<div class='linha'><span>Custo das complicações que restam</span><b>" + brl(R.custo_complic_com) + "</b></div>" +
+    "<div class='linha'><span>Curso (preço de tabela)</span><b>" + brl(R.preco_curso) + "</b></div>" +
+    "<div class='linha'><span><b>Custo total para o sistema</b></span><b>" + brl(R.total_com) + "</b></div>" +
+    "<div class='nota'>no caso-base empata: é o ponto em que o curso se paga</div></div>";
+
+  document.getElementById("resultado").innerHTML =
+    "<div><div class='k'>o que o curso muda</div><div class='v ouro'>" + num(evit, 2) + "</div><div class='d'>complicações intraoperatórias evitadas por residente, nos " + R.casos_janela + " primeiros casos (" + pct(1 - R.complicacoes_com / R.complicacoes_hoje) + " a menos)</div></div>" +
+    "<div><div class='k'>cada uma custa</div><div class='v'>" + brl(R.rcei) + "</div><div class='d'>preço ÷ complicações evitadas; " + brl(R.rcei_volume) + " no preço de volume</div></div>" +
+    "<div><div class='k'>o curso se paga se</div><div class='v'>≥ " + brl(base.custo_complicacao) + "</div><div class='d'>for o custo de uma complicação para quem paga a cirurgia</div></div>" +
+    "<div><div class='k'>e para a empresa</div><div class='v'>" + pct(E.margem_tabela, 1) + "</div><div class='d'>margem líquida no preço de tabela, com a supervisão nova</div></div>";
+
+  // gráfico de cenários: custo líquido por residente (negativo = sobra)
+  (function(){
+    var svg = document.getElementById("g-cen"); var W = 560, H = 200, left = 170, right = 130, top = 26, rowH = 48;
+    var vals = [piso, base, teto]; var maxAbs = Math.max.apply(null, vals.map(function(s){ return Math.abs(s.liquido); })) || 1;
+    var zero = left + (W - left - right) * (maxAbs / (2 * maxAbs)); var scale = (W - left - right) / (2 * maxAbs);
+    var cores = ["var(--risco)", "var(--ouro)", "var(--ok)"];
+    var html = "<line x1='" + zero + "' y1='" + (top - 8) + "' x2='" + zero + "' y2='" + (top + 3 * rowH) + "' stroke='var(--filete-forte)' stroke-width='1'/>";
+    html += "<text x='" + (zero - 6) + "' y='" + (top - 12) + "' font-size='10' fill='var(--cinza)' text-anchor='end'>falta pagar</text><text x='" + (zero + 6) + "' y='" + (top - 12) + "' font-size='10' fill='var(--cinza)'>sobra</text>";
+    vals.forEach(function(s, i){
+      var y = top + i * rowH + 8; var w = Math.abs(s.liquido) * scale; var x = s.liquido > 0 ? zero - w : zero;
+      html += "<text x='" + (left - 10) + "' y='" + (y + 14) + "' font-size='12' fill='var(--texto)' text-anchor='end' font-weight='600'>" + esc(s.rotulo.split(":")[0]) + "</text>";
+      html += "<text x='" + (left - 10) + "' y='" + (y + 28) + "' font-size='10.5' fill='var(--cinza)' text-anchor='end'>" + brl(s.custo_complicacao) + " por complicação</text>";
+      if (w < 1) { html += "<circle cx='" + zero + "' cy='" + (y + 16) + "' r='5' fill='" + cores[i] + "'/>"; html += "<text x='" + (zero + 12) + "' y='" + (y + 20) + "' font-size='12' fill='var(--texto)' font-weight='600'>R$0 · empata</text>"; }
+      else {
+        html += "<rect x='" + x + "' y='" + y + "' width='" + w + "' height='32' rx='4' fill='" + cores[i] + "'/>";
+        var lx = s.liquido > 0 ? x - 8 : x + w + 8; var anc = s.liquido > 0 ? "end" : "start";
+        html += "<text x='" + lx + "' y='" + (y + 20) + "' font-size='12' fill='var(--texto)' font-weight='600' text-anchor='" + anc + "'>" + (s.liquido > 0 ? "faltam " + brl(s.liquido) : "sobram " + brl(-s.liquido)) + "</text>";
+      }
+    });
+    svg.innerHTML = html;
+    document.getElementById("cen-leit").textContent = "Economia por residente = " + num(evit, 2) + " complicações evitadas × o custo de uma complicação. No piso (duas AIH do SUS) sobram " + brl(piso.economia) + " contra " + brl(R.preco_curso) + " de curso: custo-efetivo, mas não se paga sozinho. No teto é dominante. O caso-base é o ponto de virada por construção.";
+  })();
+
+  document.getElementById("emp-h4").textContent = "Custo de entrega " + brl(E.custo_entrega) + " por matriculado; margem líquida " + pct(E.margem_tabela, 1) + " na tabela, " + pct(E.margem_volume, 1) + " no volume";
+  document.getElementById("t-emp").innerHTML =
+    "<tr><th>por matriculado</th><th class='n'>tabela " + brl(E.preco_tabela) + "</th><th class='n'>volume " + brl(E.preco_volume) + "</th></tr>" +
+    "<tr><td>Custo direto sem supervisão, com contingência</td><td class='n'>" + brl(E.custo_direto_sem_supervisao, 2) + "</td><td class='n'>" + brl(E.custo_direto_sem_supervisao, 2) + "</td></tr>" +
+    "<tr><td>Preceptor: " + num(K.horas_por_aprovado, 2) + " h por aprovado (devolutiva " + num(K.devolutiva_h, 2) + " h + presencial " + K.presencial_h + " h e live " + K.live_h + " h diluídos por " + num(K.residentes_por_encontro) + " por encontro) × " + brl(E.custo_hora) + " ÷ " + pct(E.taxa_maestria) + " de maestria, com contingência</td><td class='n'>" + brl(E.custo_entrega - E.custo_direto_sem_supervisao, 2) + "</td><td class='n'>" + brl(E.custo_entrega - E.custo_direto_sem_supervisao, 2) + "</td></tr>" +
+    "<tr class='forte'><td>Custo de entrega</td><td class='n'>" + brl(E.custo_entrega, 2) + "</td><td class='n'>" + brl(E.custo_entrega, 2) + "</td></tr>" +
+    "<tr><td>Lucro líquido (depois de OPEX 25% e impostos 34%)</td><td class='n'>" + brl(E.lucro_tabela, 2) + "</td><td class='n'>" + brl(E.lucro_volume, 2) + "</td></tr>" +
+    "<tr class='forte'><td>Margem líquida</td><td class='n'>" + pct(E.margem_tabela, 1) + "</td><td class='n'>" + pct(E.margem_volume, 1) + "</td></tr>";
+  document.getElementById("emp-leit").textContent = "O custo direto já amortiza o modelo 3D a " + brl(K.amortizacao_por_matriculado) + " por matriculado (" + brl(K.custo_modelo) + " ÷ 30 residentes em 5 anos). Até " + num(E.folga_horas_aprovado, 1) + " h de preceptor por aprovado cabem no preço de tabela mantendo a margem de 24,6% da rodada anterior; a hora do preceptor é a premissa que mais move a margem.";
+
+  // tabela detalhada
+  var det = [
+    ["grupo", "Efeito clínico, por residente"],
+    ["Complicações intraoperatórias nos " + R.casos_janela + " primeiros casos", num(R.complicacoes_hoje, 2), num(R.complicacoes_com, 2), "−" + num(evit, 2)],
+    ["Taxa por caso", pct(R.taxa_hoje, 1), pct(R.taxa_com, 1), "−" + pct(R.taxa_hoje - R.taxa_com, 1)],
+    ["grupo", "Quem compra o curso"],
+    ["Preço de tabela", "R$0", brl(R.preco_curso), "+" + brl(R.preco_curso)],
+    ["grupo", "Quem paga a cirurgia (caso-base, " + brl(base.custo_complicacao) + " por complicação)"],
+    ["Custo das complicações", brl(R.custo_complic_hoje), brl(R.custo_complic_com), "−" + brl(base.economia)],
+    ["forte", "Custo total para o sistema", brl(R.total_hoje), brl(R.total_com), brl(R.diferenca)],
+    ["grupo", "Por coorte do piloto, " + K.turma + " residentes"],
+    ["Complicações evitadas", "", num(K.turma_evitadas, 1), "−" + num(K.turma_evitadas, 1)],
+    ["Economia para quem paga a cirurgia (caso-base)", "", brl(K.turma_economia), "−" + brl(K.turma_economia)],
+    ["grupo", "Por ano, na capacidade da agenda (" + num(Math.round(K.matriculados_ano)) + " matriculados → " + num(Math.round(K.capacidade_ano)) + " aprovados, " + K.modelos_necessarios + " modelos)"],
+    ["Complicações evitadas", "", num(K.evitadas_ano, 1), "−" + num(K.evitadas_ano, 1)],
+    ["Economia (piso · caso-base · teto)", "", mil(K.economia_ano_piso) + " · " + mil(K.economia_ano_base) + " · " + mil(K.economia_ano_teto), ""],
+    ["Receita do curso (" + num(Math.round(K.matriculados_ano)) + " matriculados) · lucro líquido da empresa", "", mil(K.receita_ano) + " · " + mil(K.lucro_ano), ""],
+    ["Modelos: capex a imprimir · amortização recolhida em 5 anos", "", brl(K.capex_modelos) + " · " + mil(K.amortizacao_5_anos), "o preço paga os modelos"]
+  ];
+  document.getElementById("t-det").innerHTML = "<tr><th>métrica</th><th class='n'>hoje</th><th class='n'>com o Hernia3D</th><th class='n'>diferença</th></tr>" + det.map(function(r){
+    if (r[0] === "grupo") return "<tr class='grupo'><td colspan='4'>" + esc(r[1]) + "</td></tr>";
+    var forte = r[0] === "forte"; if (forte) r = r.slice(1);
+    return "<tr" + (forte ? " class='forte'" : "") + "><td>" + esc(r[0]) + "</td><td class='n hoje'>" + esc(r[1]) + "</td><td class='n com'>" + esc(r[2]) + "</td><td class='n'>" + esc(r[3]) + "</td></tr>";
+  }).join("");
+
+  /* ---------- vista 02: para quem paga a cirurgia ---------- */
+  document.getElementById("tiles").innerHTML = [
+    {l: "internações por hérnia inguinal, SUS-SP 2024", v: num(P.internacoes_sp), s: "só " + pct(P.fracao_video, 1) + " por vídeo (" + num(Math.round(P.por_video)) + " casos)", c: ""},
+    {l: "o SUS paga, por caso por vídeo", v: brl(P.sus_delta), s: "em relação à hérnia aberta (" + brl(P.sus_video, 2) + " × " + brl(P.sus_aberta, 2) + ")", c: "risco"},
+    {l: "a operadora paga, por caso por vídeo", v: "+" + brl(P.suplementar_delta), s: brl(P.suplementar_video, 2) + " × " + brl(P.suplementar_aberta, 2) + " (D-TISS 2024)", c: "ok"},
+    {l: "novos residentes por ano", v: num(P.residentes_r1), s: num(P.residentes_ativos) + " ativos no Brasil", c: ""},
+    {l: "capacidade: a agenda do preceptor", v: num(Math.round(K.capacidade_ano)) + " / ano", s: K.horas_mes + " h/mês ÷ " + num(K.horas_por_aprovado, 1) + " h por aprovado; pede " + K.modelos_necessarios + " modelos (" + K.modelos_a_imprimir + " a imprimir, " + brl(K.capex_modelos) + ")", c: "ouro"},
+    {l: "cada complicação evitada custa", v: brl(R.rcei), s: "o limiar em que o curso se paga", c: "ouro"}
+  ].map(function(t){ return "<div class='tile " + t.c + "'><div class='l'>" + t.l + "</div><div class='v'>" + t.v + "</div><div class='s'>" + t.s + "</div></div>"; }).join("");
+
+  document.getElementById("fun-h4").textContent = num(Math.round(K.capacidade_ano)) + " aprovados por ano evitam " + num(Math.round(K.evitadas_ano)) + " complicações e poupam " + mil(K.economia_ano_base) + " a quem paga a cirurgia";
+  var degraus = [
+    {n: "residentes ativos", b: "no Brasil", v: num(P.residentes_ativos), w: 100, c: ""},
+    {n: "novos por ano", b: "R1", v: num(P.residentes_r1), w: 60, c: ""},
+    {n: "capacidade do curso", b: K.horas_mes + " h/mês do preceptor ÷ " + num(K.horas_por_aprovado, 1) + " h = " + num(Math.round(K.capacidade_ano)) + " aprovados; ÷ " + pct(E.taxa_maestria) + " de maestria = " + num(Math.round(K.matriculados_ano)) + " matrículas", v: num(Math.round(K.matriculados_ano)) + " matriculados → " + num(Math.round(K.capacidade_ano)) + " aprovados", w: 30, c: "ouro"},
+    {n: "complicações evitadas", b: "por ano", v: num(K.evitadas_ano, 1), w: 24, c: "ouro"},
+    {n: "economia", b: "caso-base, por ano", v: mil(K.economia_ano_base), w: 30, c: "ok"}
+  ];
+  document.getElementById("funil").innerHTML = degraus.map(function(d, i){ return (i ? "<div class='seta'>▼</div>" : "") + "<div class='degrau'><div class='nome'><b>" + d.n + "</b>" + d.b + "</div><div><div class='barra " + d.c + "' style='width:" + d.w + "%'>" + d.v + "</div></div></div>"; }).join("");
+  document.getElementById("fun-leit").textContent = K.encontros_ano + " encontros presenciais por ano, um ao fim de cada ciclo de 12 semanas, com cerca de " + num(K.residentes_por_encontro) + " residentes em duas estações. O teto é a agenda do preceptor, não o modelo: " + num(Math.round(K.capacidade_ano)) + " aprovados por ano pedem " + K.modelos_necessarios + " modelos (" + K.modelos_a_imprimir + " a imprimir, " + brl(K.capex_modelos) + ", a " + brl(K.custo_modelo) + " cada). O preço já amortiza o modelo a " + brl(K.amortizacao_por_matriculado) + " por matriculado: em 5 anos recolhe " + mil(K.amortizacao_5_anos) + ", mais que os " + mil(K.custo_modelos_necessarios) + " dos modelos. Alugar ou vender o modelo ao residente são as outras duas portas (D-13).";
+
+  document.getElementById("ad-h4").textContent = "Quem gasta " + mil(K.receita_ano) + " no curso não é quem poupa " + mil(K.economia_ano_base);
+  document.getElementById("t-ad").innerHTML =
+    "<tr><th>por ano, " + num(Math.round(K.capacidade_ano)) + " aprovados</th><th class='n'>sem o curso</th><th class='n'>com o curso</th></tr>" +
+    "<tr><td>Complicações intraoperatórias nos primeiros casos</td><td class='n hoje'>" + num(K.capacidade_ano * R.complicacoes_hoje, 1) + "</td><td class='n com'>" + num(K.capacidade_ano * R.complicacoes_com, 1) + "</td></tr>" +
+    "<tr><td>Gasto de quem compra o curso (programa, hospital), " + num(Math.round(K.matriculados_ano)) + " matriculados</td><td class='n'>R$0</td><td class='n'>" + brl(K.receita_ano) + "</td></tr>" +
+    "<tr><td>Gasto de quem paga a cirurgia com complicações (caso-base)</td><td class='n'>" + brl(K.capacidade_ano * R.custo_complic_hoje) + "</td><td class='n'>" + brl(K.capacidade_ano * R.custo_complic_com) + "</td></tr>" +
+    "<tr class='forte'><td>Economia de quem paga a cirurgia</td><td class='n'>—</td><td class='n'>" + brl(K.economia_ano_base) + "</td></tr>";
+  (function(){
+    var svg = document.getElementById("g-reemb"); var W = 560, left = 200, right = 90, top = 16, rowH = 44;
+    var itens = [{n: "SUS", v: P.sus_delta, c: "var(--risco)"}, {n: "saúde suplementar", v: P.suplementar_delta, c: "var(--ok)"}];
+    var maxAbs = Math.max(Math.abs(P.sus_delta), Math.abs(P.suplementar_delta)); var zero = left + (W - left - right) / 2; var scale = (W - left - right) / (2 * maxAbs);
+    var html = "<line x1='" + zero + "' y1='" + (top - 6) + "' x2='" + zero + "' y2='" + (top + 2 * rowH) + "' stroke='var(--filete-forte)'/>";
+    html += "<text x='" + (zero) + "' y='" + (top + 2 * rowH + 14) + "' font-size='10' fill='var(--cinza)' text-anchor='middle'>o que o pagador da cirurgia paga a mais (ou a menos) pela via laparoscópica, por caso</text>";
+    itens.forEach(function(it, i){ var y = top + i * rowH + 6; var w = Math.abs(it.v) * scale; var x = it.v < 0 ? zero - w : zero;
+      html += "<text x='" + (left - 10) + "' y='" + (y + 18) + "' font-size='12' fill='var(--texto)' text-anchor='end' font-weight='600'>" + esc(it.n) + "</text>";
+      html += "<rect x='" + x + "' y='" + y + "' width='" + w + "' height='26' rx='4' fill='" + it.c + "'/>";
+      html += "<text x='" + (it.v < 0 ? x - 8 : x + w + 8) + "' y='" + (y + 17) + "' font-size='12' fill='var(--texto)' font-weight='600' text-anchor='" + (it.v < 0 ? "end" : "start") + "'>" + (it.v > 0 ? "+" : "") + brl(it.v, 2) + "</text>"; });
+    svg.innerHTML = html;
+  })();
+  document.getElementById("ad-leit").textContent = "No SUS, que paga a maioria dos casos, a via que o curso ensina é paga " + pct(-P.sus_delta / P.sus_aberta) + " abaixo da aberta: o único argumento é menos complicação. Na saúde suplementar a via por vídeo paga mais, mas a operadora não financia formação.";
+
+  document.getElementById("veredito").innerHTML =
+    "<div class='rot'>Veredito</div><h4>Custo-efetivo: cada complicação evitada custa " + brl(R.rcei) + ". Se para quem paga a cirurgia uma complicação custar isso ou mais, o curso se paga.</h4>" +
+    "<p>No piso do SUS (duas AIH, " + brl(piso.custo_complicacao, 2) + ") ele não se paga sozinho: devolve " + pct(piso.economia / R.preco_curso) + " do preço. No teto (" + brl(teto.custo_complicacao) + ") é dominante. O ganho vai para quem paga a cirurgia, não para quem compra o curso: a conversa com o pagador institucional é a que fecha o caso.</p>" +
+    "<div class='aviso'>Efeito medido em TEP (Zendejas 2011), num currículo supervisionado. A transferência no TAPP não foi demonstrada: é o que o ensaio de transferibilidade vai medir (L-01).</div>";
+
+  document.getElementById("t-todos").innerHTML =
+    "<tr><th>se os " + num(P.residentes_r1) + " novos residentes do ano treinassem</th><th class='n'>por ano</th></tr>" +
+    "<tr><td>Complicações intraoperatórias evitadas</td><td class='n'>" + num(P.todos_evitadas_ano) + "</td></tr>" +
+    "<tr><td>Economia de quem paga a cirurgia (caso-base)</td><td class='n'>" + mil(P.todos_economia_ano) + "</td></tr>" +
+    "<tr><td>Gasto de quem compra o curso (tabela)</td><td class='n'>" + mil(P.todos_custo_ano) + "</td></tr>" +
+    "<tr><td>Modelos e preceptores necessários</td><td class='n'>" + num(Math.ceil(P.residentes_r1 * E.taxa_maestria / K.residentes_por_modelo_ano)) + " modelos · " + num(Math.round(P.residentes_r1 * E.taxa_maestria * K.horas_por_aprovado / 12)) + " h/mês</td></tr>";
+  document.getElementById("todos-leit").textContent = "É a escala do problema, não a do curso: a agenda de hoje comporta " + num(Math.round(K.capacidade_ano)) + " por ano. Modelos se imprimem; preceptores, não: a curva de adoção da projeção (2% a 28% em cinco anos) pede um segundo preceptor a partir do ano 3.";
+
+  /* ---------- vista 03: premissas ---------- */
+  var dec = C.premissas.filter(function(p){ return (p.status || "").indexOf("declarado") >= 0 || (p.status || "").indexOf("falta") >= 0; });
+  function valor(p){ if (p.valor === null || p.valor === undefined) return "—"; var u = p.unidade || ""; if (/^R\$/.test(u)) return brl(p.valor, p.valor % 1 ? 2 : 0) + u.replace("R$", ""); if (u === "fração") return pct(p.valor); return num(p.valor, p.valor % 1 ? 2 : 0) + " " + u; }
+  document.getElementById("t-dec").innerHTML = "<tr><th>id</th><th>premissa</th><th class='n'>valor</th><th>status</th><th>fonte e derivação</th><th>pergunta</th></tr>" + dec.map(function(p){
+    return "<tr><td>" + esc(p.id) + "</td><td>" + esc(p.premissa) + "</td><td class='n'>" + valor(p) + "</td><td>" + mk(p.status) + "</td><td class='d'>" + esc(p.fonte) + (p.derivacao ? "<br><i>" + esc(p.derivacao) + "</i>" : "") + "</td><td>" + esc(p.pergunta || "—") + "</td></tr>"; }).join("");
+  document.getElementById("t-todas").innerHTML = "<tr><th>linha</th><th>premissa</th><th class='n'>valor</th><th>status</th><th>camada</th><th>fonte</th><th>atualizado</th></tr>" + C.premissas.map(function(p){
+    return "<tr><td>" + p.linha + "</td><td>" + esc(p.premissa) + "</td><td class='n'>" + valor(p) + "</td><td>" + mk(p.status) + "</td><td>" + esc(p.camada) + "</td><td class='d'>" + esc(p.fonte) + "</td><td>" + esc(p.atualizado || "") + "</td></tr>"; }).join("");
+  document.getElementById("t-sp").innerHTML = "<tr><th class='n'>preço</th><th class='n'>por complicação</th><th class='n'>líquido no piso</th><th class='n'>no caso-base</th><th class='n'>no teto</th></tr>" + C.sensibilidade.preco.map(function(s){
+    return "<tr><td class='n'>" + brl(s.preco) + "</td><td class='n'>" + brl(s.rcei) + "</td><td class='n'>" + brl(s.liq_piso) + "</td><td class='n'>" + brl(s.liq_base) + "</td><td class='n'>" + brl(s.liq_teto) + "</td></tr>"; }).join("");
+  document.getElementById("t-sh").innerHTML = "<tr><th class='n'>h/aprovado</th><th class='n'>custo de entrega</th><th class='n'>lucro líquido</th><th class='n'>margem</th></tr>" + C.sensibilidade.horas.map(function(s){
+    return "<tr><td class='n'>" + num(s.horas, 2) + "</td><td class='n'>" + brl(s.entrega) + "</td><td class='n'>" + brl(s.lucro) + "</td><td class='n'>" + pct(s.margem, 1) + "</td></tr>"; }).join("");
+
+  document.getElementById("rodape").textContent = "Fonte: " + C.fonte + " (rodada " + C.rodada + ", " + C.atualizado + "). Valores em reais de 2024–2026, sem desconto.";
+
+  /* ---------- abas ---------- */
+  var PERG = {residente: "Por residente treinado: o que o curso custa, o que evita, e para quem.", pagador: "Quem paga a cirurgia colhe o ganho; quem compra o curso paga a conta. Em que escala?", premissas: "O que está assumido, por quê, e o que ainda falta."};
+  var abas = document.querySelectorAll(".aba");
+  function abre(id){ if (!PERG[id]) id = "residente";
+    ["residente", "pagador", "premissas"].forEach(function(v){ document.getElementById("v-" + v).hidden = v !== id; });
+    Array.prototype.forEach.call(abas, function(b){ b.classList.toggle("on", b.dataset.vista === id); b.setAttribute("aria-selected", b.dataset.vista === id ? "true" : "false"); });
+    document.getElementById("pergunta").textContent = PERG[id]; }
+  Array.prototype.forEach.call(abas, function(b){ b.addEventListener("click", function(){ abre(b.dataset.vista); }); });
+  abre((location.hash || "").replace("#", "") || "residente");
+})();
+</script>
+
+</body>
+</html>
