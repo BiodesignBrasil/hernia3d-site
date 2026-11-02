@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hernia 3D Model — Curso TAPP</title>
 <meta name="description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal laparoscópica num simulador impresso em 3D. Kit, pré-módulos, prática autoguiada, live e presencial com o preceptor.">
+<meta name="publicacao" content="6|2026-10-30">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hernia 3D Model · Curso TAPP">
 <meta property="og:description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal laparoscópica num simulador impresso em 3D.">
@@ -620,6 +621,7 @@
   <div class="container">
     <p data-i18n="footerText">Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos de experiência em cirurgia videolaparoscópica.</p>
     <p class="footer-note" data-i18n="footerNote">Protótipo de plataforma educacional — Biodesign Brasil.</p>
+    <p class="footer-note" id="carimbo"></p>
   </div>
 </footer>
 
@@ -638,6 +640,8 @@ const I18N = {
     presKicker: "Etapa Presencial",
     footerText: "Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos de experiência em cirurgia videolaparoscópica.",
     footerNote: "Protótipo de plataforma educacional — Biodesign Brasil.",
+    footerStamp: "Estado em {data} · publicação {n}",
+    footerDraft: "Versão de trabalho, não publicada",
     navPremodulos: "Pré-Módulos",
     navCurso: "Curso TAPP",
     navLive: "Live",
@@ -754,6 +758,8 @@ const I18N = {
     presKicker: "Etapa Presencial",
     footerText: "Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Más de 17 años de experiencia en cirugía videolaparoscópica.",
     footerNote: "Prototipo de plataforma educativa — Biodesign Brasil.",
+    footerStamp: "Estado al {data} · publicación {n}",
+    footerDraft: "Versión de trabajo, no publicada",
     navPremodulos: "Pre-Módulos",
     navCurso: "Curso TAPP",
     navLive: "Live",
@@ -880,7 +886,17 @@ function setLanguage(lang) {
     const key = el.getAttribute('data-i18n-html');
     if (dict[key]) el.innerHTML = dict[key];
   });
+  carimbo(dict);
   renderAll();
+}
+
+// a meta "publicacao" (N|AAAA-MM-DD) é preenchida pelo publica_tudo.py; vazia, a página é a do vault
+function carimbo(dict) {
+  const m = document.querySelector('meta[name="publicacao"]');
+  const v = m ? m.content.split('|') : [];
+  document.getElementById('carimbo').textContent = v[1]
+    ? dict.footerStamp.replace('{data}', v[1].split('-').reverse().join('/')).replace('{n}', v[0])
+    : dict.footerDraft;
 }
 
 // ════════════════════════════════════════

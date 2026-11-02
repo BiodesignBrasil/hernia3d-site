@@ -7,7 +7,7 @@ São duas peças irmãs, com link de ida e volta:
 | Endereço | Peça | Para quem |
 |---|---|---|
 | `/` | **Plataforma do residente**, bilíngue PT/ES: pré-módulos, curso TAPP, live e encontro presencial | residente de cirurgia geral |
-| `/sistematica/` | **Sistemática Hernia3D**: "a curva sai do centro cirúrgico", em quatro camadas (a curva · quem sustenta e quem ganha · o que se oferece · o que o residente vive) | quem decide sobre o curso |
+| `/sistematica/` | **Sistemática Hernia3D**: "a curva sai do centro cirúrgico", em quatro camadas (quem sustenta e quem ganha · a curva · o que se oferece · o que o residente vive) | quem decide sobre o curso |
 
 ## Estrutura
 
@@ -22,6 +22,10 @@ sistematica/
 ```
 
 Este repositório recebe só os fronts. A base de dados, as notas e as fontes ficam no repositório do projeto, e o pacote é montado por um script que recusa publicar se encontrar material interno.
+
+## Publicações
+
+Cada publicação é um commit "Publicação N: título" e uma tag `pub-NNN`, e toda página mostra no rodapé "Estado em DD/MM/AAAA · publicação N". Para ver um estado anterior: `git checkout pub-006`, por exemplo. As publicações 1 a 5 (20 e 21/10/2026) são anteriores às tags.
 
 ## Como abrir
 

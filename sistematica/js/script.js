@@ -536,6 +536,13 @@
       }).join("") + "</ol></div>" + elo("jornadas"));
   })();
 
+  /* ---------- carimbo: a meta "publicacao" (N|AAAA-MM-DD) é preenchida pelo publica_tudo.py ---------- */
+  (function () {
+    var m = document.querySelector('meta[name="publicacao"]'), v = m ? m.content.split("|") : [];
+    document.getElementById("carimbo").textContent = (v[1] ? "Estado em " + v[1].split("-").reverse().join("/") +
+      " · publicação " + v[0] : "Versão de trabalho, não publicada") + " · base: vault do projeto Hernia3D. Sem valores em reais nesta peça.";
+  })();
+
   /* ---------- início: estado vindo da URL ---------- */
   var q = new URLSearchParams(location.search);
   tempo(+q.get("tempo") || 3);
