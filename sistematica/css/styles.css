@@ -3,14 +3,18 @@
    Irmã da plataforma do residente (08_sintese/prototipo/index.html): navy com
    filete dourado, Source Serif 4 + Inter, marca H³D.
    Linguagem própria: papel, tinta e filetes em vez de caixas.
-   Duas cores com sentido fixo em toda a peça:
-     ouro     — a curva com o Hernia3D (o aprendizado no modelo)
-     vermelho — o risco de hoje (o aprendizado no paciente)
-   Encaixe sem rolagem no desktop; abaixo de 1020px a página empilha.
+   Cores com sentido fixo em toda a peça:
+     ouro     — o modelo (a zona do modelo e o P¹ Preparar)
+     tinta    — o P² Praticar, que sobe no modelo até o critério de maestria
+     vermelho — o paciente (a zona do paciente, o P³ Proceder e o risco de hoje)
+   As cores de quem paga (enquadramentos.csv) ficam nas linhas, nos discos e nas etiquetas.
+   O ouro tem dois tons: --ouro para linhas e preenchimentos, --ouro-texto para letras (contraste de 4,5:1).
+   Encaixe sem rolagem no desktop, sem deixar o menor texto abaixo de 10px; abaixo de 1180px a página
+   empilha e rola; até 767px, a versão do celular (cartões e listas no lugar dos desenhos largos).
    ============================================================ */
 
 :root{
-  --papel:#FAF8F3; --papel-2:#F3EFE5; --tinta:#0C325A; --primary:#14477A; --ouro:#B8860B; --ouro-claro:#F4EAD2;
+  --papel:#FAF8F3; --papel-2:#F3EFE5; --tinta:#0C325A; --primary:#14477A; --ouro:#B8860B; --ouro-texto:#8A6508; --ouro-claro:#F6EDD8;
   --risco:#B3261E; --risco-claro:#F6E3E0; --ok:#2E6B3E; --tinta-clara:#E3EAF2;
   --filete:#DCD6C8; --filete-forte:#BDB5A3; --cinza:#6B6A64; --cinza-escuro:#45443F; --texto:#1F1F1D;
   --font:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
@@ -21,26 +25,31 @@
 html,body{height:100%}
 body{font-family:var(--font);background:var(--papel);color:var(--texto);line-height:1.5;overflow:hidden;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit}
+/* o foco do teclado, em toda a peça: o contorno dourado. Dentro das leituras e dos painéis, que cortam o que passa da
+   borda, o contorno fica para dentro, para aparecer inteiro mesmo no elemento encostado na borda */
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+.leitura :focus-visible,.painel :focus-visible{outline-offset:-2px}
+/* só para o leitor de tela */
+.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* ---- uma barra só, no molde das Sistemáticas irmãs: a marca, as abas como pílulas, a peça irmã no fim ---- */
-nav.barra{position:sticky;top:0;z-index:50;height:var(--header);display:flex;align-items:center;gap:18px;padding:0 22px;background:var(--papel);
+nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex;align-items:center;gap:18px;padding:6px 22px;background:var(--papel);
   border-bottom:1px solid var(--filete-forte)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tinta);flex-shrink:0}
 .brand-mark{width:34px;height:34px;border-radius:6px;background:var(--ouro);color:var(--tinta);font-family:var(--serif);font-weight:700;
   font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .wm-nome{display:flex;flex-direction:column;font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.05;letter-spacing:-.01em}
-.wm-nome small{font-family:var(--font);font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-top:3px}
-.nav-links{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:2px;overflow-x:auto;scrollbar-width:none}
-.nav-links::-webkit-scrollbar{display:none}
+.wm-nome small{font-family:var(--font);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-top:3px}
+/* as abas quebram antes de transbordar: centradas enquanto cabem; quando não cabem numa linha, duas linhas de três (classe .duas, posta pelo script) */
+.nav-links{flex:1 1 auto;min-width:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:safe center;gap:2px}
+.nav-links.duas{display:grid;grid-template-columns:repeat(3,auto);justify-content:safe center;gap:2px 4px}
 .f-camada{cursor:pointer;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);background:transparent;
   border:1px solid transparent;border-radius:999px;padding:6px 12px;white-space:nowrap;transition:color .15s,background .15s,border-color .15s}
-.f-camada small{font-family:var(--serif);font-style:italic;font-size:12px;font-weight:500;color:var(--ouro);margin-right:6px;letter-spacing:0;text-transform:none}
+.f-camada small{font-family:var(--serif);font-style:italic;font-size:12px;font-weight:500;color:var(--ouro-texto);margin-right:6px;letter-spacing:0;text-transform:none}
 .f-camada:hover{color:var(--tinta);border-color:var(--filete-forte)}
 .f-camada.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
 .f-camada.on small{color:#E8C66A}
 /* as pontas da peça (a 00 e a 05, camadas.csv livro=sim): o rótulo em itálico de livro, sem caixa alta */
-.f-camada.f-livro{font-family:var(--serif);font-style:italic;font-size:14px;font-weight:500;letter-spacing:.01em;text-transform:none}
-.f-camada:focus-visible,.clicavel:focus-visible,.l-elo:focus-visible,.tempos button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
 .nav-irma{display:inline-flex;align-items:center;gap:9px;padding:4px 14px 4px 5px;border:1px solid var(--filete-forte);border-radius:999px;
   background:rgba(255,255,255,.6);color:var(--cinza-escuro);text-decoration:none;font-size:12.5px;white-space:nowrap;flex-shrink:0;transition:background .15s,border-color .15s}
 .nav-irma b{font-weight:600;color:var(--tinta)}
@@ -50,55 +59,87 @@ nav.barra{position:sticky;top:0;z-index:50;height:var(--header);display:flex;ali
 @media (max-width:1360px){.f-camada{padding:5px 9px;letter-spacing:.12em;font-size:11px}.f-camada small{margin-right:4px}}
 
 /* ---- palco: a altura exata da tela ---- */
-.palco{display:flex;flex-direction:column;padding:10px 24px 6px;max-width:1600px;margin:0 auto}
-.pergunta{flex:0 0 auto;margin:0 0 4px;font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--cinza-escuro)}
+.palco{display:flex;flex-direction:column;padding:10px 24px 6px;max-width:1800px;margin:0 auto}
+.pergunta{flex:0 0 auto;margin:0 0 4px;font-family:var(--serif);font-style:italic;font-size:14.5px;font-weight:400;color:var(--cinza-escuro)}
 .pergunta b{font-family:var(--font);font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta);margin-right:4px}
 .manchete{flex:0 0 auto;margin:0 0 8px;font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.3;color:var(--tinta);max-width:120ch}
 .manchete:empty{display:none}
 .vistas{flex:1 1 auto;min-height:0}
 .vista{display:none;height:100%}
 .vista.on{display:grid}
-.v-dupla.on{grid-template-columns:minmax(0,1fr) 400px;gap:30px}
+.v-dupla.on{grid-template-columns:minmax(0,1fr) minmax(300px,30%);gap:30px}
+/* na 02 em foco, a leitura é a mais longa da peça: ganha mais largura, e a curva cabe no resto */
+#v-sistema.on:not(.cheia){grid-template-columns:minmax(0,1fr) minmax(320px,40%)}
+#leitura-sis .bloco{padding-bottom:9px;margin-bottom:9px}
+/* a leitura mais longa: no desktop, os rótulos pequenos em 11,5px deixam o zoom descer um pouco mais sem passar dos 10px */
+@media (min-width:1181px){#leitura-sis .rotulo,#leitura-sis .tec,#leitura-sis .conf,#leitura-sis .seq small{font-size:11.5px}}
+#leitura-sis .achado{margin-bottom:8px}
+#leitura-sis .achado.tese{padding:7px 12px;margin-bottom:10px}
 .v-jornadas.on{display:block}
 .v-cheia.on{display:block}
 .cena{display:flex;flex-direction:column;align-items:stretch;justify-content:center;min-height:0;height:100%;overflow:hidden}
 .cena svg{flex:1 1 auto;min-height:0;height:100%;width:100%;display:block}
+/* os cartões dos 3Ps e as listas do ecossistema são a versão do celular: no desktop ficam os desenhos */
+.ps-cartoes,.eco-listas{display:none}
 
 /* ---- 02 · os dois olhares, lado a lado (molde do HDB): dois cartões largos e os dois desenhos; um clique põe o olhar em foco ---- */
 .v-dupla.cheia.on{grid-template-columns:minmax(0,1fr)}
 .v-dupla.cheia .leitura{display:none}
-.v-dupla.cheia #curva{display:none}
+.v-dupla.cheia #curva,.v-dupla.cheia .nota-curva{display:none}
 .v-dupla:not(.cheia) #duo{display:none}
-.tempos{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 0 8px}
+/* com os dois olhares, cartões e desenhos ficam juntos no alto; os desenhos são limitados pela largura, e a sobra fica embaixo */
+#v-sistema.cheia .cena{justify-content:flex-start}
+/* a linha dos cartões: com um olhar em foco, a volta ao lado a lado vem antes deles */
+.tempos-linha{flex:0 0 auto;display:flex;align-items:center;gap:6px 14px;padding:0 0 8px}
+.v-dupla.cheia .volta-duo{display:none}
+.tempos{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .tempos button{cursor:pointer;text-align:left;background:#fff;border:1px solid var(--filete-forte);border-left:4px solid var(--filete-forte);border-radius:9px;
   padding:5px 12px 7px;display:grid;grid-template-columns:auto 1fr;gap:0 9px;align-items:baseline}
 .tempos button b{grid-row:span 2;font-family:var(--serif);font-size:20px;font-weight:600;color:var(--cinza);line-height:1}
 .tempos button .tp-t{font-weight:700;font-size:13.5px;color:var(--tinta)}
 .tempos button small{grid-column:2;font-size:12.5px;line-height:1.3;color:var(--cinza-escuro)}
 .tempos button small b{grid-row:auto;font-family:var(--font);font-size:12.5px;font-weight:700;color:var(--tinta)}
-.tempos button[data-tempo="1"]{border-left-color:var(--risco)}
-.tempos button[data-tempo="2"]{border-left-color:var(--ouro)}
 .tempos button:hover{border-color:var(--cinza)}
 .tempos button.on{background:var(--papel-2);border-color:var(--tinta)}
-.duo{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 128px minmax(0,1fr);gap:12px}
+/* a faixa da esquerda tem sentido fixo (vermelho hoje, ouro com o Hernia3D) e vem depois do hover e do escolhido */
+.tempos button[data-tempo="1"]{border-left-color:var(--risco)}
+.tempos button[data-tempo="2"]{border-left-color:var(--ouro)}
+/* com um olhar em foco, os cartões só trocam de olhar: ficam com o número e o título, e a leitura ao lado explica */
+.v-dupla:not(.cheia) .tempos button{align-items:center;padding:5px 12px}
+.v-dupla:not(.cheia) .tempos button small{display:none}
+/* o par não estica: os dois desenhos ficam na altura que pedem, e o conjunto se centra na vertical */
+.duo{flex:0 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 128px minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:12px}
 .duo svg{width:100%;height:100%;min-height:0;display:block;cursor:pointer;border-radius:9px}
 .duo svg:hover{background:#fff}
+/* no HTML a dobradiça vem depois dos dois desenhos (a ordem da leitura e do Tab); no desktop ela fica entre eles */
+@media (min-width:1181px){#sis1{order:1} .dobradica{order:2} #sis2{order:3}}
+/* o nome de cada olhar em cima do desenho só aparece com a página empilhada, quando os cartões ficam todos no alto */
+.duo-rot{display:none;margin:4px 0 -2px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza-escuro)}
 .dobradica{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
 .dobradica p{margin:0}
-.db-rot{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta)}
+.db-rot{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta)}
 .db-lado{font-size:11.5px;line-height:1.25;color:var(--cinza-escuro)}
 .db-lado b{display:block;font-family:var(--serif);font-size:17px;font-weight:600}
-.db-hoje b{color:var(--risco)} .db-com b{color:var(--ouro)}
+.db-hoje b{color:var(--risco)} .db-com b{color:var(--ouro-texto)}
+/* o número de sessões é um botão que abre a ficha dele; a ressalva fica logo abaixo */
+.db-ver{display:block;width:100%;cursor:pointer;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:center}
+.db-ver b{text-decoration:underline dotted 1.5px;text-underline-offset:4px}
+.db-ver:hover b{text-decoration-style:solid}
+.db-lado i{display:block;margin-top:2px;font-size:11px;color:var(--cinza)}
 .db-nota{font-family:var(--serif);font-size:13px;font-style:italic;line-height:1.3;color:var(--tinta)}
+/* "o que falta provar": abre a ficha da transferência para o paciente, o tracejado do P³ */
+.db-prova{display:block;cursor:pointer;background:none;border:0;padding:0;font:inherit;font-size:12.5px;line-height:1.3;color:var(--primary);
+  text-decoration:underline dotted;text-underline-offset:3px}
+.db-prova:hover{text-decoration-style:solid}
 .dobradica .l-elo{text-align:center;font-size:13px;line-height:1.3;margin-top:6px;padding-top:8px;border-top:1px solid var(--filete)}
-.volta-duo{display:block;cursor:pointer;background:none;border:none;padding:0;margin:0 0 8px;font-family:var(--font);font-size:13px;color:var(--primary)}
+.volta-duo{flex:none;display:block;cursor:pointer;background:none;border:none;padding:0;margin:0;font-family:var(--font);font-size:13px;color:var(--primary);white-space:nowrap}
 .volta-duo:hover{text-decoration:underline}
-/* no comparativo, cada desenho fica com metade da largura: textos maiores e menos detalhe */
-.duo .p-rot{font-size:29px} .duo .p-rot-nome{font-size:18px} .duo .nada-rot{font-size:21px} .duo .zr{font-size:15px} .duo .criterio-rot{font-size:17px} .duo .eixo-rot{font-size:14px}
-/* a nota de pé fica só no foco */
-.duo .nota-svg{display:none}
+/* a nota de pé da curva em foco, em texto da página (no desenho ela ficava pequena demais) */
+.nota-curva{flex:0 0 auto;margin:6px 0 0;font-size:12px;font-style:italic;line-height:1.35;color:var(--cinza)}
 .leitura,.painel{min-height:0;height:100%;overflow:hidden}
 .leitura{border-left:1px solid var(--filete);padding-left:24px}
+/* quando nem o piso de zoom cabe, o painel rola (rede de segurança, molde do HDB) */
+.leitura.rola,.painel.rola{overflow-y:auto;overscroll-behavior:contain}
 .ajusta{transform-origin:top left}
 
 .legenda-procedencia{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;margin-top:6px;padding-top:6px;
@@ -114,7 +155,7 @@ nav.barra{position:sticky;top:0;z-index:50;height:var(--header);display:flex;ali
 .bloco:last-of-type{border-bottom:none}
 .bloco h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--tinta);line-height:1.2;margin-bottom:5px}
 .bloco p{font-size:13.5px;color:var(--cinza-escuro)}
-.rotulo{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cinza);margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.rotulo{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:7px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .achado{margin-bottom:10px}
 .achado:last-child{margin-bottom:0}
 .achado b{display:block;font-family:var(--serif);font-size:16.5px;font-weight:600;color:var(--tinta);line-height:1.25;margin-bottom:2px}
@@ -124,16 +165,16 @@ nav.barra{position:sticky;top:0;z-index:50;height:var(--header);display:flex;ali
 #leitura-eco .achado:not(.tese) b{font-size:15px}
 .ficha dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13px;margin-top:8px}
 .ficha dt{color:var(--cinza)}
-.ficha .fonte{font-size:12px;color:var(--cinza);margin-top:6px}
+.bloco .fonte{font-size:12px;color:var(--cinza);margin-top:6px}
 .risco{margin-top:8px;font-size:13px;color:var(--risco);padding-left:10px;border-left:2px solid var(--risco)}
 .dica{font-size:12px;color:var(--cinza);font-style:italic;margin-top:8px}
 
 /* procedência: provável em itálico, em aberto tracejado */
 .c-provavel{font-style:italic}
 .tag{display:inline-block;font-size:11px;font-weight:600;padding:0 8px;border-radius:999px;border:1px solid;white-space:nowrap;line-height:1.7}
-.conf{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:0 6px;border-radius:3px;line-height:1.8}
+.conf{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:0 6px;border-radius:3px;line-height:1.7}
 .conf-confirmado{color:var(--ok);border:1px solid #2E6B3E66}
-.conf-provavel{color:#8A6508;border:1px solid #B8860B66;font-style:italic}
+.conf-provavel{color:var(--ouro-texto);border:1px solid #B8860B66;font-style:italic}
 .conf-aberto{color:var(--risco);border:1px dashed var(--risco)}
 
 .lista{list-style:none}
@@ -144,26 +185,33 @@ nav.barra{position:sticky;top:0;z-index:50;height:var(--header);display:flex;ali
 .lista li b{color:var(--tinta);font-weight:600}
 .l-elo{display:block;width:100%;text-align:left;cursor:pointer;background:none;border:none;padding:4px 0 0;font-family:var(--serif);
   font-size:15px;font-style:italic;color:var(--primary)}
-.l-elo:hover{color:var(--ouro)}
+.l-elo:hover{color:var(--ouro-texto)}
 
 /* evidência: TEP × TAPP */
 .evid{list-style:none}
 .evid li{font-size:12.5px;padding:6px 0;border-top:1px solid var(--filete);color:var(--cinza-escuro)}
 .evid li:first-child{border-top:none;padding-top:0}
-.evid b{display:flex;justify-content:space-between;gap:8px;font-weight:600;color:var(--tinta);font-size:12.5px}
+/* o estudo e a técnica abrem a linha, e o achado segue na mesma linha (uma linha a menos por estudo) */
+.evid b{display:inline;font-weight:600;color:var(--tinta);font-size:12.5px}
+.evid b span:first-child{margin-right:6px}
+.evid b .tec{margin-right:6px;vertical-align:1px}
 .evid li.c-aberto b span:first-child{color:var(--risco)}
-.tec{font-size:9.5px;font-weight:700;letter-spacing:.12em;padding:0 6px;border-radius:3px;line-height:1.8}
+.tec{font-size:11px;font-weight:700;letter-spacing:.1em;padding:0 6px;border-radius:3px;line-height:1.7}
 .tec-TEP{color:var(--cinza);border:1px solid var(--filete-forte)}
 .tec-TAPP{color:var(--tinta);background:var(--ouro-claro)}
+.bloco .evid-nota{margin:0 0 6px;font-size:12px;font-style:italic;line-height:1.35;color:var(--cinza)}
 
 .sequencia{display:flex;align-items:stretch;gap:6px}
 .seq{flex:1;cursor:pointer;background:none;border:1px solid var(--filete-forte);border-radius:4px;padding:5px 7px;text-align:left}
 .seq b{display:block;font-size:12.5px;color:var(--tinta)}
-.seq small{font-size:10.5px;color:var(--cinza);line-height:1.3;display:block}
+.seq small{font-size:11px;color:var(--cinza);line-height:1.3;display:block}
 .seq.c-aberto{border-style:dashed}
 .seq.on{border-color:var(--ouro);background:var(--ouro-claro)}
 .seq-seta{align-self:center;color:var(--filete-forte)}
 .criterios{list-style:none;margin-top:8px;font-size:12.5px}
+/* a ressalva dos valores dos critérios, como a das 16 sessões, colada na lista */
+.bloco .crit-nota{margin:5px 0 0;font-size:12px;font-style:italic;line-height:1.25;color:var(--cinza)}
+.crit-nota+.criterios{margin-top:2px}
 .criterios li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-top:1px solid var(--filete)}
 .criterios li span:last-child{font-weight:600;color:var(--tinta);text-align:right}
 
@@ -172,55 +220,60 @@ svg text{font-family:var(--font)}
 .clicavel{cursor:pointer}
 
 /* ---- 02 · a curva, nos dois olhares: a mesma moldura (duas zonas, os eixos, uma linha vertical) e uma linha em três
-   trechos clicáveis, com o nome em serifa (molde: opcoes_palavra.html). --k é a cor do trecho ---- */
+   trechos clicáveis, com o nome em serifa. --k é a cor do trecho, --kt a cor do nome ---- */
 .zona-modelo{fill:var(--ouro-claro);opacity:.55}
 .zona-paciente{fill:var(--risco-claro);opacity:.55}
-.zr{font-size:11px;font-weight:700;letter-spacing:.14em}
-.zr-modelo{fill:#8A6A1C} .zr-paciente{fill:var(--risco)}
+.zr{font-size:14px;font-weight:700;letter-spacing:.14em}
+.zr-modelo{fill:var(--ouro-texto)} .zr-paciente{fill:var(--risco)}
 .eixo{stroke:var(--cinza-escuro);stroke-width:1}
-.eixo-rot{font-size:10.5px;fill:var(--cinza);font-style:italic}
+.eixo-rot{font-size:14px;fill:var(--cinza);font-style:italic}
 .criterio-l{stroke:var(--tinta);stroke-width:1.6;stroke-dasharray:5 4}
-.criterio-rot{font-size:13px;font-weight:600;fill:var(--tinta)}
-.kh{--k:var(--cinza-escuro)}
+/* o rótulo do critério tem um halo da cor do papel, para a linha tracejada não cortar as letras */
+.criterio-rot{font-size:14px;font-weight:600;fill:var(--tinta);paint-order:stroke;stroke:var(--papel);stroke-width:5px;stroke-linejoin:round}
+.kh{--k:var(--cinza-escuro);--kt:var(--cinza-escuro)}
 .p-seg .hit{fill:none;stroke:transparent;stroke-width:26;pointer-events:stroke}
 .p-seg .tr{fill:none;stroke:var(--k);stroke-width:6;stroke-linecap:round;transition:stroke-width .15s}
 .p-seg.hipotese .tr{stroke-dasharray:12 8}
 .p-seg:hover .tr,.p-seg:focus-visible .tr{stroke-width:8}
 .p-seg.on .tr{stroke-width:9}
-.p-rot{font-family:var(--serif);font-weight:600;font-size:27px;fill:var(--k)}
+.p-rot{font-family:var(--serif);font-weight:600;font-size:27px;fill:var(--kt)}
 .p-rot-nome{font-size:17px}
 .p-seg.on .p-rot{text-decoration:underline}
 /* hoje, no modelo: nada (plana, cinza, tracejada) */
 .t-nada{fill:none;stroke:var(--filete-forte);stroke-width:3;stroke-dasharray:7 6}
 .nada-rot{font-family:var(--serif);font-style:italic;font-size:17px;fill:var(--cinza)}
-.nota-svg{font-size:10px;fill:var(--cinza);font-style:italic}
+/* no comparativo, cada desenho fica com metade da largura: textos maiores, e a unidade das zonas sai (a dobradiça diz) */
+@media (min-width:1181px){
+  .duo .p-rot{font-size:29px} .duo .p-rot-nome{font-size:19px} .duo .nada-rot{font-size:21px}
+  .duo .zr{font-size:19px} .duo .criterio-rot{font-size:19px} .duo .eixo-rot{font-size:19px}
+  .duo .zr-un{display:none}
+}
 
 /* ---- os 3Ps: a abertura e os selos nas camadas ---- */
-.k0{--k:var(--ouro);--kf:var(--ouro-claro)} .k1{--k:var(--tinta);--kf:var(--tinta-clara)} .k2{--k:var(--risco);--kf:var(--risco-claro)}
+.k0{--k:var(--ouro);--kf:var(--ouro-claro);--kt:var(--ouro-texto)} .k1{--k:var(--tinta);--kf:var(--tinta-clara);--kt:var(--tinta)} .k2{--k:var(--risco);--kf:var(--risco-claro);--kt:var(--risco)}
 #ps .chao{stroke:var(--cinza-escuro);stroke-width:1.4}
 #ps .dg rect{fill:var(--kf);stroke:var(--k);stroke-width:1.6;transition:fill .2s}
 #ps .dg:hover rect,#ps .dg:focus-visible rect{fill:#fff}
-#ps .dg:focus{outline:none}
-#ps .dg-sig{font-family:var(--serif);font-size:34px;font-weight:600;fill:var(--k)}
+#ps .dg-sig{font-family:var(--serif);font-size:34px;font-weight:600;fill:var(--kt)}
 #ps .dg-nome{font-family:var(--serif);font-size:21px;font-weight:600;fill:var(--tinta)}
 #ps .dg-frase{font-size:13px;font-style:italic;fill:var(--cinza-escuro)}
 #ps .porta{fill:var(--papel);stroke:var(--tinta);stroke-width:2.4}
 #ps .porta-diamante{fill:var(--ouro)}
-#ps .lado-rot{font-size:11px;font-weight:700;letter-spacing:.18em;fill:var(--cinza)}
+#ps .lado-rot{font-size:12.5px;font-weight:700;letter-spacing:.14em;fill:var(--cinza)}
 #ps .lado-rot.pac{fill:var(--risco)} #ps .lado-rot.porta-rot{fill:var(--tinta)}
-#ps .dg-dica{font-size:11.5px;fill:var(--cinza);font-style:italic}
+#ps .dg-dica{font-size:12.5px;fill:var(--cinza);font-style:italic}
 .w5h{margin:0;padding:0}
 .w5{display:grid;grid-template-columns:82px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--filete)}
 .w5:last-child{border-bottom:none}
-.w5 dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta);padding-top:2px}
+.w5 dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta);padding-top:2px}
 .w5 dd{margin:0;font-size:13px;line-height:1.4;color:var(--cinza-escuro)}
 .w5-p{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .w5-p button{cursor:pointer;font:inherit;display:inline-flex;align-items:baseline;gap:5px;border:1px solid var(--k);background:var(--kf);border-radius:999px;
   padding:1px 11px;font-size:12.5px;color:var(--tinta)}
-.w5-p button b{font-family:var(--serif);font-weight:600;color:var(--k)}
+.w5-p button b{font-family:var(--serif);font-weight:600;color:var(--kt)}
 .w5-p button:hover{background:#fff}
-.selo-p{display:inline-block;font-family:var(--serif);font-weight:600;font-size:12px;line-height:1.5;padding:0 6px;border-radius:4px;color:var(--k);background:var(--kf);border:1px solid var(--k)}
-.bp-p{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-align:center;color:var(--k);background:var(--kf);border-top:2px solid var(--k);padding:2px 0;margin:0 1px 2px}
+.selo-p{display:inline-block;font-family:var(--serif);font-weight:600;font-size:12px;line-height:1.5;padding:0 6px;border-radius:4px;color:var(--kt);background:var(--kf);border:1px solid var(--k)}
+.bp-p{font-size:11px;font-weight:700;letter-spacing:.08em;text-align:center;color:var(--kt);background:var(--kf);border-top:2px solid var(--k);padding:2px 0;margin:0 1px 2px}
 .bp-p.vazio{background:none;border-top:none}
 .p-nota{font-size:12.5px;color:var(--cinza-escuro);background:var(--tinta-clara);padding:8px 10px;border-radius:6px}
 .p-est{display:flex;flex-wrap:wrap;gap:4px}
@@ -228,16 +281,18 @@ svg text{font-family:var(--font)}
 .p-est button:hover{border-color:var(--tinta)}
 .p-volta{background:none;border:none;font:inherit;font-size:12.5px;color:var(--primary);cursor:pointer;padding:0;margin-bottom:6px}
 .leg-l{stroke-width:2.6;fill:none}
+/* o bloco dos 3Ps na leitura da 02 só aparece quando a página empilha: no desktop, os trechos da curva são esses botões */
+@media (min-width:1181px){.so-empilhado{display:none}}
 
 /* ---- 2 · ecossistema, no molde do HDB: três colunas, o curso como centro, as linhas fracas e só as que cruzam a borda ---- */
-.col-rot{font-size:11px;font-weight:700;letter-spacing:.2em;fill:var(--tinta)}
-.col-sub{font-size:11.5px;fill:var(--cinza);font-style:italic}
+.col-rot{font-size:12.5px;font-weight:700;letter-spacing:.2em;fill:var(--tinta)}
+.col-sub{font-size:12.5px;fill:var(--cinza);font-style:italic}
 .ator rect{fill:#fff;stroke:var(--tinta);stroke-width:1.2;transition:fill .2s,stroke .2s}
 .ator.c-aberto rect{stroke-dasharray:5 4}
 .ator.projeto rect{fill:var(--tinta)}
 .ator.projeto text{fill:#fff!important}
 .ator text.nome{font-size:13px;font-weight:700;fill:var(--tinta);letter-spacing:.04em}
-.ator text.papel{font-size:11.5px;fill:var(--cinza)}
+.ator text.papel{font-size:12.5px;fill:var(--cinza)}
 .ator.c-provavel text.papel{font-style:italic}
 .ator.c-aberto text.papel{fill:var(--risco)}
 .ator:hover rect{stroke:var(--ouro);stroke-width:2}
@@ -247,20 +302,23 @@ svg text{font-family:var(--font)}
 .seta{fill:none;stroke-width:2;opacity:.4;transition:opacity .2s}
 .seta.t-confirmar{stroke-dasharray:7 5}
 .seta.t-beneficio{stroke-dasharray:1.5 5;stroke-linecap:round;stroke-width:2.6}
+/* cessão de infraestrutura: linha cheia, fina e neutra (a cor vem do enquadramento) */
+.seta.t-cessao{stroke-width:1.5}
 .seta.interna{opacity:0}
 .seta.on{opacity:1;stroke-width:3}
+.seta.t-cessao.on{stroke-width:2.2}
 .seta.apaga{opacity:.08}
 .disco{display:none;pointer-events:none}
 .disco.on{display:inline}
-.disco text{font-size:11px;font-weight:700;fill:#fff;text-anchor:middle}
-.eco-legenda{font-size:11px;fill:var(--cinza);font-style:italic}
+.disco text{font-size:12.5px;font-weight:700;fill:#fff;text-anchor:middle}
+.eco-legenda{font-size:12.5px;fill:var(--cinza);font-style:italic}
 .solta{float:right;background:none;border:1px solid var(--filete-forte);border-radius:999px;width:24px;height:24px;line-height:20px;text-align:center;cursor:pointer;color:var(--cinza-escuro)}
 .solta:hover{border-color:var(--tinta);color:var(--tinta)}
 .rel{list-style:none;counter-reset:none}
 .rel li{display:grid;grid-template-columns:26px 1fr;gap:0 8px;padding:6px 0;border-top:1px solid var(--filete);font-size:13px;color:var(--cinza-escuro)}
 .rel li:first-child{border-top:none}
 .rel .n{width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
-.rel .sentido{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-right:6px}
+.rel .sentido{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-right:6px}
 .rel b{color:var(--tinta);font-weight:600}
 .rel .tag{margin-left:4px}
 
@@ -272,13 +330,18 @@ svg text{font-family:var(--font)}
 .pf-cartao:hover{border-color:var(--filete-forte)}
 .pf-cartao.on{box-shadow:0 0 0 2px var(--ouro)}
 .pf-cartao h3{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--tinta);line-height:1.2;font-style:normal}
+/* o título é o botão do cartão: o teclado chega nele, e o leitor de tela ouve o título como título */
+.pf-tit{display:block;width:100%;cursor:pointer;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left}
+/* as ofertas curtas, só do P¹, dividem uma coluna, uma em cima da outra */
+.pf-pilha{display:flex;flex-direction:column;gap:16px;min-width:0}
+.pf-pilha>.pf-cartao{flex:1 1 auto}
 .pf-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .pf-paga{font-size:11px;font-weight:600;color:var(--cinza-escuro);border:1px solid var(--filete-forte);border-radius:999px;padding:0 9px;line-height:1.7}
 .pf-desc{font-size:14px;line-height:1.4;color:var(--cinza-escuro)}
-.pf-c{margin-top:6px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--k)}
+.pf-c{margin-top:6px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--kt)}
 .pf-porta{margin-top:8px;display:flex;align-items:baseline;gap:8px;font-family:var(--serif);font-size:16px;font-weight:600;color:var(--tinta)}
 .pf-porta .n{font-size:20px;color:var(--cinza)}
-.pf-porta .conf{margin-left:auto}
+.pf-porta .conf{margin-left:auto;font-family:var(--font)}
 .pf-cartao .itens{font-size:14.5px}
 .pf-cartao .itens li{border-top:none;padding:3px 0 3px 18px}
 .pf-cartao .itens li::before{top:9px}
@@ -296,32 +359,32 @@ svg text{font-family:var(--font)}
 /* ---- 4 · jornadas: o blueprint ---- */
 .bp{display:grid;grid-template-columns:100px repeat(7,minmax(0,1fr));font-size:11.5px;color:var(--cinza-escuro)}
 .bp>div{padding:6px 7px;border-bottom:1px solid var(--filete);line-height:1.35}
-.bp .bp-zona{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--cinza);text-align:center;border-bottom:2px solid var(--ouro);padding:0 0 4px}
+.bp .bp-zona{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--cinza);text-align:center;border-bottom:2px solid var(--ouro);padding:0 0 4px}
 .bp .bp-zona.pac{color:var(--risco);border-bottom-color:var(--risco)}
 .bp .bp-zona.vazio{border-bottom:none}
-.bp-lin{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza)}
+.bp-lin{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza)}
 .bp-cab{text-align:center}
-.bp-cab small{display:block;font-size:9.5px;color:var(--cinza)}
+.bp-cab small{display:block;font-size:11px;color:var(--cinza)}
 .bp-cab b{display:block;font-family:var(--serif);font-size:14px;font-weight:600;color:var(--tinta);line-height:1.2}
 .bp .g{background:var(--ouro-claro)}
-.bp .g b{color:var(--ouro)}
+.bp .g b{color:var(--ouro-texto)}
 .bp .pac{background:#B3261E0D}
 .bp-palco{color:var(--texto);font-weight:500}
 .bp-palco.inf{font-style:italic;font-weight:400}
 .bp .bp-vis{grid-column:1/-1;padding:2px 0;border-bottom:1.5px dashed var(--tinta);position:relative;height:10px}
-.bp-vis span{position:absolute;right:0;top:-2px;background:var(--papel);padding-left:8px;font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--tinta)}
-.bp-g{text-align:center;font-style:italic;color:var(--ouro);background:var(--ouro-claro)}
+.bp-vis span{position:absolute;right:0;top:-3px;background:var(--papel);padding-left:8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--tinta)}
+.bp-g{text-align:center;font-style:italic;color:var(--ouro-texto);background:var(--ouro-claro)}
 .bp-risco{color:var(--risco)}
 .bp-risco.vazio{color:var(--filete-forte)}
 .chips{display:flex;flex-wrap:wrap;gap:3px;align-items:flex-start;align-content:flex-start}
-.chips .tag{font-size:10px;padding:0 6px}
+.chips .tag{font-size:11px;padding:0 6px}
 
 /* ---- 04 · jornadas: a legenda de leitura e o elo, no pé do blueprint ---- */
 .bp-pe{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:12px;font-style:italic;color:var(--cinza)}
 .bp-pe .l-elo{display:inline;width:auto;padding:0;margin-left:auto;white-space:nowrap}
 
 /* ---- 05 · direção: a conclusão, as três definições e o modelo de negócio (02/11/2026; molde: o HDB e a Longevidade) ----
-   À esquerda, pouco e grande: a conclusão em serifa, as três definições numeradas, uma linha da lei do mínimo, o quadro.
+   À esquerda, pouco e grande: a conclusão em serifa, as três definições numeradas, uma linha sobre o que trava primeiro, o quadro.
    À direita, um cartão com ar: o pedido à instituição na cor do bloco, o que temos e o que falta definir, o que já sabemos e o que falta. */
 .v-direcao.on{display:block}
 .bmc-dir{display:grid;grid-template-columns:440px minmax(0,1fr);gap:26px;align-items:stretch}
@@ -336,19 +399,19 @@ svg text{font-family:var(--font)}
 .dc-resp:hover span,.dc-resp.on span{color:var(--primary)}
 .dc-resp.on span{text-decoration:underline;text-decoration-color:var(--ouro);text-underline-offset:3px}
 .dc-tres li.minimo .dc-resp span{color:var(--risco)}
-.dc-min{display:inline-block;margin-left:6px;font-family:var(--font);font-style:normal;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--risco);border:1px dashed var(--risco);border-radius:3px;padding:0 6px;line-height:1.8;vertical-align:2px;white-space:nowrap}
+.dc-min{display:inline-block;margin-left:6px;font-family:var(--font);font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--risco);border:1px dashed var(--risco);border-radius:3px;padding:0 6px;line-height:1.7;vertical-align:1px;white-space:nowrap}
 .dc-limite{margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--filete);font-size:13.5px;line-height:1.45;color:var(--cinza-escuro)}
 .dc-limite b{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cinza);margin-bottom:2px}
 .pc-resp{font-weight:700;color:var(--tinta);letter-spacing:.08em}
-.bmc{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:70px 70px 46px;gap:5px}
-.bmc-b{min-width:0;overflow:hidden;display:flex;align-items:flex-start;text-align:left;cursor:pointer;padding:6px 7px;border-radius:6px;
+.bmc{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:70px 70px 50px;gap:5px}
+/* o recuo lateral pequeno deixa caber "Segmentos" e "Atividades-" na caixa de duas colunas sem encostar na borda */
+.bmc-b{min-width:0;overflow:hidden;display:flex;align-items:flex-start;text-align:left;cursor:pointer;padding:6px 4px 6px 5px;border-radius:6px;
   background:color-mix(in srgb,var(--pv) 14%,#fff);border:1px solid var(--filete);border-top:3px solid var(--pv);color:var(--tinta);transition:background .15s,border-color .15s}
 .bmc-b:hover{border-color:var(--filete-forte);border-top-color:var(--pv);background:color-mix(in srgb,var(--pv) 22%,#fff)}
 .bmc-b.on{background:color-mix(in srgb,var(--pv) 34%,#fff);border-color:var(--tinta);border-top-color:var(--tinta);box-shadow:0 0 0 2px rgba(12,50,90,.14)}
-.bmc-b:focus-visible,.dc-resp:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
 .bmc-tit{font-size:13.5px;font-weight:600;line-height:1.2;min-width:0}
-.bmc-tit i{display:flex;align-items:center;justify-content:center;width:16px;height:16px;margin:0 0 4px;border-radius:50%;
-  background:var(--tinta);color:var(--papel);font-style:normal;font-size:9.5px;font-weight:700}
+.bmc-tit i{display:flex;align-items:center;justify-content:center;width:18px;height:18px;margin:0 0 4px;border-radius:50%;
+  background:var(--tinta);color:var(--papel);font-style:normal;font-size:11px;font-weight:700}
 .pv-cards{display:grid}
 .pv-cards>.pv-card{grid-area:1/1;visibility:hidden}
 .pv-cards>.pv-card.on{visibility:visible}
@@ -370,9 +433,12 @@ svg text{font-family:var(--font)}
 .pc-ul li{position:relative;padding-left:15px;font-size:14px;line-height:1.4;color:var(--cinza-escuro)}
 .pc-ul li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--pv)}
 .pc-ul li b{display:block;font-weight:600;color:var(--tinta)}
+.pc-ul li .pc-sabe{display:block;margin-top:1px;font-size:13px;line-height:1.4}
 .pc-ul li small{display:block;margin-top:2px;font-size:12.5px;color:var(--cinza)}
 .pc-ul li small em{color:var(--risco)}
-.pc-ul li.pc-ouvir::before{background:none;border:1px dashed var(--risco)}
+/* quem ainda não ouvimos, numa linha logo abaixo de quem pode comprar */
+.pc-pontos .pc-ouvir{margin-top:6px;font-size:13px;line-height:1.4;color:var(--cinza-escuro)}
+.pc-pontos .pc-ouvir b{font-weight:600;color:var(--risco)}
 .pc-ul li.pc-vazio{font-style:italic;color:var(--cinza)}
 .pc-ul li.pc-vazio::before{background:var(--filete)}
 .pc-ver{font-size:12.5px;padding-top:1px}
@@ -384,26 +450,159 @@ svg text{font-family:var(--font)}
 .pc-pontos.aberto li i{background:none;border:1.5px dashed var(--risco)}
 .pc-pontos li b{color:var(--tinta);font-weight:600}
 
+/* ---- versão do celular, peças próprias (só aparecem até 767px) ---- */
+/* 00 · os 3Ps em três cartões, com o critério de maestria entre o P² e o P³ */
+.ps-cartoes{flex-direction:column;gap:8px}
+.ps-cartao{display:flex;flex-direction:column;gap:2px;width:100%;min-height:44px;text-align:left;cursor:pointer;background:var(--kf);
+  border:1px solid var(--k);border-left:5px solid var(--k);border-radius:8px;padding:10px 14px 11px}
+.ps-cartao:hover{background:#fff}
+/* o cinza mais escuro: no fundo azul-claro do P², o cinza comum ficava abaixo de 4,5:1 */
+.ps-lado{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-escuro)}
+.ps-cartao.k2 .ps-lado{color:var(--risco)}
+.ps-nome{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.2;color:var(--tinta)}
+.ps-nome b{font-weight:600;color:var(--kt);margin-right:6px}
+.ps-frase{font-size:14px;font-style:italic;line-height:1.35;color:var(--cinza-escuro)}
+.ps-criterio{display:flex;align-items:center;gap:10px;margin:2px 0;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta)}
+.ps-criterio::before,.ps-criterio::after{content:"";flex:1 1 auto;border-top:2px dashed var(--tinta)}
+.ps-criterio i{flex:none;width:11px;height:11px;background:var(--ouro);transform:rotate(45deg)}
+.ps-dica{font-size:12px;font-style:italic;color:var(--cinza)}
+/* 01 · as três colunas do ecossistema viram três listas, de cima para baixo; o toque num ator abre a leitura dele */
+.eco-col{margin:0}
+.eco-col+.eco-col{margin-top:4px}
+.eco-col-rot{font-family:var(--font);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta)}
+.eco-col-sub{font-size:13px;font-style:italic;color:var(--cinza);margin:0 0 6px}
+.eco-col ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.eco-ator{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;min-height:44px;text-align:left;cursor:pointer;background:#fff;
+  border:1px solid var(--tinta);border-radius:6px;padding:7px 12px 8px}
+.eco-ator b{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--tinta)}
+.eco-ator span{font-size:13px;color:var(--cinza)}
+.eco-ator.c-aberto{border-style:dashed}
+.eco-ator.c-aberto span{color:var(--risco)}
+.eco-ator.c-provavel span{font-style:italic}
+.eco-ator.projeto{background:var(--tinta)}
+.eco-ator.projeto b,.eco-ator.projeto span{color:#fff}
+.eco-ator.par{border-color:var(--ouro);box-shadow:0 0 0 1.5px var(--ouro)}
+.eco-ator.on{background:var(--tinta);border-color:var(--tinta)}
+.eco-ator.on b,.eco-ator.on span{color:#fff}
+.eco-seta{text-align:center;font-size:18px;line-height:1;color:var(--filete-forte);margin:6px 0 2px}
+
+/* "clique" e "toque": a palavra certa para cada tela (a do toque só no celular) */
+.so-toque{display:none}
+
 /* ---- telas estreitas: empilha e rola ---- */
-@media (max-width:1020px){
+@media (max-width:1180px){
+  /* a página cresce com o conteúdo: com o body da altura da tela, a barra parada se soltava depois de uma tela de rolagem */
+  html,body{height:auto}
   body{overflow:auto}
-  nav.barra{position:static;height:auto;padding:10px 16px;flex-wrap:wrap;gap:8px 14px}
-  .nav-links{flex:1 1 100%;order:3;justify-content:flex-start;overflow-x:auto}
-  .nav-irma span:last-child{display:none}
+  nav.barra{position:sticky;height:auto;padding:8px 16px;flex-wrap:wrap;gap:6px 14px}
+  .nav-links{flex:1 1 100%;order:3}
+  .nav-irma{margin-left:auto}
   .palco{padding:12px 16px}
   .vista.on{display:block;height:auto}
   .cena{height:auto}
-  .cena svg{height:auto}
+  .cena svg,.duo svg{height:auto;max-width:880px;margin:0 auto}
   .tempos,.duo{grid-template-columns:minmax(0,1fr)}
+  .duo{grid-template-rows:none}
+  .tempos-linha{flex-wrap:wrap}
+  .tempos{flex-basis:100%}
+  /* na 02 empilhada, a página segue a ordem do HTML, que é a do Tab: os dois cartões, os dois desenhos, cada um com o
+     nome do olhar em cima, e a dobradiça, que fecha a comparação. As setas da dobradiça apontavam para os lados e saem */
+  .v-dupla.cheia .cena{gap:10px}
+  .duo-rot{display:block}
+  .db-seta{display:none}
   .dobradica{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:4px 14px}
   .leitura{border-left:none;padding-left:0;border-top:1px solid var(--filete);padding-top:14px;margin-top:14px}
   .leitura,.painel{height:auto;overflow:visible}
   .painel{overflow-x:auto}
   .pf-grade{grid-template-columns:minmax(0,1fr)}
-  .bmc-dir,.pc-dupla,.pc-listas{grid-template-columns:minmax(0,1fr)}
+  /* a Direção empilhada: a grade do quadro, logo abaixo o cartão do bloco escolhido (só ele), e o elo no fim. Tudo na
+     ordem do HTML (a do Tab): os blocos já vêm na ordem da cadeia, e o elo desta tela é o que vem depois do cartão */
+  .bmc-dir{display:flex;flex-direction:column;gap:12px}
+  .bmc-col{display:contents}
+  .pv-cards>.pv-card{display:none}
+  .pv-cards>.pv-card.on{display:flex}
+  .pc-dupla,.pc-listas{grid-template-columns:minmax(0,1fr)}
   .bmc{grid-template-columns:1fr 1fr;grid-template-rows:none}
   .bmc-b{grid-area:auto!important;min-height:44px}
   .pv-card{padding:14px 16px 16px}
+  /* o blueprint rola de lado, com a primeira coluna (os nomes das linhas) parada */
   .bp{min-width:820px}
+  .bp .bp-lin,.bp .bp-zona.vazio{position:sticky;left:0;z-index:1;background:var(--papel);box-shadow:1px 0 0 var(--filete)}
+  .bp .bp-vis{height:auto;padding:2px 0 1px}
+  .bp .bp-vis span{position:sticky;left:0;right:auto;top:auto;z-index:2;display:inline-block;padding:0 8px 0 0}
   .lp-fonte{margin-left:0}
+  /* alvos de toque de 36px, inclusive as abas (os tablets ficam nesta faixa) */
+  .l-elo,.volta-duo,.p-volta,.pc-ver,.p-est button,.w5-p button,.dc-resp,.db-ver,.db-prova,.f-camada{min-height:36px}
+  .l-elo,.volta-duo,.p-volta{display:flex;align-items:center}
+  .pf-rodape .l-elo,.bp-pe .l-elo{display:inline-flex}
+  .p-est button,.w5-p button,.f-camada{display:inline-flex;align-items:center}
+  .dc-resp{align-items:center}
+  .db-ver{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .db-prova{display:inline-flex;align-items:center}
+  .pf-tit{min-height:36px;display:flex;align-items:center}
+  .solta{width:36px;height:36px;line-height:32px}
+  /* o elo que mora na coluna do quadro é o do desktop */
+  .so-desktop{display:none}
+}
+/* empilhada e baixa (o celular deitado): a barra não fica parada, para sobrar tela */
+@media (max-width:1180px) and (max-height:500px){nav.barra{position:static}}
+
+/* ---- celular (até 767px, o mesmo corte do script.js): versão própria. Acima disso, os desenhos largos já ficam com o
+   menor texto em 10px ou mais ---- */
+@media (max-width:767px){
+  nav.barra{padding:8px 16px;gap:8px 10px}
+  .brand{gap:8px}
+  .brand-mark{width:32px;height:32px}
+  .wm-nome{font-size:17px}
+  .wm-marca{display:none}
+  .wm-nome small{font-size:12px;letter-spacing:.06em}
+  /* as seis abas em duas linhas de três, com pílulas de 36px */
+  .nav-links,.nav-links.duas{display:grid;grid-template-columns:repeat(3,auto);justify-content:stretch;gap:4px}
+  .f-camada{display:flex;align-items:center;justify-content:center;min-height:36px;padding:0 6px;font-size:12px;letter-spacing:.06em}
+  /* a peça irmã: uma palavra visível no lugar da segunda marca H³D, para dizer para onde o link leva */
+  .nav-irma{min-height:36px;justify-content:center;padding:4px 12px;font-size:13px}
+  .nav-irma .irma-mark,.nav-irma .irma-do{display:none}
+  .nav-irma>span:last-child{font-weight:600;color:var(--tinta)}
+  .pergunta{font-size:15px}
+  .pergunta b{font-size:12px}
+  .manchete{font-size:18px}
+  /* nada abaixo de 12px */
+  .legenda-procedencia,.rotulo,.tag,.conf,.tec,.seq small,.rel .n,.rel .sentido,.pf-paga,.pf-c,.w5 dt,.bp-p,.bp .bp-zona,.bp-lin,.bp-cab small,
+  .bp-vis span,.chips .tag,.dc-resp i,.dc-min,.dc-limite b,.bmc-tit i,.pc-eyebrow,.pc-rot,.pc-rot span,.db-rot,.db-lado,.db-lado i,
+  .lista li,.evid li,.evid b,.criterios,.p-est button,.w5-p button,.pc-ver,.pc-ul li small,.bloco .fonte,.dica,.bloco .evid-nota,.nota-curva,
+  .tempos button small,.tempos button small b,.bp-pe,.pf-rodape,.duo-rot{font-size:12px}
+  .bp{font-size:12px;min-width:940px;grid-template-columns:112px repeat(7,minmax(0,1fr))}
+  .bmc-tit i,.dc-resp i{width:20px;height:20px}
+  .dc-resp{grid-template-columns:20px 1fr}
+  /* 00: os cartões no lugar dos degraus */
+  #ps{display:none}
+  .ps-cartoes{display:flex}
+  /* 01: as listas no lugar do desenho; a leitura não fala mais "do desenho" */
+  #eco{display:none}
+  .eco-listas{display:block}
+  .so-desenho,.so-clique{display:none}
+  .so-toque{display:inline}
+  /* 02: os rótulos da curva crescem (o desenho tem um terço da largura); os nomes ao lado do P e a unidade das zonas saem */
+  .p-rot,.duo .p-rot{font-size:36px}
+  .p-rot-nome,.zr-un{display:none}
+  .zr,.duo .zr{font-size:34px;letter-spacing:.04em}
+  .criterio-rot,.duo .criterio-rot,.eixo-rot,.duo .eixo-rot,.nada-rot,.duo .nada-rot{font-size:34px}
+  .criterio-rot{stroke-width:8px}
+  .p-seg .hit{stroke-width:90}
+  .duo svg:hover{background:none}
+  .w5{grid-template-columns:76px 1fr}
+}
+/* até 389px, o subtítulo da marca sai, para a marca e "Plataforma" caberem numa linha só e a barra parada não passar de um sexto da tela */
+@media (max-width:389px){
+  .wm-nome small{display:none}
+}
+/* telas muito estreitas (abaixo de 360px): o número da aba sobe para cima do nome, para as três colunas caberem sem
+   rolagem lateral, e os rótulos da curva crescem um pouco, para não descer de 12px (o do critério, no alto do
+   desenho, fica como está: maior, ele sairia pela borda de cima) */
+@media (max-width:359px){
+  .nav-links,.nav-links.duas{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .f-camada{flex-direction:column;justify-content:center;gap:0;padding:2px 3px;letter-spacing:0;line-height:1.15}
+  .f-camada small{margin-right:0}
+  .p-rot,.duo .p-rot{font-size:40px}
+  .zr,.duo .zr,.eixo-rot,.duo .eixo-rot,.nada-rot,.duo .nada-rot{font-size:38px}
 }

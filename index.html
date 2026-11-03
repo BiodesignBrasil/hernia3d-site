@@ -3,24 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hernia 3D Model — Curso TAPP</title>
-<meta name="description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal laparoscópica num simulador impresso em 3D. Kit, pré-módulos, prática autoguiada, live e presencial com o preceptor.">
-<meta name="publicacao" content="7|2026-11-02">
+<title>Plataforma do residente · Hernia3D</title>
+<meta name="description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D. Teoria, prática autoguiada, live e encontro presencial com o preceptor.">
+<meta name="publicacao" content="8|2026-11-03">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hernia 3D Model · Curso TAPP">
-<meta property="og:description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal laparoscópica num simulador impresso em 3D.">
+<meta property="og:title" content="Plataforma do residente · Hernia3D">
+<meta property="og:description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D.">
 <meta property="og:image" content="https://biodesignbrasil.github.io/hernia3d-site/sistematica/img/og_plataforma.png">
 <meta property="og:url" content="https://biodesignbrasil.github.io/hernia3d-site/">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23B8860B'/%3E%3Ctext x='16' y='21.5' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='13' fill='%230C325A'%3EH%C2%B3D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --primary: #14477A;
     --primary-light: #1D5A96;
     --primary-dark: #0C325A;
     --accent: #B8860B;
+    --ouro-texto: #8A6508;
     --accent-light: #FBF3E1;
     --success: #2E6B3E;
     --success-light: #EAF3EB;
@@ -41,11 +43,13 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font); background: var(--neutral-100); color: var(--neutral-900); min-height: 100vh; line-height: 1.5; }
+  /* o foco do teclado: contorno em ouro, fora do elemento; nenhum pai com overflow o recorta */
+  :focus-visible { outline: 2px solid var(--ouro-texto); outline-offset: 2px; }
 
   /* ---- uma barra só, como na Sistemática e nas peças irmãs: a marca, as abas em pílula, a peça irmã e o idioma ---- */
   header.barra {
     background: #FAF8F3; color: var(--primary-dark); padding: 0 20px;
-    display: flex; align-items: center; height: 58px; gap: 14px;
+    display: flex; align-items: center; min-height: 58px; gap: 14px;
     position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #BDB5A3;
   }
   .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; min-width: 0; }
@@ -56,82 +60,100 @@
   }
   header .title-block { min-width: 0; }
   header h1 { font-family: var(--font-serif); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
-  header .subtitle { font-size: 9.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600); margin-top: 3px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 330px; }
-  header nav { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; justify-content: safe center; gap: 2px; overflow-x: auto; scrollbar-width: none; }
-  header nav::-webkit-scrollbar { display: none; }
-  header nav button { cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600);
-    background: transparent; border: 1px solid transparent; border-radius: 999px; padding: 6px 11px; white-space: nowrap;
-    transition: color .15s, background .15s, border-color .15s; }
+  /* a linha do preceptor, legível em todas as larguras */
+  header .subtitle { font-size: 11.5px; font-weight: 500; color: var(--neutral-700); margin-top: 3px; line-height: 1.25; white-space: nowrap; }
+  header nav { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: safe center; gap: 2px; }
+  header nav button { cursor: pointer; font-family: inherit; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600);
+    background: transparent; border: 1px solid transparent; border-radius: 999px; padding: 6px 11px; min-height: 36px; white-space: nowrap;
+    display: inline-flex; align-items: center; justify-content: center; transition: color .15s, background .15s, border-color .15s; }
   header nav button:hover { color: var(--primary-dark); border-color: #BDB5A3; }
   header nav button.active { background: var(--primary-dark); border-color: var(--primary-dark); color: #fff; }
   header nav button.active .nav-p { color: #E8C66A; }
-  .lang-switch { display: flex; border: 1px solid #BDB5A3; border-radius: 999px; overflow: hidden; flex-shrink: 0; }
-  .lang-switch button { background: transparent; border: none; color: var(--neutral-600); font-size: 11.5px; font-weight: 600; padding: 5px 11px; cursor: pointer; }
+  .lang-switch { display: flex; border: 1px solid #BDB5A3; border-radius: 999px; flex-shrink: 0; }
+  .lang-switch button { background: transparent; border: none; border-radius: 999px; color: var(--neutral-600); font-family: inherit; font-size: 11.5px; font-weight: 600;
+    min-height: 36px; min-width: 36px; padding: 0 11px; cursor: pointer; }
   .lang-switch button.active { background: var(--primary-dark); color: #fff; }
-  /* atalho para a peça irmã (Sistemática Hernia3D, 08_sintese) — mesmo gesto do par site ↔ peça no Longevidade */
-  .nav-irma { display: inline-flex; align-items: center; gap: 8px; padding: 4px 13px 4px 5px; border: 1px solid #BDB5A3; border-radius: 999px;
+  /* atalho para a peça irmã (a Sistemática): a mesma marca H³D de lá */
+  .nav-irma { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 5px 13px 5px 5px; border: 1px solid #BDB5A3; border-radius: 999px;
     background: rgba(255,255,255,.6); color: var(--neutral-700); text-decoration: none; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
   .nav-irma b { color: var(--primary-dark); font-weight: 600; }
   .nav-irma:hover { background: #fff; border-color: var(--primary-dark); }
-  .nav-irma .irma-mark { width: 22px; height: 22px; border-radius: 5px; background: var(--accent); color: var(--primary-dark);
-    font-family: var(--font-serif); font-weight: 700; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-  @media (max-width: 1440px) { header .subtitle { display: none; } header nav button { letter-spacing: .07em; padding: 6px 9px; } }
-  @media (max-width: 1100px) {
-    header.barra { height: auto; flex-wrap: wrap; padding: 8px 14px; gap: 6px 12px; }
+  .nav-irma .irma-mark { width: 24px; height: 24px; border-radius: 5px; background: var(--accent); color: var(--primary-dark);
+    font-family: var(--font-serif); font-weight: 700; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+  @media (max-width: 1440px) { header nav button { letter-spacing: .07em; padding: 6px 9px; } }
+  /* até 1260px o menu desce para uma linha própria: nenhuma aba fica escondida */
+  @media (max-width: 1260px) {
+    header.barra { flex-wrap: wrap; padding: 8px 16px; gap: 6px 12px; }
     header nav { flex: 1 1 100%; order: 3; justify-content: flex-start; }
+    .nav-irma { margin-left: auto; }
   }
-  @media (max-width: 760px) { .nav-irma span:last-child { display: none; } }
+  /* a peça irmã no celular: uma palavra visível no lugar da segunda marca H³D, para dizer para onde o link leva */
+  @media (max-width: 760px) {
+    .nav-irma { padding: 4px 11px; justify-content: center; }
+    .nav-irma .irma-mark, .nav-irma .irma-resto { display: none; }
+    .nav-irma > span:last-child { font-weight: 600; color: var(--primary-dark); }
+  }
+  /* celular (e um pouco acima, onde as seis abas já não cabem numa linha): o menu em duas linhas de três */
+  @media (max-width: 700px) {
+    header nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+    header nav button { white-space: normal; text-align: center; line-height: 1.15; padding: 4px 6px; font-size: 11px; letter-spacing: .04em; }
+  }
+  @media (max-width: 640px) {
+    header.barra { padding: 8px 12px; gap: 6px 8px; }
+    /* a marca ocupa o que sobra na primeira linha e quebra o texto se faltar espaço; a irmã e o idioma ficam nela */
+    .brand { gap: 8px; flex: 1 1 0; }
+    header h1 { font-size: 15px; }
+    header .subtitle { font-size: 12px; white-space: normal; }
+    header .subtitle .sub-marca { display: none; }
+    .lang-switch button { padding: 0 9px; }
+  }
 
   .container { max-width: 980px; margin: 0 auto; padding: 32px 20px 60px; }
+  @media (max-width: 640px) { .container { padding: 24px 16px 48px; } }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
   .card { background: white; border: 1px solid var(--neutral-200); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-bottom: 18px; }
 
   .hero { padding: 4px 0 28px; border-bottom: 1px solid var(--neutral-200); margin-bottom: 28px; }
-  .hero-kicker { display: block; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .hero-kicker { display: block; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ouro-texto); margin-bottom: 10px; }
   .hero h2 { font-family: var(--font-serif); font-size: 27px; font-weight: 600; color: var(--primary-dark); margin-bottom: 10px; line-height: 1.3; }
   .hero p { font-size: 14px; color: var(--neutral-700); max-width: 640px; line-height: 1.65; }
 
   .alert { padding: 12px 14px; border-radius: var(--radius); margin-bottom: 18px; font-size: 12.5px; border: 1px solid var(--neutral-200); background: var(--neutral-50); }
   .alert strong { color: var(--neutral-900); }
 
-  /* Progresso geral */
-  .mastery-tracker {
-    background: white; border: 1px solid var(--neutral-200); border-radius: var(--radius);
-    padding: 18px 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  }
-  .mastery-tracker .label { font-size: 12px; color: var(--neutral-600); margin-bottom: 3px; }
-  .mastery-tracker .count { font-size: 22px; font-weight: 700; color: var(--primary-dark); }
-  .mastery-bar-wrap { flex: 1; min-width: 200px; }
-  .mastery-bar { background: var(--neutral-200); border-radius: 3px; height: 8px; overflow: hidden; }
-  .mastery-bar-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.4s; }
+  /* os 5 critérios de maestria, numerados, onde a página os lista */
+  .crit { list-style: none; counter-reset: crit; display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; padding: 0; }
+  .crit li { counter-increment: crit; display: inline-flex; align-items: baseline; gap: 6px; font-size: 12.5px; color: var(--neutral-900);
+    background: white; border: 1px solid var(--neutral-300); border-radius: 999px; padding: 3px 11px 3px 4px; }
+  .crit li::before { content: counter(crit); display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--accent-light); color: var(--ouro-texto); border: 1px solid var(--accent); font-size: 10.5px; font-weight: 700; flex-shrink: 0; align-self: center; }
+
+  /* o que ainda não está pronto: texto de estado, não botão */
+  .estado { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--neutral-700); line-height: 1.35;
+    background: var(--neutral-50); border: 1px dashed var(--neutral-300); border-radius: var(--radius); padding: 7px 12px; }
+  .estado svg { width: 14px; height: 14px; flex-shrink: 0; }
 
   /* Módulos */
   .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
   .module-card {
     background: white; border: 1px solid var(--neutral-200); border-radius: var(--radius);
     padding: 20px; display: flex; flex-direction: column; gap: 10px;
-    border-left: 3px solid var(--neutral-300); transition: border-color 0.2s;
+    border-left: 3px solid var(--neutral-300);
   }
-  .module-card.progress { border-left-color: var(--accent); }
-  .module-card.mastered { border-left-color: var(--success); }
   .module-card h3 { font-family: var(--font-serif); font-size: 15.5px; font-weight: 600; }
   .module-audience { font-size: 11.5px; color: var(--neutral-600); }
   .module-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .module-icon { width: 34px; height: 34px; border-radius: 6px; background: var(--neutral-100); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .module-icon svg { width: 18px; height: 18px; }
-  .evidence-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: .03em; width: fit-content; border: 1px solid; }
+  .evidence-badge { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: .03em; width: fit-content; border: 1px solid; }
   .evidence-badge.direct { background: var(--success-light); color: var(--success); border-color: var(--success); }
-  .evidence-badge.design { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .evidence-badge.design { background: var(--accent-light); color: var(--ouro-texto); border-color: var(--accent); }
   .evidence-badge.neutral { background: var(--neutral-100); color: var(--primary); border-color: var(--neutral-300); }
   .module-rationale { font-size: 12.5px; line-height: 1.55; color: var(--neutral-700); }
   .module-rationale strong { color: var(--neutral-900); }
   .module-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--neutral-200); }
-  .module-status { font-size: 11.5px; font-weight: 600; color: var(--neutral-600); margin-bottom: 8px; }
-  .module-card.progress .module-status { color: var(--accent); }
-  .module-card.mastered .module-status { color: var(--success); }
 
   .btn {
     padding: 9px 18px; border-radius: var(--radius);
@@ -142,44 +164,52 @@
   .btn-primary:hover { background: var(--primary-dark); }
   .btn-outline { background: transparent; color: var(--primary); }
   .btn-outline:hover { background: var(--neutral-50); }
-  .btn-done { background: var(--success-light); color: var(--success); border-color: var(--success); cursor: default; }
 
-  /* Sessão ao vivo / desbloqueio */
-  .unlock-section { margin-top: 24px; }
+  /* Sessão ao vivo: travada até a maestria */
   .live-card {
     background: white; border: 1px solid var(--primary); border-left: 4px solid var(--primary);
     border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
   }
-  .live-card .tag { display: inline-block; background: var(--success-light); color: var(--success); border: 1px solid var(--success); padding: 3px 10px; border-radius: 3px; font-size: 10.5px; font-weight: 700; letter-spacing: .03em; margin-bottom: 12px; }
+  .live-card .tag { display: inline-block; background: #E3EAF2; color: var(--primary-dark); border: 1px solid var(--primary); padding: 3px 10px; border-radius: 3px; font-size: 10.5px; font-weight: 700; letter-spacing: .03em; margin-bottom: 12px; }
   .live-card h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--primary-dark); margin-bottom: 4px; }
   .live-card .date-row { display: flex; align-items: baseline; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
   .live-card .date-big { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: var(--neutral-900); }
   .live-card .date-sub { font-size: 12px; color: var(--neutral-600); }
   .live-card p { font-size: 13px; line-height: 1.6; color: var(--neutral-700); max-width: 560px; margin-bottom: 16px; }
-  .live-card .btn { max-width: 220px; }
 
   .bonus-card {
     background: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: var(--radius);
     padding: 20px; margin-top: 14px;
   }
-  .bonus-card .tag { display: inline-block; background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 3px; font-size: 10.5px; font-weight: 700; margin-bottom: 8px; }
+  .bonus-card .tag { display: inline-block; background: var(--accent-light); color: var(--ouro-texto); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 3px; font-size: 10.5px; font-weight: 700; margin-bottom: 8px; }
   .bonus-card h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 6px; }
   .bonus-card p { font-size: 12.5px; color: var(--neutral-700); line-height: 1.6; }
 
-  .locked-hint { font-size: 12.5px; color: var(--neutral-600); margin-top: 20px; padding: 14px 16px; background: var(--neutral-50); border: 1px dashed var(--neutral-300); border-radius: var(--radius); }
+  .locked-hint { font-size: 12.5px; color: var(--neutral-700); margin-top: 20px; padding: 14px 16px; background: var(--neutral-50); border: 1px dashed var(--neutral-300); border-radius: var(--radius); }
+  .locked-hint > p + p { margin-top: 8px; color: var(--neutral-600); }
 
   /* Tab 2 — Curso */
-  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 10px; }
   .stat-box { background: white; border: 1px solid var(--neutral-200); border-top: 3px solid var(--accent); border-radius: var(--radius); padding: 18px 16px; text-align: center; }
   .stat-box .num { font-family: var(--font-serif); font-size: 27px; font-weight: 700; color: var(--primary-dark); }
   .stat-box .lbl { font-size: 11px; color: var(--neutral-600); margin-top: 6px; line-height: 1.35; }
+  .stat-nota { font-size: 12px; color: var(--neutral-700); line-height: 1.55; margin-bottom: 24px; max-width: 760px; }
 
   .journey { display: flex; gap: 0; overflow-x: auto; margin: 6px 0 4px; padding-bottom: 4px; }
   .journey-step { flex: 1; min-width: 150px; text-align: left; padding: 0 14px 0 0; position: relative; }
   .journey-step:not(:last-child)::after { content: ""; position: absolute; right: 0; top: 14px; width: 14px; height: 1px; background: var(--neutral-300); }
   .journey-num { width: 26px; height: 26px; border-radius: 3px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; margin-bottom: 8px; }
+  /* a porta da maestria: o passo que abre a live e o centro cirúrgico */
+  .journey-step.porta .journey-num { background: var(--accent-light); color: var(--ouro-texto); border: 1.5px solid var(--accent); border-radius: 50%; }
+  .journey-step.porta h4 { color: var(--ouro-texto); }
   .journey-step h4 { font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
-  .journey-step p { font-size: 11px; color: var(--neutral-600); line-height: 1.4; }
+  .journey-step p { font-size: 11.5px; color: var(--neutral-600); line-height: 1.4; }
+  /* até 860px os 5 passos quebram em linhas: nenhum fica escondido numa rolagem lateral */
+  @media (max-width: 860px) {
+    .journey { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; overflow: visible; padding-bottom: 0; }
+    .journey-step { min-width: 0; padding-right: 0; }
+    .journey-step:not(:last-child)::after { display: none; }
+  }
 
   .moment-list { display: flex; flex-direction: column; gap: 12px; }
   .moment { padding: 14px 16px; border-radius: var(--radius); background: var(--neutral-50); border-left: 3px solid var(--primary); }
@@ -187,15 +217,16 @@
   .moment-phase { font-size: 10.5px; font-weight: 700; color: var(--primary); letter-spacing: .03em; }
   .moment h4 { font-size: 13px; font-weight: 700; }
   .moment p { font-size: 12.5px; color: var(--neutral-700); line-height: 1.5; }
-  .moment .clinical { font-size: 11.5px; color: var(--accent); font-weight: 600; margin-top: 5px; }
+  .moment .clinical { font-size: 11.5px; color: var(--ouro-texto); font-weight: 600; margin-top: 5px; }
   .premodule-tag {
-    display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;
-    font-size: 11px; font-weight: 600; color: var(--primary); background: white;
-    border: 1px solid var(--primary); border-radius: 3px; padding: 4px 10px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; min-height: 36px; text-align: left;
+    font-family: inherit; font-size: 11.5px; font-weight: 600; line-height: 1.35; color: var(--primary); background: white;
+    border: 1px solid var(--primary); border-radius: 3px; padding: 6px 10px; cursor: pointer;
   }
-  .premodule-tag:hover { background: var(--primary); color: white; }
-  .premodule-tag.none { color: var(--neutral-600); border-color: var(--neutral-300); cursor: default; background: transparent; }
-  .premodule-tag.none:hover { background: transparent; color: var(--neutral-600); }
+  button.premodule-tag:hover { background: var(--primary); color: white; }
+  .premodule-tag.none { color: var(--neutral-600); border-color: var(--neutral-300); cursor: default; background: transparent; min-height: 0; }
+  .sec-tit { font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--primary-dark); margin: 30px 0 4px; }
+  .sec-sub { font-size: 13px; color: var(--neutral-700); margin-bottom: 14px; max-width: 720px; line-height: 1.6; }
 
   /* Checklist de autoavaliação — erros críticos */
   .ce-list { display: flex; flex-direction: column; gap: 8px; }
@@ -214,39 +245,43 @@
   .ce-item.checked { background: var(--error-light); border-color: var(--error); }
   .ce-item.checked .ce-code { border-color: var(--error); color: var(--error); }
   .ce-result { margin-top: 14px; padding: 12px 14px; border-radius: var(--radius); font-size: 12.5px; font-weight: 600; border: 1px solid; }
-  .ce-result.ok { background: var(--success-light); color: var(--success); border-color: var(--success); }
+  /* sem marcas: um critério cumprido, não a maestria; por isso neutro, e não verde */
+  .ce-result.ok { background: var(--neutral-50); color: var(--primary-dark); border-color: var(--neutral-300); }
   .ce-result.fail { background: var(--error-light); color: var(--error); border-color: var(--error); }
+  /* a próxima sessão começa sem marcas */
+  .ce-limpa { margin-top: 10px; font: inherit; font-size: 12.5px; font-weight: 600; color: var(--primary); background: white;
+    border: 1px solid var(--neutral-300); border-radius: var(--radius); padding: 6px 12px; min-height: 36px; cursor: pointer; }
+  .ce-limpa:hover { border-color: var(--primary); }
+  .ce-limpa[hidden] { display: none; }
 
   .sources { font-size: 11px; color: var(--neutral-600); margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--neutral-200); line-height: 1.6; }
 
   .site-footer { border-top: 1px solid var(--neutral-200); background: white; }
   .site-footer .container { padding-top: 22px; padding-bottom: 26px; }
   .site-footer p { font-size: 11.5px; color: var(--neutral-600); line-height: 1.6; }
-  .site-footer .footer-note { margin-top: 4px; font-size: 10.5px; color: var(--neutral-600); opacity: .65; }
+  .site-footer .footer-note { margin-top: 4px; font-size: 11px; color: var(--neutral-600); }
 
   @media (max-width: 640px) {
-    .journey { flex-direction: column; gap: 14px; }
-    .journey-step:not(:last-child)::after { display: none; }
-    header h1 { font-size: 15px; }
+    .journey { grid-template-columns: minmax(0, 1fr); }
     .hero h2 { font-size: 21px; }
-    header nav button { font-size: 10.5px; padding: 5px 9px; }
   }
 
   /* ---- os 3Ps: a trilha, o menu e o mapa da região inguinal ---- */
-  .k0 { --k: #B8860B; --kf: #F4EAD2; } .k1 { --k: #0C325A; --kf: #E3EAF2; } .k2 { --k: #B3261E; --kf: #F6E3E0; }
-  .nav-p { display: inline-block; font-family: var(--font-serif); font-weight: 700; font-size: 12.5px; color: var(--k); margin-right: 5px; }
+  /* --k: linhas e preenchimentos · --kt: a mesma cor como texto (o ouro escurece para ler bem) · --kf: fundo claro */
+  .k0 { --k: #B8860B; --kt: #8A6508; --kf: #F8EFD9; } .k1 { --k: #0C325A; --kt: #0C325A; --kf: #E3EAF2; } .k2 { --k: #B3261E; --kt: #B3261E; --kf: #F6E3E0; }
+  .nav-p { display: inline-block; font-family: var(--font-serif); font-weight: 700; font-size: 12.5px; color: var(--kt); margin-right: 5px; }
   .trilha-p { background: var(--neutral-50); border-bottom: 1px solid var(--neutral-200); }
   .trilha-p .container { padding: 8px 20px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .trilha-p .rot { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600); margin-right: 4px; }
-  .trilha-p button { display: inline-flex; align-items: baseline; gap: 6px; border: 1px solid var(--neutral-200); background: white; border-radius: 999px;
-    padding: 3px 12px; cursor: pointer; font: inherit; font-size: 12.5px; color: var(--neutral-700); }
-  .trilha-p button b { font-family: var(--font-serif); color: var(--k); font-size: 14px; }
+  .trilha-p button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--neutral-200); background: white; border-radius: 999px;
+    min-height: 36px; padding: 3px 12px; cursor: pointer; font: inherit; font-size: 12.5px; color: var(--neutral-700); }
+  .trilha-p button b { font-family: var(--font-serif); color: var(--kt); font-size: 14px; }
   .trilha-p button.on { background: var(--kf); border-color: var(--k); color: var(--neutral-900); font-weight: 600; }
-  .trilha-p .seta { color: var(--neutral-300); }
+  .trilha-p .seta { color: var(--neutral-600); }
   .trilha-p .dica-p { font-size: 11.5px; color: var(--neutral-600); margin-left: auto; }
   .p-card { border-left: 4px solid var(--k); }
   .p-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
-  .p-head .sig { font-family: var(--font-serif); font-weight: 700; font-size: 26px; color: var(--k); line-height: 1; }
+  .p-head .sig { font-family: var(--font-serif); font-weight: 700; font-size: 26px; color: var(--kt); line-height: 1; }
   .p-head h3 { font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--primary-dark); }
   .p-sub { font-size: 13px; color: var(--neutral-700); margin-bottom: 14px; max-width: 720px; line-height: 1.6; }
   .p-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; }
@@ -263,8 +298,10 @@
   .quiz-p { margin-top: 8px; font-size: 14px !important; color: var(--neutral-900) !important; }
   .quiz-p b { font-family: var(--font-serif); font-size: 16px; color: var(--primary-dark); }
   .fb { margin-top: 4px; min-height: 1.4em; } .fb.ok { color: var(--success) !important; } .fb.erro { color: var(--error) !important; }
-  .chips-r { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chips-r span { border: 1px solid var(--neutral-200); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; background: white; }
+  /* sem o mapa, os nomes das seis estruturas: uma lista simples, que não parece botão */
+  .lista-r { margin: 2px 0 0; padding-left: 20px; columns: 3; column-gap: 28px; font-size: 13px; line-height: 1.5; color: var(--neutral-900); }
+  .lista-r li { break-inside: avoid; margin-bottom: 4px; }
+  .lista-r:empty { display: none; }
   #macro-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); column-gap: 22px; }
   #macro-card > h3, #macro-card > p { grid-column: 1 / -1; }
   #macro-card.sem-mapa { grid-template-columns: minmax(0, 1fr); }
@@ -276,8 +313,10 @@
   .macro-mapa .linha span { font-size: 12px; color: var(--neutral-600); }
   .abc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
   .abc div { border-radius: var(--radius); padding: 12px 14px; color: #fff; background: #0C325A; font-size: 12.5px; line-height: 1.45; }
-  .abc div:nth-child(2) { background: #3D5F84; } .abc div:nth-child(3) { background: #7F96B0; }
+  /* a supervisão diminui e o azul clareia; a fase C, clara, leva texto escuro para manter o contraste */
+  .abc div:nth-child(2) { background: #3D5F84; } .abc div:nth-child(3) { background: #D9E2EC; color: var(--primary-dark); }
   .abc b { display: block; font-size: 14px; margin-bottom: 2px; }
+  .cir-nota { font-size: 12.5px; color: var(--neutral-700); line-height: 1.55; margin-top: 12px; }
   .aberto-r { border: 1px dashed var(--error); border-radius: var(--radius); padding: 10px 14px; color: var(--error); font-size: 13px; line-height: 1.55; }
 
   /* o mapa: uma geometria só, três peles (as cores do modelo, o checklist, o paciente) */
@@ -343,9 +382,19 @@
     .macro-mapa { position: static; margin-top: 14px; }
     .abc { grid-template-columns: minmax(0, 1fr); }
     .trilha-p .dica-p { margin-left: 0; }
+    .lista-r { columns: 2; }
   }
   @media (max-width: 640px) {
     .mapa .rot { display: none; } .mapa .pts { display: inline; } .mapa.sem-nomes .pts { display: none; } .leg-mob { display: block; }
+    /* a trilha no celular: o rótulo numa linha, os três Ps embaixo, sem as setas e sem a dica */
+    .trilha-p .container { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 6px; padding: 6px 12px 8px; }
+    .trilha-p .rot { grid-column: 1 / -1; }
+    .trilha-p .seta, .trilha-p .dica-p { display: none; }
+    .trilha-p button { justify-content: center; padding: 3px 6px; }
+    /* celular: texto corrido e legendas a 12px ou mais; os rótulos em versalete ficam em 11px */
+    .module-audience, .stat-box .lbl, .journey-step p, .moment-phase, .moment .clinical, .premodule-tag, .ce-item .ce-code, .ce-item .ce-consequence,
+    .sources, .site-footer p, .site-footer .footer-note, .mapa-nota, .lang-switch button { font-size: 12px; }
+    .trilha-p .rot, .evidence-badge, .live-card .tag, .bonus-card .tag, .crit li::before, .leg-mob b { font-size: 11px; }
   }
 </style>
 </head>
@@ -366,35 +415,36 @@
   <div class="brand">
     <div class="brand-mark" aria-hidden="true">H³D</div>
     <div class="title-block">
-      <h1>Hernia 3D Model · Curso TAPP</h1>
-      <div class="subtitle"><span data-i18n="headerSubtitle">Mastery Learning · Hérnia Inguinal</span> · <span data-i18n="headerAffil">Dr. Paulo Barros · Hospital Albert Einstein, São Paulo</span></div>
+      <h1 data-i18n="headerTitle">Plataforma do residente</h1>
+      <div class="subtitle"><span class="sub-marca">Hernia3D · </span><span data-i18n="headerAffil">Dr. Paulo Barros · Einstein</span></div>
     </div>
   </div>
-  <nav>
-    <button class="active" onclick="switchTab('kit')" data-i18n="navKit">Kit</button>
-    <button onclick="switchTab('premodulos')"><span class="nav-p k0">P¹</span><span data-i18n="navPremodulos">Pré-Módulos</span></button>
-    <button onclick="switchTab('curso')"><span class="nav-p k1">P²</span><span data-i18n="navCurso">Curso TAPP</span></button>
-    <button onclick="switchTab('live')"><span class="nav-p k1">P²</span><span data-i18n="navLive">Live</span></button>
-    <button onclick="switchTab('presencial')"><span class="nav-p k1">P²</span><span data-i18n="navPresencial">Presencial</span></button>
-    <button onclick="switchTab('cirurgia')"><span class="nav-p k2">P³</span><span data-i18n="navCirurgia">Centro cirúrgico</span></button>
+  <nav aria-label="Etapas do curso" data-i18n-aria="navAria">
+    <button type="button" class="active" aria-current="page" data-tab="kit"><span data-i18n="navKit">Kit</span></button>
+    <button type="button" data-tab="preparacao"><span class="nav-p k0">P¹</span><span data-i18n="navPreparacao">Preparação</span></button>
+    <button type="button" data-tab="curso"><span class="nav-p k1">P²</span><span data-i18n="navCurso">Curso TAPP</span></button>
+    <button type="button" data-tab="live"><span class="nav-p k1">P²</span><span data-i18n="navLive">Live</span></button>
+    <button type="button" data-tab="presencial"><span class="nav-p k1">P²</span><span data-i18n="navPresencial">Presencial</span></button>
+    <button type="button" data-tab="cirurgia"><span class="nav-p k2">P³</span><span data-i18n="navCirurgia">Centro cirúrgico</span></button>
   </nav>
-  <a class="nav-irma" href="sistematica/" data-irma><span class="irma-mark" aria-hidden="true">⊃</span><span>Sistemática <b>Hernia3D</b></span></a>
-  <div class="lang-switch">
-    <button id="lang-pt" class="active" onclick="setLanguage('pt')">PT</button>
-    <button id="lang-es" onclick="setLanguage('es')">ES</button>
+  <a class="nav-irma" href="sistematica/" data-irma aria-label="Sistemática Hernia3D"><span class="irma-mark" aria-hidden="true">H³D</span><span>Sistemática<span class="irma-resto"> <b>Hernia3D</b></span></span></a>
+  <div class="lang-switch" role="group" aria-label="Idioma">
+    <button type="button" id="lang-pt" class="active" aria-pressed="true" lang="pt" onclick="setLanguage('pt')">PT</button>
+    <button type="button" id="lang-es" aria-pressed="false" lang="es" onclick="setLanguage('es')">ES</button>
   </div>
 </header>
 
 <div class="trilha-p">
   <div class="container">
     <span class="rot" data-i18n="trilhaRot">Seu caminho em 3Ps</span>
-    <button class="k0" data-tab="premodulos"><b>P¹</b><span data-i18n="p1Nome">Preparar</span></button><span class="seta">→</span>
-    <button class="k1" data-tab="curso"><b>P²</b><span data-i18n="p2Nome">Praticar</span></button><span class="seta">→</span>
-    <button class="k2" data-tab="cirurgia"><b>P³</b><span data-i18n="p3Nome">Proceder</span></button>
+    <button type="button" class="k0" data-tab="preparacao"><b>P¹</b><span data-i18n="p1Nome">Preparar</span></button><span class="seta" aria-hidden="true">→</span>
+    <button type="button" class="k1" data-tab="curso"><b>P²</b><span data-i18n="p2Nome">Praticar</span></button><span class="seta" aria-hidden="true">→</span>
+    <button type="button" class="k2" data-tab="cirurgia"><b>P³</b><span data-i18n="p3Nome">Proceder</span></button>
     <span class="dica-p" data-i18n="trilhaDica">As três palavras são as do próprio curso: a preparação, a prática e o procedimento.</span>
   </div>
 </div>
 
+<main id="conteudo">
 <!-- ════════════════════════════════════════
      TAB 0 — KIT DE INSTRUMENTOS
 ════════════════════════════════════════ -->
@@ -402,13 +452,13 @@
 <div class="container">
 
   <div class="hero">
-    <span class="hero-kicker" data-i18n="kitKicker">Materiais e Instrumental</span>
-    <h2 data-i18n="kitHeroTitle">Kit de instrumentos — três formas de montar o seu</h2>
-    <p data-i18n="kitHeroSub">O uso é em simulador, não em cirurgia ao vivo — por isso o protocolo não exige instrumentos homologados pela ANVISA. A prioridade é custo baixo e fácil acesso, sem perder fidelidade técnica ao procedimento.</p>
+    <span class="hero-kicker" data-i18n="kitKicker">Materiais e instrumental</span>
+    <h2 tabindex="-1" data-i18n="kitHeroTitle">Kit de instrumentos: três formas de montar o seu</h2>
+    <p data-i18n="kitHeroSub">O modelo 3D vem com o curso, emprestado. Você escolhe como ter o instrumental para praticar em casa: há três formas, da mais pronta à mais livre.</p>
   </div>
 
   <div class="alert" data-i18n-html="kitPhilosophyNote">
-    <strong>Por que sem exigência ANVISA?</strong> O instrumental é usado em modelo de simulação, não em paciente — reduzir o custo de entrada do treinamento é uma escolha deliberada, não uma concessão de qualidade.
+    <strong>Por que o curso não exige instrumental regularizado na ANVISA?</strong> Porque esse instrumental é de uso exclusivo em simulação, não destinado a uso em pessoas. Baixar o custo de entrada é uma escolha deliberada, não uma concessão de qualidade.
   </div>
 
   <div class="module-grid">
@@ -418,11 +468,11 @@
         <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8L12 4l8.5 4-8.5 4-8.5-4z"/><path d="M3.5 8v8l8.5 4 8.5-4V8"/><path d="M12 12v8"/></svg></div>
         <span class="evidence-badge neutral" data-i18n="kitBadge1">NÍVEL 1</span>
       </div>
-      <h3 data-i18n="kit1Title">Aluguel do Kit Completo</h3>
-      <div class="module-audience" data-i18n="kit1Audience">Para quem quer começar sem fricção de compra ou logística</div>
-      <div class="module-rationale" data-i18n="kit1Desc">Simulador e instrumental completo entregues prontos para uso, sem decisão de compra pelo residente ou programa.</div>
+      <h3 data-i18n="kit1Title">Aluguel do kit completo</h3>
+      <div class="module-audience" data-i18n="kit1Audience">Para quem quer começar sem precisar comprar nem cuidar do envio</div>
+      <div class="module-rationale" data-i18n="kit1Desc">Caixa de treino, câmera USB, monitor, pinças e trocartes, entregues prontos e devolvidos ao fim do curso.</div>
       <div class="module-footer">
-        <button class="btn btn-outline" data-i18n="kitBtnConsult">Consultar disponibilidade</button>
+        <span class="estado" data-i18n="kit1Estado">Em definição: preço, envio e devolução</span>
       </div>
     </div>
 
@@ -431,11 +481,11 @@
         <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M14.8 9.2l-2.1 5.4-5.4 2.1 2.1-5.4z"/></svg></div>
         <span class="evidence-badge neutral" data-i18n="kitBadge2">NÍVEL 2</span>
       </div>
-      <h3 data-i18n="kit2Title">Liberdade Guiada</h3>
+      <h3 data-i18n="kit2Title">Liberdade guiada</h3>
       <div class="module-audience" data-i18n="kit2Audience">Para quem já tem parte do instrumental e quer orientação sobre o que falta</div>
-      <div class="module-rationale" data-i18n="kit2Desc">Curadoria de opções homologadas pela ANVISA, alternativas de importação e fornecedores de impressão 3D para peças específicas do simulador.</div>
+      <div class="module-rationale" data-i18n="kit2Desc">Uma lista curada: opções regularizadas na ANVISA, alternativas importadas e fornecedores de impressão 3D para peças específicas do modelo.</div>
       <div class="module-footer">
-        <button class="btn btn-outline" data-i18n="kitBtnSoon">Em curadoria</button>
+        <span class="estado" data-i18n="kit2Estado">Lista em curadoria</span>
       </div>
     </div>
 
@@ -444,11 +494,11 @@
         <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l3 3v14H6z"/><path d="M9 11l1.8 1.8L14.5 9M9 16h6"/></svg></div>
         <span class="evidence-badge neutral" data-i18n="kitBadge3">NÍVEL 3</span>
       </div>
-      <h3 data-i18n="kit3Title">Liberdade Livre</h3>
+      <h3 data-i18n="kit3Title">Por sua conta</h3>
       <div class="module-audience" data-i18n="kit3Audience">Para quem já tem experiência de compra ou preceptor com estoque próprio</div>
-      <div class="module-rationale" data-i18n="kit3Desc">Apenas a lista de requisitos técnicos do simulador — a aquisição fica por sua conta.</div>
+      <div class="module-rationale" data-i18n="kit3Desc">Só a lista de requisitos técnicos do modelo; você escolhe onde comprar.</div>
       <div class="module-footer">
-        <button class="btn btn-outline" data-i18n="kitBtnList">Ver requisitos técnicos</button>
+        <span class="estado" data-i18n="kit3Estado">Lista de requisitos em preparação</span>
       </div>
     </div>
 
@@ -458,100 +508,40 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     TAB 1 — MÓDULOS DE NIVELAMENTO
+     TAB 1 — P¹ PREPARAÇÃO: TEORIA, PRIMEIRA SESSÃO E PRÉ-MÓDULOS
 ════════════════════════════════════════ -->
-<div id="tab-premodulos" class="tab-content">
+<div id="tab-preparacao" class="tab-content">
 <div class="container">
 
   <div class="hero">
-    <span class="hero-kicker" data-i18n="pmKicker">Módulos de Nivelamento</span>
-    <h2 data-i18n="pmHeroTitle">Módulos de nivelamento — pré-requisitos técnicos antes do treinamento específico em TAPP</h2>
-    <p data-i18n="pmHeroSub">Quatro módulos definidos a partir dos erros mais frequentes observados em residentes sem experiência prévia de base. A conclusão dos quatro com critério de proficiência habilita a sessão de correção técnica conduzida pelo Dr. Paulo Barros.</p>
+    <span class="hero-kicker" data-i18n="pmKicker">Primeira etapa · P¹ Preparar</span>
+    <h2 tabindex="-1" data-i18n="pmHeroTitle">Antes da prática: a teoria, a primeira sessão e, se faltar base, os pré-módulos</h2>
+    <p data-i18n="pmHeroSub">Todo residente faz a teoria e a primeira sessão no modelo. Os pré-módulos são só para quem ainda não tem a base de videolaparoscopia.</p>
   </div>
 
-  <div class="mastery-tracker">
-    <div>
-      <div class="label" data-i18n="trackerLabel">Progresso nos módulos de nivelamento</div>
-      <div class="count" id="mastery-count">0 / 4</div>
-    </div>
-    <div class="mastery-bar-wrap">
-      <div class="mastery-bar"><div class="mastery-bar-fill" id="mastery-bar-fill" style="width:0%"></div></div>
-    </div>
-  </div>
-
-  <div class="alert" data-i18n-html="evidenceLegend">
-    <strong>Evidência direta</strong>: um estudo publicado testou esse tipo específico de treino e mediu resultado. <strong>Justificativa técnica</strong>: não há estudo dedicado a este módulo — a necessidade é deduzida de currículos gerais de laparoscopia (ex.: FLS) ou de uma exigência própria deste protocolo (ex.: fixação de tela sem grampeador).
-  </div>
-
-  <div class="module-grid" id="module-grid">
-
-    <div class="module-card" id="module-card-fundamentos">
-      <div class="module-top">
-        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="5"/><path d="M12 10.5a3 3 0 0 0-3 3"/><path d="M4 8.5h3.2l1-2h7.6l1 2H20v10.5H4z"/></svg></div>
-        <span class="evidence-badge design" data-i18n="badgeDesign">JUSTIFICATIVA TÉCNICA</span>
+  <div class="card p-card k0">
+    <div class="p-head"><span class="sig">P¹</span><h3 data-i18n="p1EtapasTit">O que todo residente faz</h3></div>
+    <div class="moment-list">
+      <div class="moment">
+        <div class="moment-head"><span class="moment-phase">1</span><h4 data-i18n="p1TeoriaTit">Teoria do TAPP, com teste</h4></div>
+        <p data-i18n="p1TeoriaDesc">Anatomia, etapas do procedimento e instrumental, no seu ritmo. O teste pede 90% de acerto para avançar, com tentativas ilimitadas.</p>
       </div>
-      <h3 data-i18n="mod_fundamentos_title">Fundamentos de Videolaparoscopia</h3>
-      <div class="module-audience" data-i18n="mod_fundamentos_audience">Indicado para residentes sem experiência prévia em laparoscopia</div>
-      <div class="module-rationale" data-i18n-html="mod_fundamentos_rationale">Coordenação câmera-mãos e triangulação de instrumentos são pré-requisito de qualquer procedimento laparoscópico — a mesma lacuna coberta por currículos genéricos como o <strong>FLS</strong>, sem especificidade para hérnia.</div>
-      <div class="module-footer">
-        <div class="module-status" id="module-status-fundamentos" data-i18n="statusNone">Não iniciado</div>
-        <button class="btn btn-outline" id="module-btn-fundamentos" onclick="advanceModule('fundamentos')" data-i18n="btnStart">Iniciar módulo</button>
+      <div class="moment">
+        <div class="moment-head"><span class="moment-phase">2</span><h4 data-i18n="p1OnbTit">Primeira sessão no modelo (onboarding)</h4></div>
+        <p data-i18n="p1OnbDesc">Você monta o modelo, conhece as peças e faz o primeiro TAPP guiado por um vídeo de referência, narrado. Esta sessão não vale nota e não conta entre as sessões da prática.</p>
       </div>
     </div>
-
-    <div class="module-card" id="module-card-sutura">
-      <div class="module-top">
-        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L19 5"/><circle cx="18" cy="6" r="1.4" fill="currentColor" stroke="none"/><path d="M8 15.5c1.3 1.3 2.7 0 4-1.3s2.7-1.3 4 0"/></svg></div>
-        <span class="evidence-badge direct" data-i18n="badgeDirect">EVIDÊNCIA DIRETA</span>
-      </div>
-      <h3 data-i18n="mod_sutura_title">Sutura e Nós Intracorpóreos</h3>
-      <div class="module-audience" data-i18n="mod_sutura_audience">Indicado para residentes sem prática de sutura laparoscópica</div>
-      <div class="module-rationale" data-i18n-html="mod_sutura_rationale">O fechamento peritoneal do TAPP exige sutura contínua sem falhas de continuidade. Baseado na <strong>EPP</strong> (Barreto et al., 2019), instrumento validado em residência cirúrgica brasileira, com melhora significativa em todos os domínios OSATS após 7 sessões.</div>
-      <div class="module-footer">
-        <div class="module-status" id="module-status-sutura" data-i18n="statusNone">Não iniciado</div>
-        <button class="btn btn-outline" id="module-btn-sutura" onclick="advanceModule('sutura')" data-i18n="btnStart">Iniciar módulo</button>
-      </div>
-    </div>
-
-    <div class="module-card" id="module-card-gaming">
-      <div class="module-top">
-        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="9" rx="3.5"/><path d="M7.5 10.5v4M5.5 12.5h4"/><circle cx="16" cy="11.3" r="0.9" fill="currentColor" stroke="none"/><circle cx="18.2" cy="13.8" r="0.9" fill="currentColor" stroke="none"/></svg></div>
-        <span class="evidence-badge direct" data-i18n="badgeDirect">EVIDÊNCIA DIRETA</span>
-      </div>
-      <h3 data-i18n="mod_gaming_title">Preparo Cognitivo Gamificado</h3>
-      <div class="module-audience" data-i18n="mod_gaming_audience">Indicado para todos os residentes, previamente à Etapa 0</div>
-      <div class="module-rationale" data-i18n-html="mod_gaming_rationale">A sequência pedagógica influencia o resultado tanto quanto a ferramenta utilizada: preparo cognitivo gamificado antes do simulador físico reduz o número de tentativas até a proficiência. Ensaio clínico randomizado cruzado (Lang et al., 2023): 2,7 vs. 3,2 tentativas (p=0,028).</div>
-      <div class="module-footer">
-        <div class="module-status" id="module-status-gaming" data-i18n="statusNone">Não iniciado</div>
-        <button class="btn btn-outline" id="module-btn-gaming" onclick="advanceModule('gaming')" data-i18n="btnStart">Iniciar módulo</button>
-      </div>
-    </div>
-
-    <div class="module-card" id="module-card-tela">
-      <div class="module-top">
-        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 3v6c0 4.3-3 7.2-7 8.5-4-1.3-7-4.2-7-8.5v-6z"/><path d="M8 9.5h8M8 12.5h8M8 15.5h5.5"/></svg></div>
-        <span class="evidence-badge design" data-i18n="badgeDesign">JUSTIFICATIVA TÉCNICA</span>
-      </div>
-      <h3 data-i18n="mod_tela_title">Manuseio de Tela sem Fixação Mecânica</h3>
-      <div class="module-audience" data-i18n="mod_tela_audience">Indicado para residentes sem experiência prévia com manuseio de tela cirúrgica</div>
-      <div class="module-rationale" data-i18n-html="mod_tela_rationale">O protocolo utiliza fixação por adesivo/sutura, sem grampeador — o que exige manuseio manual mais refinado do que a fixação mecânica convencional.</div>
-      <div class="module-footer">
-        <div class="module-status" id="module-status-tela" data-i18n="statusNone">Não iniciado</div>
-        <button class="btn btn-outline" id="module-btn-tela" onclick="advanceModule('tela')" data-i18n="btnStart">Iniciar módulo</button>
-      </div>
-    </div>
-
   </div>
 
   <div class="card p-card k0">
     <div class="p-head"><span class="sig">P¹</span><h3 data-i18n="p1Tit">Preparar: a anatomia que você vai nomear</h3></div>
-    <p class="p-sub" data-i18n="p1Sub">Antes de cortar, nomeie. Estas são as seis estruturas que o onboarding apresenta no modelo, vistas por dentro, pela câmera: medial à esquerda, lateral à direita.</p>
+    <p class="p-sub" data-i18n="p1Sub" data-i18n-sem-mapa="p1SubTexto">Antes de cortar, nomeie. Estas são as seis estruturas que a primeira sessão apresenta no modelo, vistas por dentro, pela câmera: medial à esquerda, lateral à direita.</p>
     <div class="p-grade">
       <div>
         <div class="mapa-fig" id="mapa-p1"></div>
         <p class="mapa-nota" data-i18n="mapaNota">Região inguinal direita · esquema simplificado, não é atlas.</p>
         <ol class="leg-mob" id="leg-p1"></ol>
-        <div class="chips-r" id="chips-p1"></div>
+        <ul class="lista-r" id="lista-p1"></ul>
       </div>
       <div class="quiz-box" id="quiz-box">
         <h4 data-i18n="quizTit">Teste-se</h4>
@@ -561,14 +551,56 @@
     </div>
   </div>
 
-  <div class="unlock-section" id="unlock-section" style="display:none;">
-    <div class="live-card">
-      <span class="tag" data-i18n="liveTag">SESSÃO HABILITADA</span>
-      <h3 data-i18n="unlockCtaTitle">Módulos concluídos com critério de proficiência</h3>
-      <p data-i18n="unlockCtaDesc">Acesso liberado à sessão de correção técnica. Consulte a aba correspondente para data, formato e etapa presencial associada.</p>
-      <button class="btn btn-primary" onclick="switchTab('live')" data-i18n="unlockCtaBtn">Ver sessão ao vivo</button>
-    </div>
+  <h3 class="sec-tit" data-i18n="pmSecTit">Pré-módulos: para quem ainda não tem a base</h3>
+  <p class="sec-sub" data-i18n="pmSecSub">Três módulos de nivelamento, ainda em produção. Não contam para a maestria nem abrem a live.</p>
+
+  <div class="alert" data-i18n-html="evidenceLegend">
+    <strong>Evidência direta</strong>: um estudo publicado testou esse tipo de treino e mediu o resultado. <strong>Justificativa técnica</strong>: não há estudo dedicado a este módulo; a necessidade vem de currículos gerais de laparoscopia (ex.: FLS) ou de uma exigência deste protocolo (ex.: fixação de tela sem grampeador).
   </div>
+
+  <div class="module-grid" id="module-grid">
+
+    <div class="module-card" id="module-card-fundamentos">
+      <div class="module-top">
+        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="5"/><path d="M12 10.5a3 3 0 0 0-3 3"/><path d="M4 8.5h3.2l1-2h7.6l1 2H20v10.5H4z"/></svg></div>
+        <span class="evidence-badge design" data-i18n="badgeDesign">JUSTIFICATIVA TÉCNICA</span>
+      </div>
+      <h3 data-i18n="mod_fundamentos_title">Fundamentos de videolaparoscopia</h3>
+      <div class="module-audience" data-i18n="mod_fundamentos_audience">Indicado para residentes sem experiência prévia em laparoscopia</div>
+      <div class="module-rationale" data-i18n-html="mod_fundamentos_rationale">Coordenação câmera-mãos e triangulação de instrumentos são pré-requisito de qualquer procedimento laparoscópico — a mesma lacuna coberta por currículos genéricos como o <strong>FLS</strong>, sem especificidade para hérnia.</div>
+      <div class="module-footer">
+        <span class="estado" data-i18n="statusProducao">Em produção</span>
+      </div>
+    </div>
+
+    <div class="module-card" id="module-card-sutura">
+      <div class="module-top">
+        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L19 5"/><circle cx="18" cy="6" r="1.4" fill="currentColor" stroke="none"/><path d="M8 15.5c1.3 1.3 2.7 0 4-1.3s2.7-1.3 4 0"/></svg></div>
+        <span class="evidence-badge direct" data-i18n="badgeDirect">EVIDÊNCIA DIRETA</span>
+      </div>
+      <h3 data-i18n="mod_sutura_title">Sutura e nós intracorpóreos</h3>
+      <div class="module-audience" data-i18n="mod_sutura_audience">Indicado para residentes sem prática de sutura laparoscópica</div>
+      <div class="module-rationale" data-i18n-html="mod_sutura_rationale">O fechamento do peritônio no TAPP exige sutura contínua, sem falhas. Baseado na <strong>EPP</strong> (Barreto et al., 2019), uma escala de sutura laparoscópica (quantos pontos em 18 minutos) validada em residência cirúrgica no Brasil. Após 7 sessões, os residentes melhoraram em todos os domínios da <strong>OSATS</strong>, a avaliação estruturada da habilidade técnica.</div>
+      <div class="module-footer">
+        <span class="estado" data-i18n="statusProducao">Em produção</span>
+      </div>
+    </div>
+
+    <div class="module-card" id="module-card-tela">
+      <div class="module-top">
+        <div class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 3v6c0 4.3-3 7.2-7 8.5-4-1.3-7-4.2-7-8.5v-6z"/><path d="M8 9.5h8M8 12.5h8M8 15.5h5.5"/></svg></div>
+        <span class="evidence-badge design" data-i18n="badgeDesign">JUSTIFICATIVA TÉCNICA</span>
+      </div>
+      <h3 data-i18n="mod_tela_title">Manuseio de tela sem fixação mecânica</h3>
+      <div class="module-audience" data-i18n="mod_tela_audience">Indicado para residentes sem experiência prévia com manuseio de tela cirúrgica</div>
+      <div class="module-rationale" data-i18n-html="mod_tela_rationale">O protocolo utiliza fixação por adesivo/sutura, sem grampeador — o que exige manuseio manual mais refinado do que a fixação mecânica convencional.</div>
+      <div class="module-footer">
+        <span class="estado" data-i18n="statusProducao">Em produção</span>
+      </div>
+    </div>
+
+  </div>
+
 
 </div>
 </div>
@@ -580,44 +612,52 @@
 <div class="container">
 
   <div class="hero">
-    <span class="hero-kicker" data-i18n="courseKicker">Curso Principal</span>
-    <h2 data-i18n="courseHeroTitle">Hérnia Inguinal por Videolaparoscopia (TAPP)</h2>
-    <p data-i18n="courseHeroSub">Simulador impresso em 3D associado a protocolo de mastery learning, com critério objetivo de proficiência anterior à prática em paciente.</p>
+    <span class="hero-kicker" data-i18n="courseKicker">Curso principal · P² Praticar</span>
+    <h2 tabindex="-1" data-i18n="courseHeroTitle">Hérnia inguinal por videolaparoscopia (TAPP)</h2>
+    <p data-i18n="courseHeroSub">Modelo impresso em 3D e treino por maestria: 5 critérios objetivos, cumpridos no modelo, antes do primeiro paciente.</p>
   </div>
 
   <div class="stats-row">
-    <div class="stat-box"><div class="num">OR 0,04</div><div class="lbl" data-i18n="stat1lbl">Redução de complicações pós-operatórias (Zendejas et al., 2011)</div></div>
-    <div class="stat-box"><div class="num">−29%</div><div class="lbl" data-i18n="stat2lbl">Redução no tempo cirúrgico com mastery learning</div></div>
-    <div class="stat-box"><div class="num">18/25</div><div class="lbl" data-i18n="stat3lbl">Critério objetivo de proficiência (escala GOALS)</div></div>
-    <div class="stat-box"><div class="num">&ge;16</div><div class="lbl" data-i18n="stat4lbl">Sessões práticas até o critério de proficiência</div></div>
+    <div class="stat-box"><div class="num">OR 0,04</div><div class="lbl" data-i18n="stat1lbl">Redução de complicações pós-operatórias (TEP · Zendejas et al., 2011)</div></div>
+    <div class="stat-box"><div class="num">−29%</div><div class="lbl" data-i18n="stat2lbl">Redução no tempo cirúrgico com o treino por maestria (TEP)</div></div>
+    <div class="stat-box"><div class="num">18/25</div><div class="lbl" data-i18n="stat3lbl">Nota mínima na escala GOALS: 1 dos 5 critérios de maestria</div></div>
+    <div class="stat-box"><div class="num">&ge;16</div><div class="lbl" data-i18n="stat4lbl">Sessões no modelo, 2 por semana, em até 12 semanas (número a validar)</div></div>
   </div>
+  <p class="stat-nota" data-i18n="statNota">TAPP e TEP são as duas vias da hérnia inguinal por videolaparoscopia: o TAPP passa pela cavidade abdominal; o TEP fica por fora do peritônio. Os dois primeiros números vêm do TEP; no TAPP, ainda não foram demonstrados. As 16 sessões são o número do protocolo, ainda a validar pelo painel de especialistas.</p>
 
   <div class="card">
     <h3 style="margin-bottom:14px;font-size:14.5px;" data-i18n="journeyTitle">Sequência formativa até o centro cirúrgico</h3>
     <div class="journey">
       <div class="journey-step">
         <div class="journey-num">1</div>
-        <h4 data-i18n="step1Title">Prática Autoguiada</h4>
-        <p data-i18n="step1Desc">Mínimo de 16 sessões no simulador, em ritmo individual</p>
+        <h4 data-i18n="step1Title">Prática autoguiada</h4>
+        <p data-i18n="step1Desc">16 sessões ou mais (a validar), 2 por semana, em até 12 semanas</p>
       </div>
-      <div class="journey-step">
+      <div class="journey-step porta">
         <div class="journey-num">2</div>
-        <h4 data-i18n="step2Title">Sessão de Correção</h4>
-        <p data-i18n="step2Desc">Restrita a quem completa a etapa anterior com critério de proficiência</p>
+        <h4 data-i18n="stepPortaTitle">Maestria</h4>
+        <p data-i18n="stepPortaDesc">Os 5 critérios cumpridos, conferidos pelo preceptor: abre a live e dá o certificado de maestria</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">3</div>
-        <h4 data-i18n="step3Title">Encontro Presencial</h4>
-        <p data-i18n="step3Desc">Discussão de casos com pares e com o Dr. Paulo Barros</p>
+        <h4 data-i18n="step2Title">Sessão de correção</h4>
+        <p data-i18n="step2Desc">Ao vivo e remota, só para quem chegou à maestria</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">4</div>
-        <h4 data-i18n="step4Title">Centro Cirúrgico</h4>
-        <p data-i18n="step4Desc">Progressão supervisionada em paciente real</p>
+        <h4 data-i18n="step3Title">Encontro presencial</h4>
+        <p data-i18n="step3Desc">Discussão de casos com os pares e com o preceptor</p>
+      </div>
+      <div class="journey-step">
+        <div class="journey-num">5</div>
+        <h4 data-i18n="step4Title">Centro cirúrgico</h4>
+        <p data-i18n="step4Desc">Os primeiros 10 a 15 casos em paciente real, com supervisão que diminui</p>
       </div>
     </div>
-    <div class="locked-hint" id="locked-hint" data-i18n="lockedHint">
-      A sessão ao vivo é habilitada após a conclusão dos 4 módulos com critério de proficiência.
+    <div class="locked-hint">
+      <p data-i18n="lockedHint">A live abre só para quem chega à maestria, com os 5 critérios cumpridos:</p>
+      <ol class="crit" data-i18n-html="critLista"><li>desempenho global (GOALS) ≥ 18 de 25</li><li>nenhum erro crítico</li><li>14 de 14 etapas obrigatórias</li><li>confiança ≥ 7 de 10</li><li>2 sessões aprovadas seguidas</li></ol>
+      <p data-i18n="lockedHint2">Os pré-módulos não abrem a live: ela depende só dos 5 critérios.</p>
     </div>
   </div>
 
@@ -626,33 +666,33 @@
     <p style="font-size:12px;color:var(--neutral-600);margin-bottom:14px;" data-i18n="macroSub">Cada etapa indica, quando aplicável, o pré-módulo de nivelamento mais relacionado à habilidade exigida.</p>
     <div class="moment-list">
       <div class="moment">
-        <div class="moment-head"><span class="moment-phase">01</span><h4 data-i18n="macro1Title">Verificação e Orientação Anatômica</h4></div>
+        <div class="moment-head"><span class="moment-phase">01</span><h4 data-i18n="macro1Title">Verificação e orientação anatômica</h4></div>
         <p data-i18n="macro1Desc">Identificação do ligamento de Cooper, vasos epigástricos, ducto deferente e vasos espermáticos antes do início da dissecção.</p>
-        <span class="premodule-tag" onclick="switchTab('premodulos')" data-i18n="macro1Tag">Pré-módulo relacionado: Fundamentos de Videolaparoscopia →</span>
+        <button type="button" class="premodule-tag" data-tab="preparacao" data-i18n="macro1Tag">Pré-módulo relacionado: Fundamentos de videolaparoscopia →</button>
       </div>
       <div class="moment">
-        <div class="moment-head"><span class="moment-phase">02</span><h4 data-i18n="macro2Title">Retalho Peritoneal</h4></div>
+        <div class="moment-head"><span class="moment-phase">02</span><h4 data-i18n="macro2Title">Retalho peritoneal</h4></div>
         <p data-i18n="macro2Desc">Incisão peritoneal com extensão adequada até a linha média e lateralmente além das espinhas ilíacas.</p>
         <div class="clinical" data-i18n="macro2Clinical">Correlato clínico: perfuração além do limite associa-se a conversão para cirurgia aberta</div>
-        <span class="premodule-tag" onclick="switchTab('premodulos')" data-i18n="macro2Tag">Pré-módulo relacionado: Fundamentos de Videolaparoscopia →</span>
+        <button type="button" class="premodule-tag" data-tab="preparacao" data-i18n="macro2Tag">Pré-módulo relacionado: Fundamentos de videolaparoscopia →</button>
       </div>
       <div class="moment">
-        <div class="moment-head"><span class="moment-phase">03</span><h4 data-i18n="macro3Title">Dissecção Pré-Peritoneal</h4></div>
+        <div class="moment-head"><span class="moment-phase">03</span><h4 data-i18n="macro3Title">Dissecção pré-peritoneal</h4></div>
         <p data-i18n="macro3Desc">Exposição completa do ligamento de Cooper e preservação do ducto deferente e vasos espermáticos.</p>
         <div class="clinical" data-i18n="macro3Clinical">Correlato clínico: exposição insuficiente associa-se a recidiva precoce; lesão do cordão associa-se a infertilidade e orquite isquêmica</div>
         <span class="premodule-tag none" data-i18n="macro3Tag">Habilidade específica de TAPP — trabalhada na prática autoguiada, sem pré-módulo dedicado</span>
       </div>
       <div class="moment">
-        <div class="moment-head"><span class="moment-phase">04</span><h4 data-i18n="macro4Title">Posicionamento da Tela</h4></div>
-        <p data-i18n="macro4Desc">Introdução pelo trocar sem perda de orientação, com cobertura mínima de segurança em todas as margens sobre o orifício miopectíneo.</p>
+        <div class="moment-head"><span class="moment-phase">04</span><h4 data-i18n="macro4Title">Posicionamento da tela</h4></div>
+        <p data-i18n="macro4Desc">Introdução pelo trocarte sem perda de orientação, com cobertura mínima de segurança em todas as bordas sobre o orifício miopectíneo.</p>
         <div class="clinical" data-i18n="macro4Clinical">Correlato clínico: cobertura insuficiente associa-se a recidiva medial ou superior</div>
-        <span class="premodule-tag" onclick="switchTab('premodulos')" data-i18n="macro4Tag">Pré-módulo relacionado: Manuseio de Tela sem Fixação Mecânica →</span>
+        <button type="button" class="premodule-tag" data-tab="preparacao" data-i18n="macro4Tag">Pré-módulo relacionado: Manuseio de tela sem fixação mecânica →</button>
       </div>
       <div class="moment">
-        <div class="moment-head"><span class="moment-phase">05</span><h4 data-i18n="macro5Title">Fechamento do Peritônio</h4></div>
+        <div class="moment-head"><span class="moment-phase">05</span><h4 data-i18n="macro5Title">Fechamento do peritônio</h4></div>
         <p data-i18n="macro5Desc">Sutura contínua com cobertura completa da tela, sem falhas de continuidade.</p>
         <div class="clinical" data-i18n="macro5Clinical">Correlato clínico: falha de fechamento associa-se a obstrução intestinal por hérnia interna</div>
-        <span class="premodule-tag" onclick="switchTab('premodulos')" data-i18n="macro5Tag">Pré-módulo relacionado: Sutura e Nós Intracorpóreos →</span>
+        <button type="button" class="premodule-tag" data-tab="preparacao" data-i18n="macro5Tag">Pré-módulo relacionado: Sutura e nós intracorpóreos →</button>
       </div>
     </div>
     <div class="macro-mapa">
@@ -664,8 +704,8 @@
   </div>
 
   <div class="card">
-    <h3 style="margin-bottom:4px;font-size:14.5px;" data-i18n="ceTitle">Checklist de Autoavaliação — Erros Críticos (CE)</h3>
-    <p style="font-size:12px;color:var(--neutral-600);margin-bottom:14px;" data-i18n="ceSub">Autoavalie sua última sessão de prática. Qualquer item marcado é um erro crítico — repita esta etapa antes de avançar. É o mesmo critério de "zero erros críticos" exigido para elegibilidade na sessão ao vivo.</p>
+    <h3 style="margin-bottom:4px;font-size:14.5px;" data-i18n="ceTitle">Checklist de autoavaliação: erros críticos (CE)</h3>
+    <p style="font-size:12px;color:var(--neutral-600);margin-bottom:14px;" data-i18n="ceSub">Autoavalie a sua última sessão de prática. Um erro crítico basta para a sessão não contar como aprovada. Zerar os erros críticos é 1 dos 5 critérios de maestria.</p>
     <div class="ce-list">
       <label class="ce-item" id="ce-item-1"><input type="checkbox" id="ce-1" onchange="toggleCe('1')"><span><span class="ce-code">CE-1</span><span class="ce-text" data-i18n="ce1Text">Incisão abaixo do anel interno</span><span class="ce-consequence" data-i18n="ce1Cons">Comprometimento da dissecção; conversão para cirurgia aberta</span></span></label>
       <label class="ce-item" id="ce-item-2"><input type="checkbox" id="ce-2" onchange="toggleCe('2')"><span><span class="ce-code">CE-2</span><span class="ce-text" data-i18n="ce2Text">Perfuração peritoneal > 2 cm</span><span class="ce-consequence" data-i18n="ce2Cons">Conversão; hérnia interna</span></span></label>
@@ -674,13 +714,14 @@
       <label class="ce-item" id="ce-item-5"><input type="checkbox" id="ce-5" onchange="toggleCe('5')"><span><span class="ce-code">CE-5</span><span class="ce-text" data-i18n="ce5Text">Lesão do ducto deferente ou dos vasos espermáticos</span><span class="ce-consequence" data-i18n="ce5Cons">Infertilidade; orquite isquêmica</span></span></label>
       <label class="ce-item" id="ce-item-6"><input type="checkbox" id="ce-6" onchange="toggleCe('6')"><span><span class="ce-code">CE-6</span><span class="ce-text" data-i18n="ce6Text">Cobertura insuficiente do Cooper (&lt; 2 cm)</span><span class="ce-consequence" data-i18n="ce6Cons">Recidiva medial</span></span></label>
       <label class="ce-item" id="ce-item-7"><input type="checkbox" id="ce-7" onchange="toggleCe('7')"><span><span class="ce-code">CE-7</span><span class="ce-text" data-i18n="ce7Text">Tela sem sobreposição superior (&lt; 2 cm)</span><span class="ce-consequence" data-i18n="ce7Cons">Recidiva superior</span></span></label>
-      <label class="ce-item" id="ce-item-8"><input type="checkbox" id="ce-8" onchange="toggleCe('8')"><span><span class="ce-code">CE-8</span><span class="ce-text" data-i18n="ce8Text">Gap ≥ 2 cm no fechamento peritoneal</span><span class="ce-consequence" data-i18n="ce8Cons">Obstrução intestinal por hérnia interna</span></span></label>
+      <label class="ce-item" id="ce-item-8"><input type="checkbox" id="ce-8" onchange="toggleCe('8')"><span><span class="ce-code">CE-8</span><span class="ce-text" data-i18n="ce8Text">Abertura ≥ 2 cm no fechamento peritoneal</span><span class="ce-consequence" data-i18n="ce8Cons">Obstrução intestinal por hérnia interna</span></span></label>
     </div>
-    <div class="ce-result ok" id="ce-result">0</div>
+    <div class="ce-result ok" id="ce-result" aria-live="polite">Nenhum erro crítico nesta sessão; faltam os outros critérios de maestria.</div>
+    <button type="button" class="ce-limpa" id="ce-limpa" data-i18n="ceLimpa" hidden>Nova sessão: limpar as marcas</button>
   </div>
 
   <div class="sources" data-i18n="sourcesText">
-    Referências: Zendejas et al., 2011 (Annals of Surgery, ECR nível 1) · Zendejas et al., 2012 (currículo) · Lang et al., 2023 (Surgical Endoscopy) · Barreto et al., 2019 (Rev Bras Educ Méd) · Barros et al., 2024 (Einstein — São Paulo)
+    Referências: Zendejas et al., 2011 (Annals of Surgery, ensaio randomizado em TEP) · Zendejas et al., 2012 (currículo) · Lang et al., 2023 (Surgical Endoscopy) · Barreto et al., 2019 (Rev Bras Educ Méd) · Barros et al., 2024 (Einstein, São Paulo)
   </div>
 
 </div>
@@ -693,24 +734,25 @@
 <div class="container">
 
   <div class="hero">
-    <span class="hero-kicker" data-i18n="liveKicker">Sessão Síncrona</span>
-    <h2 data-i18n="liveHeroTitle">Sessão de Correção Técnica — Dr. Paulo Barros</h2>
-    <p data-i18n="liveHeroSub">Etapa síncrona, restrita aos residentes que concluem os 4 módulos de nivelamento e a prática autoguiada com critério de proficiência. O preceptor concentra o tempo de supervisão direta em quem apresenta resultado conclusivo.</p>
+    <span class="hero-kicker" data-i18n="liveKicker">Sessão ao vivo</span>
+    <h2 tabindex="-1" data-i18n="liveHeroTitle">Sessão de correção técnica com o preceptor</h2>
+    <p data-i18n="liveHeroSub">Sessão remota, ao vivo, só para quem chegou à maestria na prática autoguiada. O preceptor concentra a supervisão direta em quem já cumpriu os 5 critérios.</p>
   </div>
 
-  <div class="alert" data-i18n="liveEligibilityAlert">
-    <strong>Elegibilidade:</strong> conclusão dos 4 módulos de nivelamento (aba Pré-Módulos) e critério de proficiência na prática autoguiada (GOALS ≥ 18/25, zero erros críticos, 2 sessões consecutivas).
+  <div class="alert">
+    <p data-i18n-html="liveEligibilityAlert"><strong>Quem participa:</strong> só quem chegou à maestria, com os 5 critérios cumpridos. O preceptor confere os registros das duas sessões aprovadas.</p>
+    <ol class="crit" data-i18n-html="critLista"><li>desempenho global (GOALS) ≥ 18 de 25</li><li>nenhum erro crítico</li><li>14 de 14 etapas obrigatórias</li><li>confiança ≥ 7 de 10</li><li>2 sessões aprovadas seguidas</li></ol>
   </div>
 
   <div class="live-card">
-    <span class="tag" data-i18n="liveTag">PRÓXIMA EDIÇÃO</span>
-    <h3 data-i18n="liveTitle">Sessão de Correção Técnica — Dr. Paulo Barros</h3>
+    <span class="tag" data-i18n="liveProxTag">PRÓXIMA EDIÇÃO</span>
+    <h3 data-i18n="liveTitle">Sessão de correção técnica</h3>
     <div class="date-row">
-      <span class="date-big" data-i18n="liveDateBig">22 de outubro de 2026</span>
-      <span class="date-sub" data-i18n="liveDateSub">19h (horário de Brasília) · formato remoto · data de referência para fins de protótipo</span>
+      <span class="date-big" data-i18n="liveDateBig">Data a definir</span>
+      <span class="date-sub" data-i18n="liveDateSub">formato remoto, ao vivo</span>
     </div>
-    <p data-i18n="liveDesc">Revisão técnica individualizada conduzida pelo Dr. Paulo Barros, restrita aos residentes que concluírem a etapa de nivelamento com critério de proficiência.</p>
-    <button class="btn btn-primary" data-i18n="liveBtn">Confirmar participação</button>
+    <p data-i18n="liveDesc">Revisão técnica individual: o preceptor observa ao vivo e corrige o que o checklist não pega.</p>
+    <div class="estado" id="live-estado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg><span data-i18n="liveEstado">Travada até a maestria</span></div>
   </div>
 
   <div class="card" style="margin-top:18px;">
@@ -722,7 +764,7 @@
       </div>
       <div class="moment">
         <h4 data-i18n="liveFormat2Title">Encerramento da etapa remota</h4>
-        <p data-i18n="liveFormat2Desc">Última interação síncrona antes da etapa presencial — não substitui a supervisão em centro cirúrgico.</p>
+        <p data-i18n="liveFormat2Desc">Última interação síncrona antes da etapa presencial; não substitui a supervisão no centro cirúrgico.</p>
       </div>
     </div>
   </div>
@@ -737,19 +779,19 @@
 <div class="container">
 
   <div class="hero">
-    <span class="hero-kicker" data-i18n="presKicker">Etapa Presencial</span>
-    <h2 data-i18n="presHeroTitle">Encontro Presencial</h2>
-    <p data-i18n="presHeroSub">Etapa complementar à sessão ao vivo, restrita aos residentes que participarem dela. Formato presencial, com foco em contato próximo — não em avaliação técnica adicional.</p>
+    <span class="hero-kicker" data-i18n="presKicker">Etapa presencial</span>
+    <h2 tabindex="-1" data-i18n="presHeroTitle">Encontro presencial</h2>
+    <p data-i18n="presHeroSub">Etapa complementar à sessão ao vivo, para quem participou dela. O foco é o contato próximo, não uma avaliação técnica a mais.</p>
   </div>
 
-  <div class="alert" data-i18n="presEligibilityAlert">
-    <strong>Elegibilidade:</strong> participação na Sessão de Correção Técnica (aba Live).
+  <div class="alert" data-i18n-html="presEligibilityAlert">
+    <strong>Quem participa:</strong> quem passou pela sessão de correção ao vivo (aba Live).
   </div>
 
   <div class="bonus-card" style="margin-top:4px;">
     <span class="tag" data-i18n="bonusTag">ETAPA COMPLEMENTAR</span>
     <h4 data-i18n="bonusTitle">Encontro presencial</h4>
-    <p data-i18n="bonusDesc">Participantes da sessão ao vivo têm acesso a um encontro presencial para discussão de casos com pares e acompanhamento direto do Dr. Paulo Barros — cirurgião com mais de 17 anos de experiência em TAPP, responsável pela concepção clínica e pela condução estratégica desta plataforma.</p>
+    <p data-i18n="bonusDesc">Quem passou pela sessão ao vivo tem um encontro presencial para discutir casos com os pares e ter o acompanhamento direto do preceptor, cirurgião com mais de 17 anos em videolaparoscopia, responsável pela concepção clínica e pela condução desta plataforma.</p>
   </div>
 
   <div class="card" style="margin-top:18px;">
@@ -761,11 +803,11 @@
       </div>
       <div class="moment">
         <h4 data-i18n="presFormat2Title">Acompanhamento individual em tempo real</h4>
-        <p data-i18n="presFormat2Desc">Contato direto com o Dr. Paulo Barros, com retorno específico por residente, não em formato de turma.</p>
+        <p data-i18n="presFormat2Desc">Contato direto com o preceptor, com retorno específico para cada residente, não em formato de turma.</p>
       </div>
       <div class="moment">
         <h4 data-i18n="presFormat3Title">Data e local</h4>
-        <p data-i18n="presFormat3Desc">A confirmar após a edição da sessão ao vivo correspondente — informação de protótipo, não compromisso agendado.</p>
+        <p data-i18n="presFormat3Desc">A confirmar depois da sessão ao vivo correspondente. É informação de protótipo, não um compromisso agendado.</p>
       </div>
     </div>
   </div>
@@ -781,13 +823,13 @@
 
   <div class="hero">
     <span class="hero-kicker" data-i18n="cirKicker">Etapa final · P³ Proceder</span>
-    <h2 data-i18n="cirTitle">Centro cirúrgico</h2>
-    <p data-i18n="cirSub">Só chega aqui quem passou no critério de maestria. A cirurgia é real, com supervisão presencial que diminui caso a caso, em três fases.</p>
+    <h2 tabindex="-1" data-i18n="cirTitle">Centro cirúrgico</h2>
+    <p data-i18n="cirSub">Só chega aqui quem tem o certificado de maestria. A cirurgia é real: o curso acompanha os primeiros 10 a 15 casos, com supervisão presencial que diminui por fases.</p>
   </div>
 
   <div class="card p-card k2">
     <div class="p-head"><span class="sig">P³</span><h3 data-i18n="cirMapaTit">As zonas de perigo, no paciente</h3></div>
-    <p class="p-sub" data-i18n="cirMapaSub">O mesmo lugar do modelo, agora no paciente: tecido e gordura no lugar das cores. Em vermelho, as zonas de perigo; os nervos, tracejados, ficam sob a fáscia e não se veem.</p>
+    <p class="p-sub" data-i18n="cirMapaSub" data-i18n-sem-mapa="cirMapaSubTexto">O mesmo lugar do modelo, agora no paciente: tecido e gordura no lugar das cores. Em vermelho, as zonas de perigo; os nervos, tracejados, ficam sob a fáscia e não se veem.</p>
     <div class="p-grade">
       <div>
         <div class="mapa-fig" id="mapa-p3"></div>
@@ -802,21 +844,23 @@
   <div class="card">
     <h3 style="margin-bottom:12px;font-size:14.5px;" data-i18n="cirFasesTit">A supervisão diminui por fase</h3>
     <div class="abc">
-      <div><b data-i18n="faseATit">Fase A</b><span data-i18n="faseADesc">Casos 1 a 5 · preceptor paramentado na mesa · meta: 3 casos sem incidente e menos de 60 min</span></div>
+      <div><b data-i18n="faseATit">Fase A</b><span data-i18n="faseADesc">Casos 1 a 5 · preceptor paramentado, na mesa · meta: 3 casos sem incidente e menos de 60 min</span></div>
       <div><b data-i18n="faseBTit">Fase B</b><span data-i18n="faseBDesc">Casos 6 a 15 · preceptor na sala · meta: 5 casos sem incidente e menos de 45 min</span></div>
       <div><b data-i18n="faseCTit">Fase C</b><span data-i18n="faseCDesc">A partir do caso 16 · supervisor disponível no andar · avaliação individual</span></div>
     </div>
+    <p class="cir-nota" data-i18n="cirFasesNota">Os 10 a 15 casos que o curso acompanha, conforme o volume do serviço, ficam nas fases A e B. A fase C começa no 16º caso.</p>
   </div>
 
-  <p class="aberto-r" data-i18n-html="cirAberto"><strong>O que ainda não se sabe:</strong> nenhum ensaio mostrou ainda que o treino em simulador de TAPP reduz complicação no paciente. O precedente vem do TEP, e é o que o ensaio do projeto vai medir no TAPP.</p>
+  <p class="aberto-r" data-i18n-html="cirAberto"><strong>O que ainda não se sabe:</strong> nenhum ensaio mostrou ainda que o treino em simulador de TAPP reduz complicação no paciente. O precedente vem do TEP; é o que um ensaio planejado pelo projeto, ainda sem data, quer medir no TAPP.</p>
 
 </div>
 </div>
+</main>
 
 <footer class="site-footer">
   <div class="container">
-    <p data-i18n="footerText">Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos de experiência em cirurgia videolaparoscópica.</p>
-    <p class="footer-note" data-i18n="footerNote">Protótipo de plataforma educacional — Biodesign Brasil.</p>
+    <p data-i18n="footerText">Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos em videolaparoscopia.</p>
+    <p class="footer-note" data-i18n="footerNote">Protótipo de plataforma educacional · Biodesign Brasil.</p>
     <p class="footer-note" id="carimbo"></p>
   </div>
 </footer>
@@ -828,140 +872,110 @@
 
 const I18N = {
   pt: {
-    headerSubtitle: "Mastery Learning · Hérnia Inguinal",
-    headerAffil: "Dr. Paulo Barros · Hospital Albert Einstein, São Paulo",
-    pmKicker: "Módulos de Nivelamento",
-    courseKicker: "Curso Principal",
-    liveKicker: "Sessão Síncrona",
-    presKicker: "Etapa Presencial",
-    footerText: "Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos de experiência em cirurgia videolaparoscópica.",
-    footerNote: "Protótipo de plataforma educacional — Biodesign Brasil.",
-    footerStamp: "Estado em {data} · publicação {n}",
-    footerDraft: "Versão de trabalho, não publicada",
+    docTitle: "Plataforma do residente · Hernia3D",
+    docDesc: "Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D. Teoria, prática autoguiada, live e encontro presencial com o preceptor.",
+    headerTitle: "Plataforma do residente",
+    headerAffil: "Dr. Paulo Barros · Einstein",
+    navAria: "Etapas do curso",
+    navKit: "Kit",
+    navPreparacao: "Preparação",
+    navCurso: "Curso TAPP",
+    navLive: "Live",
+    navPresencial: "Presencial",
     navCirurgia: "Centro cirúrgico",
     trilhaRot: "Seu caminho em 3Ps",
     p1Nome: "Preparar", p2Nome: "Praticar", p3Nome: "Proceder",
     trilhaDica: "As três palavras são as do próprio curso: a preparação, a prática e o procedimento.",
+    footerText: "Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos em videolaparoscopia.",
+    footerNote: "Protótipo de plataforma educacional · Biodesign Brasil.",
+    footerStamp: "Estado em {data} · publicação {n}",
+    footerDraft: "Versão de trabalho, não publicada",
+
+    kitKicker: "Materiais e instrumental",
+    kitHeroTitle: "Kit de instrumentos: três formas de montar o seu",
+    kitHeroSub: "O modelo 3D vem com o curso, emprestado. Você escolhe como ter o instrumental para praticar em casa: há três formas, da mais pronta à mais livre.",
+    kitPhilosophyNote: "<strong>Por que o curso não exige instrumental regularizado na ANVISA?</strong> Porque esse instrumental é de uso exclusivo em simulação, não destinado a uso em pessoas. Baixar o custo de entrada é uma escolha deliberada, não uma concessão de qualidade.",
+    kitBadge1: "NÍVEL 1",
+    kit1Title: "Aluguel do kit completo",
+    kit1Audience: "Para quem quer começar sem precisar comprar nem cuidar do envio",
+    kit1Desc: "Caixa de treino, câmera USB, monitor, pinças e trocartes, entregues prontos e devolvidos ao fim do curso.",
+    kit1Estado: "Em definição: preço, envio e devolução",
+    kitBadge2: "NÍVEL 2",
+    kit2Title: "Liberdade guiada",
+    kit2Audience: "Para quem já tem parte do instrumental e quer orientação sobre o que falta",
+    kit2Desc: "Uma lista curada: opções regularizadas na ANVISA, alternativas importadas e fornecedores de impressão 3D para peças específicas do modelo.",
+    kit2Estado: "Lista em curadoria",
+    kitBadge3: "NÍVEL 3",
+    kit3Title: "Por sua conta",
+    kit3Audience: "Para quem já tem experiência de compra ou preceptor com estoque próprio",
+    kit3Desc: "Só a lista de requisitos técnicos do modelo; você escolhe onde comprar.",
+    kit3Estado: "Lista de requisitos em preparação",
+
+    pmKicker: "Primeira etapa · P¹ Preparar",
+    pmHeroTitle: "Antes da prática: a teoria, a primeira sessão e, se faltar base, os pré-módulos",
+    pmHeroSub: "Todo residente faz a teoria e a primeira sessão no modelo. Os pré-módulos são só para quem ainda não tem a base de videolaparoscopia.",
+    p1EtapasTit: "O que todo residente faz",
+    p1TeoriaTit: "Teoria do TAPP, com teste",
+    p1TeoriaDesc: "Anatomia, etapas do procedimento e instrumental, no seu ritmo. O teste pede 90% de acerto para avançar, com tentativas ilimitadas.",
+    p1OnbTit: "Primeira sessão no modelo (onboarding)",
+    p1OnbDesc: "Você monta o modelo, conhece as peças e faz o primeiro TAPP guiado por um vídeo de referência, narrado. Esta sessão não vale nota e não conta entre as sessões da prática.",
     p1Tit: "Preparar: a anatomia que você vai nomear",
-    p1Sub: "Antes de cortar, nomeie. Estas são as seis estruturas que o onboarding apresenta no modelo, vistas por dentro, pela câmera: medial à esquerda, lateral à direita.",
+    p1Sub: "Antes de cortar, nomeie. Estas são as seis estruturas que a primeira sessão apresenta no modelo, vistas por dentro, pela câmera: medial à esquerda, lateral à direita.",
+    p1SubTexto: "Antes de cortar, nomeie. Estas são as seis estruturas que a primeira sessão apresenta no modelo.",
     mapaNota: "Região inguinal direita · esquema simplificado, não é atlas.",
     mapaRotulo: "Região inguinal direita, vista por dentro",
     quizTit: "Teste-se",
     quizSub: "Os nomes somem e você clica na estrutura pedida. É o que o P¹ cobra.",
     quizIni: "começar", quizDeNovo: "fazer de novo",
-    quizPergunta: "{i} de {n} · Onde está {art} <b>{nome}</b>?",
+    quizPergunta: "{i} de {n} · Encontre {art} <b>{nome}</b>.",
     quizDica: "Clique no mapa, ou use Tab e Enter.",
     quizCerto: "Certo: {art} {nome}.",
-    quizErro: "Isso é {art} {nome}. Procure {art2} {nome2}.",
+    quizErro: "Você marcou: {nome}. Procure {art2} {nome2}.",
     quizFim: "Você reconheceu {a} de {n} na primeira tentativa. No curso, a teoria cobra 90% para avançar.",
-    p2Nota: "P² · clique numa macroetapa: em ouro, o que ela toca no modelo.",
-    p2Play: "▶ ver as 5 fases", p2Parar: "❚❚ parar",
-    cirKicker: "Etapa final · P³ Proceder",
-    cirTitle: "Centro cirúrgico",
-    cirSub: "Só chega aqui quem passou no critério de maestria. A cirurgia é real, com supervisão presencial que diminui caso a caso, em três fases.",
-    cirMapaTit: "As zonas de perigo, no paciente",
-    cirMapaSub: "O mesmo lugar do modelo, agora no paciente: tecido e gordura no lugar das cores. Em vermelho, as zonas de perigo; os nervos, tracejados, ficam sob a fáscia e não se veem.",
-    cirPerigo: "<strong>Triângulo do desastre</strong>, entre o ducto deferente e os vasos espermáticos: por baixo passam os vasos ilíacos. <strong>Triângulo da dor</strong>, ao lado dos vasos espermáticos e abaixo do trato iliopúbico: nervos que não se veem. Ferir um deles é erro maior.",
-    cirFasesTit: "A supervisão diminui por fase",
-    faseATit: "Fase A", faseADesc: "Casos 1 a 5 · preceptor paramentado na mesa · meta: 3 casos sem incidente e menos de 60 min",
-    faseBTit: "Fase B", faseBDesc: "Casos 6 a 15 · preceptor na sala · meta: 5 casos sem incidente e menos de 45 min",
-    faseCTit: "Fase C", faseCDesc: "A partir do caso 16 · supervisor disponível no andar · avaliação individual",
-    cirAberto: "<strong>O que ainda não se sabe:</strong> nenhum ensaio mostrou ainda que o treino em simulador de TAPP reduz complicação no paciente. O precedente vem do TEP, e é o que o ensaio do projeto vai medir no TAPP.",
-    navPremodulos: "Pré-Módulos",
-    navCurso: "Curso TAPP",
-    navLive: "Live",
-    navPresencial: "Presencial",
-    navKit: "Kit",
-    kitKicker: "Materiais e Instrumental",
-    kitHeroTitle: "Kit de instrumentos — três formas de montar o seu",
-    kitHeroSub: "O uso é em simulador, não em cirurgia ao vivo — por isso o protocolo não exige instrumentos homologados pela ANVISA. A prioridade é custo baixo e fácil acesso, sem perder fidelidade técnica ao procedimento.",
-    kitPhilosophyNote: "<strong>Por que sem exigência ANVISA?</strong> O instrumental é usado em modelo de simulação, não em paciente — reduzir o custo de entrada do treinamento é uma escolha deliberada, não uma concessão de qualidade.",
-    kitBadge1: "NÍVEL 1",
-    kit1Title: "Aluguel do Kit Completo",
-    kit1Audience: "Para quem quer começar sem fricção de compra ou logística",
-    kit1Desc: "Simulador e instrumental completo entregues prontos para uso, sem decisão de compra pelo residente ou programa.",
-    kitBadge2: "NÍVEL 2",
-    kit2Title: "Liberdade Guiada",
-    kit2Audience: "Para quem já tem parte do instrumental e quer orientação sobre o que falta",
-    kit2Desc: "Curadoria de opções homologadas pela ANVISA, alternativas de importação e fornecedores de impressão 3D para peças específicas do simulador.",
-    kitBadge3: "NÍVEL 3",
-    kit3Title: "Liberdade Livre",
-    kit3Audience: "Para quem já tem experiência de compra ou preceptor com estoque próprio",
-    kit3Desc: "Apenas a lista de requisitos técnicos do simulador — a aquisição fica por sua conta.",
-    kitBtnConsult: "Consultar disponibilidade",
-    kitBtnSoon: "Em curadoria",
-    kitBtnList: "Ver requisitos técnicos",
-    unlockCtaTitle: "Módulos concluídos com critério de proficiência",
-    unlockCtaDesc: "Acesso liberado à sessão de correção técnica. Consulte a aba correspondente para data, formato e etapa presencial associada.",
-    unlockCtaBtn: "Ver sessão ao vivo",
-    liveHeroTitle: "Sessão de Correção Técnica — Dr. Paulo Barros",
-    liveHeroSub: "Etapa síncrona, restrita aos residentes que concluem os 4 módulos de nivelamento e a prática autoguiada com critério de proficiência. O preceptor concentra o tempo de supervisão direta em quem apresenta resultado conclusivo.",
-    liveEligibilityAlert: "Elegibilidade: conclusão dos 4 módulos de nivelamento (aba Pré-Módulos) e critério de proficiência na prática autoguiada (GOALS ≥ 18/25, zero erros críticos, 2 sessões consecutivas).",
-    liveFormatTitle: "Formato da sessão",
-    liveFormat1Title: "Revisão técnica individualizada",
-    liveFormat1Desc: "Correções específicas e sutis de técnica, a partir do desempenho registrado na prática autoguiada.",
-    liveFormat2Title: "Encerramento da etapa remota",
-    liveFormat2Desc: "Última interação síncrona antes da etapa presencial — não substitui a supervisão em centro cirúrgico.",
-    presHeroTitle: "Encontro Presencial",
-    presHeroSub: "Etapa complementar à sessão ao vivo, restrita aos residentes que participarem dela. Formato presencial, com foco em contato próximo — não em avaliação técnica adicional.",
-    presEligibilityAlert: "Elegibilidade: participação na Sessão de Correção Técnica (aba Live).",
-    presFormatTitle: "O que este encontro inclui",
-    presFormat1Title: "Discussão de casos com pares",
-    presFormat1Desc: "Troca de experiências entre residentes que concluíram a mesma trajetória formativa.",
-    presFormat2Title: "Acompanhamento individual em tempo real",
-    presFormat2Desc: "Contato direto com o Dr. Paulo Barros, com retorno específico por residente, não em formato de turma.",
-    presFormat3Title: "Data e local",
-    presFormat3Desc: "A confirmar após a edição da sessão ao vivo correspondente — informação de protótipo, não compromisso agendado.",
-    pmHeroTitle: "Módulos de nivelamento — pré-requisitos técnicos antes do treinamento específico em TAPP",
-    pmHeroSub: "Quatro módulos definidos a partir dos erros mais frequentes observados em residentes sem experiência prévia de base. A conclusão dos quatro com critério de proficiência habilita a sessão de correção técnica conduzida pelo Dr. Paulo Barros.",
-    trackerLabel: "Progresso nos módulos de nivelamento",
+    pmSecTit: "Pré-módulos: para quem ainda não tem a base",
+    pmSecSub: "Três módulos de nivelamento, ainda em produção. Não contam para a maestria nem abrem a live.",
     badgeDirect: "EVIDÊNCIA DIRETA",
     badgeDesign: "JUSTIFICATIVA TÉCNICA",
-    evidenceLegend: "<strong>Evidência direta</strong>: um estudo publicado testou esse tipo específico de treino e mediu resultado. <strong>Justificativa técnica</strong>: não há estudo dedicado a este módulo — a necessidade é deduzida de currículos gerais de laparoscopia (ex.: FLS) ou de uma exigência própria deste protocolo (ex.: fixação de tela sem grampeador).",
-    mod_fundamentos_title: "Fundamentos de Videolaparoscopia",
+    evidenceLegend: "<strong>Evidência direta</strong>: um estudo publicado testou esse tipo de treino e mediu o resultado. <strong>Justificativa técnica</strong>: não há estudo dedicado a este módulo; a necessidade vem de currículos gerais de laparoscopia (ex.: FLS) ou de uma exigência deste protocolo (ex.: fixação de tela sem grampeador).",
+    mod_fundamentos_title: "Fundamentos de videolaparoscopia",
     mod_fundamentos_audience: "Indicado para residentes sem experiência prévia em laparoscopia",
     mod_fundamentos_rationale: "Coordenação câmera-mãos e triangulação de instrumentos são pré-requisito de qualquer procedimento laparoscópico — a mesma lacuna coberta por currículos genéricos como o <strong>FLS</strong>, sem especificidade para hérnia.",
-    mod_sutura_title: "Sutura e Nós Intracorpóreos",
+    mod_sutura_title: "Sutura e nós intracorpóreos",
     mod_sutura_audience: "Indicado para residentes sem prática de sutura laparoscópica",
-    mod_sutura_rationale: "O fechamento peritoneal do TAPP exige sutura contínua sem falhas de continuidade. Baseado na <strong>EPP</strong> (Barreto et al., 2019), instrumento validado em residência cirúrgica brasileira, com melhora significativa em todos os domínios OSATS após 7 sessões.",
-    mod_gaming_title: "Preparo Cognitivo Gamificado",
-    mod_gaming_audience: "Indicado para todos os residentes, previamente à Etapa 0",
-    mod_gaming_rationale: "A sequência pedagógica influencia o resultado tanto quanto a ferramenta utilizada: preparo cognitivo gamificado antes do simulador físico reduz o número de tentativas até a proficiência. Ensaio clínico randomizado cruzado (Lang et al., 2023): 2,7 vs. 3,2 tentativas (p=0,028).",
-    mod_tela_title: "Manuseio de Tela sem Fixação Mecânica",
+    mod_sutura_rationale: "O fechamento do peritônio no TAPP exige sutura contínua, sem falhas. Baseado na <strong>EPP</strong> (Barreto et al., 2019), uma escala de sutura laparoscópica (quantos pontos em 18 minutos) validada em residência cirúrgica no Brasil. Após 7 sessões, os residentes melhoraram em todos os domínios da <strong>OSATS</strong>, a avaliação estruturada da habilidade técnica.",
+    mod_tela_title: "Manuseio de tela sem fixação mecânica",
     mod_tela_audience: "Indicado para residentes sem experiência prévia com manuseio de tela cirúrgica",
     mod_tela_rationale: "O protocolo utiliza fixação por adesivo/sutura, sem grampeador — o que exige manuseio manual mais refinado do que a fixação mecânica convencional.",
-    statusNone: "Não iniciado", statusProgress: "Em andamento", statusMastered: "Concluído",
-    btnStart: "Iniciar módulo", btnMarkDone: "Registrar conclusão", btnDone: "Concluído",
-    lockedHint: "A sessão ao vivo é habilitada após a conclusão dos 4 módulos com critério de proficiência.",
-    liveTag: "SESSÃO HABILITADA",
-    liveTitle: "Sessão de Correção Técnica — Dr. Paulo Barros",
-    liveDateBig: "22 de outubro de 2026",
-    liveDateSub: "19h (horário de Brasília) · formato remoto · data de referência para fins de protótipo",
-    liveDesc: "Revisão técnica individualizada conduzida pelo Dr. Paulo Barros, restrita aos residentes que concluírem a etapa de nivelamento com critério de proficiência.",
-    liveBtn: "Confirmar participação",
-    bonusTag: "ETAPA COMPLEMENTAR",
-    bonusTitle: "Encontro presencial",
-    bonusDesc: "Participantes da sessão ao vivo têm acesso a um encontro presencial para discussão de casos com pares e acompanhamento direto do Dr. Paulo Barros — cirurgião com mais de 17 anos de experiência em TAPP, responsável pela concepção clínica e pela condução estratégica desta plataforma.",
-    courseHeroTitle: "Hérnia Inguinal por Videolaparoscopia (TAPP)",
-    courseHeroSub: "Simulador impresso em 3D associado a protocolo de mastery learning, com critério objetivo de proficiência anterior à prática em paciente.",
-    stat1lbl: "Redução de complicações pós-operatórias (Zendejas et al., 2011)",
-    stat2lbl: "Redução no tempo cirúrgico com mastery learning",
-    stat3lbl: "Critério objetivo de proficiência (escala GOALS)",
-    stat4lbl: "Sessões práticas até o critério de proficiência",
+    statusProducao: "Em produção",
+
+    courseKicker: "Curso principal · P² Praticar",
+    courseHeroTitle: "Hérnia inguinal por videolaparoscopia (TAPP)",
+    courseHeroSub: "Modelo impresso em 3D e treino por maestria: 5 critérios objetivos, cumpridos no modelo, antes do primeiro paciente.",
+    stat1lbl: "Redução de complicações pós-operatórias (TEP · Zendejas et al., 2011)",
+    stat2lbl: "Redução no tempo cirúrgico com o treino por maestria (TEP)",
+    stat3lbl: "Nota mínima na escala GOALS: 1 dos 5 critérios de maestria",
+    stat4lbl: "Sessões no modelo, 2 por semana, em até 12 semanas (número a validar)",
+    statNota: "TAPP e TEP são as duas vias da hérnia inguinal por videolaparoscopia: o TAPP passa pela cavidade abdominal; o TEP fica por fora do peritônio. Os dois primeiros números vêm do TEP; no TAPP, ainda não foram demonstrados. As 16 sessões são o número do protocolo, ainda a validar pelo painel de especialistas.",
     journeyTitle: "Sequência formativa até o centro cirúrgico",
-    step1Title: "Prática Autoguiada", step1Desc: "Mínimo de 16 sessões no simulador, em ritmo individual",
-    step2Title: "Sessão de Correção", step2Desc: "Restrita a quem completa a etapa anterior com critério de proficiência",
-    step3Title: "Encontro Presencial", step3Desc: "Discussão de casos com pares e com o Dr. Paulo Barros",
-    step4Title: "Centro Cirúrgico", step4Desc: "Progressão supervisionada em paciente real",
+    step1Title: "Prática autoguiada", step1Desc: "16 sessões ou mais (a validar), 2 por semana, em até 12 semanas",
+    stepPortaTitle: "Maestria", stepPortaDesc: "Os 5 critérios cumpridos, conferidos pelo preceptor: abre a live e dá o certificado de maestria",
+    step2Title: "Sessão de correção", step2Desc: "Ao vivo e remota, só para quem chegou à maestria",
+    step3Title: "Encontro presencial", step3Desc: "Discussão de casos com os pares e com o preceptor",
+    step4Title: "Centro cirúrgico", step4Desc: "Os primeiros 10 a 15 casos em paciente real, com supervisão que diminui",
+    lockedHint: "A live abre só para quem chega à maestria, com os 5 critérios cumpridos:",
+    critLista: "<li>desempenho global (GOALS) ≥ 18 de 25</li><li>nenhum erro crítico</li><li>14 de 14 etapas obrigatórias</li><li>confiança ≥ 7 de 10</li><li>2 sessões aprovadas seguidas</li>",
+    lockedHint2: "Os pré-módulos não abrem a live: ela depende só dos 5 critérios.",
     macroTitle: "Macroetapas do procedimento TAPP",
     macroSub: "Cada etapa indica, quando aplicável, o pré-módulo de nivelamento mais relacionado à habilidade exigida.",
-    macro1Title: "Verificação e Orientação Anatômica", macro1Desc: "Identificação do ligamento de Cooper, vasos epigástricos, ducto deferente e vasos espermáticos antes do início da dissecção.", macro1Tag: "Pré-módulo relacionado: Fundamentos de Videolaparoscopia →",
-    macro2Title: "Retalho Peritoneal", macro2Desc: "Incisão peritoneal com extensão adequada até a linha média e lateralmente além das espinhas ilíacas.", macro2Clinical: "Correlato clínico: perfuração além do limite associa-se a conversão para cirurgia aberta", macro2Tag: "Pré-módulo relacionado: Fundamentos de Videolaparoscopia →",
-    macro3Title: "Dissecção Pré-Peritoneal", macro3Desc: "Exposição completa do ligamento de Cooper e preservação do ducto deferente e vasos espermáticos.", macro3Clinical: "Correlato clínico: exposição insuficiente associa-se a recidiva precoce; lesão do cordão associa-se a infertilidade e orquite isquêmica", macro3Tag: "Habilidade específica de TAPP — trabalhada na prática autoguiada, sem pré-módulo dedicado",
-    macro4Title: "Posicionamento da Tela", macro4Desc: "Introdução pelo trocar sem perda de orientação, com cobertura mínima de segurança em todas as margens sobre o orifício miopectíneo.", macro4Clinical: "Correlato clínico: cobertura insuficiente associa-se a recidiva medial ou superior", macro4Tag: "Pré-módulo relacionado: Manuseio de Tela sem Fixação Mecânica →",
-    macro5Title: "Fechamento do Peritônio", macro5Desc: "Sutura contínua com cobertura completa da tela, sem falhas de continuidade.", macro5Clinical: "Correlato clínico: falha de fechamento associa-se a obstrução intestinal por hérnia interna", macro5Tag: "Pré-módulo relacionado: Sutura e Nós Intracorpóreos →",
-    ceTitle: "Checklist de Autoavaliação — Erros Críticos (CE)",
-    ceSub: "Autoavalie sua última sessão de prática. Qualquer item marcado é um erro crítico — repita esta etapa antes de avançar. É o mesmo critério de \"zero erros críticos\" exigido para elegibilidade na sessão ao vivo.",
+    macro1Title: "Verificação e orientação anatômica", macro1Desc: "Identificação do ligamento de Cooper, vasos epigástricos, ducto deferente e vasos espermáticos antes do início da dissecção.", macro1Tag: "Pré-módulo relacionado: Fundamentos de videolaparoscopia →",
+    macro2Title: "Retalho peritoneal", macro2Desc: "Incisão peritoneal com extensão adequada até a linha média e lateralmente além das espinhas ilíacas.", macro2Clinical: "Correlato clínico: perfuração além do limite associa-se a conversão para cirurgia aberta", macro2Tag: "Pré-módulo relacionado: Fundamentos de videolaparoscopia →",
+    macro3Title: "Dissecção pré-peritoneal", macro3Desc: "Exposição completa do ligamento de Cooper e preservação do ducto deferente e vasos espermáticos.", macro3Clinical: "Correlato clínico: exposição insuficiente associa-se a recidiva precoce; lesão do cordão associa-se a infertilidade e orquite isquêmica", macro3Tag: "Habilidade específica de TAPP — trabalhada na prática autoguiada, sem pré-módulo dedicado",
+    macro4Title: "Posicionamento da tela", macro4Desc: "Introdução pelo trocarte sem perda de orientação, com cobertura mínima de segurança em todas as bordas sobre o orifício miopectíneo.", macro4Clinical: "Correlato clínico: cobertura insuficiente associa-se a recidiva medial ou superior", macro4Tag: "Pré-módulo relacionado: Manuseio de tela sem fixação mecânica →",
+    macro5Title: "Fechamento do peritônio", macro5Desc: "Sutura contínua com cobertura completa da tela, sem falhas de continuidade.", macro5Clinical: "Correlato clínico: falha de fechamento associa-se a obstrução intestinal por hérnia interna", macro5Tag: "Pré-módulo relacionado: Sutura e nós intracorpóreos →",
+    p2Nota: "P² · clique numa macroetapa: em ouro, o que ela toca no modelo.",
+    p2Play: "▶ ver as 5 fases", p2Parar: "❚❚ parar",
+    ceTitle: "Checklist de autoavaliação: erros críticos (CE)",
+    ceSub: "Autoavalie a sua última sessão de prática. Um erro crítico basta para a sessão não contar como aprovada. Zerar os erros críticos é 1 dos 5 critérios de maestria.",
     ce1Text: "Incisão abaixo do anel interno", ce1Cons: "Comprometimento da dissecção; conversão para cirurgia aberta",
     ce2Text: "Perfuração peritoneal > 2 cm", ce2Cons: "Conversão; hérnia interna",
     ce3Text: "Lesão dos vasos epigástricos", ce3Cons: "Sangramento intraoperatório",
@@ -969,146 +983,163 @@ const I18N = {
     ce5Text: "Lesão do ducto deferente ou dos vasos espermáticos", ce5Cons: "Infertilidade; orquite isquêmica",
     ce6Text: "Cobertura insuficiente do Cooper (< 2 cm)", ce6Cons: "Recidiva medial",
     ce7Text: "Tela sem sobreposição superior (< 2 cm)", ce7Cons: "Recidiva superior",
-    ce8Text: "Gap ≥ 2 cm no fechamento peritoneal", ce8Cons: "Obstrução intestinal por hérnia interna",
-    ceResultOk: "Nenhum erro crítico marcado — critério de proficiência atendido.",
-    ceResultFailSuffix: " erro(s) crítico(s) marcado(s) — repita esta etapa antes de avançar para a sessão ao vivo.",
-    sourcesText: "Referências: Zendejas et al., 2011 (Annals of Surgery, ECR nível 1) · Zendejas et al., 2012 (currículo) · Lang et al., 2023 (Surgical Endoscopy) · Barreto et al., 2019 (Rev Bras Educ Méd) · Barros et al., 2024 (Einstein — São Paulo)"
+    ce8Text: "Abertura ≥ 2 cm no fechamento peritoneal", ce8Cons: "Obstrução intestinal por hérnia interna",
+    ceResultOk: "Nenhum erro crítico nesta sessão; faltam os outros critérios de maestria.",
+    ceResultFail1: "1 erro crítico marcado: esta sessão não conta como aprovada. Foque nesse ponto na próxima.",
+    ceResultFailN: "{n} erros críticos marcados: esta sessão não conta como aprovada. Foque nesses pontos na próxima.",
+    ceLimpa: "Nova sessão: limpar as marcas",
+    sourcesText: "Referências: Zendejas et al., 2011 (Annals of Surgery, ensaio randomizado em TEP) · Zendejas et al., 2012 (currículo) · Lang et al., 2023 (Surgical Endoscopy) · Barreto et al., 2019 (Rev Bras Educ Méd) · Barros et al., 2024 (Einstein, São Paulo)",
+
+    liveKicker: "Sessão ao vivo",
+    liveHeroTitle: "Sessão de correção técnica com o preceptor",
+    liveHeroSub: "Sessão remota, ao vivo, só para quem chegou à maestria na prática autoguiada. O preceptor concentra a supervisão direta em quem já cumpriu os 5 critérios.",
+    liveEligibilityAlert: "<strong>Quem participa:</strong> só quem chegou à maestria, com os 5 critérios cumpridos. O preceptor confere os registros das duas sessões aprovadas.",
+    liveProxTag: "PRÓXIMA EDIÇÃO",
+    liveTitle: "Sessão de correção técnica",
+    liveDateBig: "Data a definir",
+    liveDateSub: "formato remoto, ao vivo",
+    liveDesc: "Revisão técnica individual: o preceptor observa ao vivo e corrige o que o checklist não pega.",
+    liveEstado: "Travada até a maestria",
+    liveFormatTitle: "Formato da sessão",
+    liveFormat1Title: "Revisão técnica individualizada",
+    liveFormat1Desc: "Correções específicas e sutis de técnica, a partir do desempenho registrado na prática autoguiada.",
+    liveFormat2Title: "Encerramento da etapa remota",
+    liveFormat2Desc: "Última interação síncrona antes da etapa presencial; não substitui a supervisão no centro cirúrgico.",
+
+    presKicker: "Etapa presencial",
+    presHeroTitle: "Encontro presencial",
+    presHeroSub: "Etapa complementar à sessão ao vivo, para quem participou dela. O foco é o contato próximo, não uma avaliação técnica a mais.",
+    presEligibilityAlert: "<strong>Quem participa:</strong> quem passou pela sessão de correção ao vivo (aba Live).",
+    bonusTag: "ETAPA COMPLEMENTAR",
+    bonusTitle: "Encontro presencial",
+    bonusDesc: "Quem passou pela sessão ao vivo tem um encontro presencial para discutir casos com os pares e ter o acompanhamento direto do preceptor, cirurgião com mais de 17 anos em videolaparoscopia, responsável pela concepção clínica e pela condução desta plataforma.",
+    presFormatTitle: "O que este encontro inclui",
+    presFormat1Title: "Discussão de casos com pares",
+    presFormat1Desc: "Troca de experiências entre residentes que concluíram a mesma trajetória formativa.",
+    presFormat2Title: "Acompanhamento individual em tempo real",
+    presFormat2Desc: "Contato direto com o preceptor, com retorno específico para cada residente, não em formato de turma.",
+    presFormat3Title: "Data e local",
+    presFormat3Desc: "A confirmar depois da sessão ao vivo correspondente. É informação de protótipo, não um compromisso agendado.",
+
+    cirKicker: "Etapa final · P³ Proceder",
+    cirTitle: "Centro cirúrgico",
+    cirSub: "Só chega aqui quem tem o certificado de maestria. A cirurgia é real: o curso acompanha os primeiros 10 a 15 casos, com supervisão presencial que diminui por fases.",
+    cirMapaTit: "As zonas de perigo, no paciente",
+    cirMapaSub: "O mesmo lugar do modelo, agora no paciente: tecido e gordura no lugar das cores. Em vermelho, as zonas de perigo; os nervos, tracejados, ficam sob a fáscia e não se veem.",
+    cirMapaSubTexto: "No paciente, tecido e gordura escondem o que o modelo mostra em cores. Duas zonas pedem cuidado redobrado.",
+    cirPerigo: "<strong>Triângulo do desastre</strong>, entre o ducto deferente e os vasos espermáticos: por baixo passam os vasos ilíacos. <strong>Triângulo da dor</strong>, ao lado dos vasos espermáticos e abaixo do trato iliopúbico: nervos que não se veem. Ferir um deles é erro maior.",
+    cirFasesTit: "A supervisão diminui por fase",
+    faseATit: "Fase A", faseADesc: "Casos 1 a 5 · preceptor paramentado, na mesa · meta: 3 casos sem incidente e menos de 60 min",
+    faseBTit: "Fase B", faseBDesc: "Casos 6 a 15 · preceptor na sala · meta: 5 casos sem incidente e menos de 45 min",
+    faseCTit: "Fase C", faseCDesc: "A partir do caso 16 · supervisor disponível no andar · avaliação individual",
+    cirFasesNota: "Os 10 a 15 casos que o curso acompanha, conforme o volume do serviço, ficam nas fases A e B. A fase C começa no 16º caso.",
+    cirAberto: "<strong>O que ainda não se sabe:</strong> nenhum ensaio mostrou ainda que o treino em simulador de TAPP reduz complicação no paciente. O precedente vem do TEP; é o que um ensaio planejado pelo projeto, ainda sem data, quer medir no TAPP."
   },
   es: {
-    headerSubtitle: "Mastery Learning · Hernia Inguinal",
-    headerAffil: "Dr. Paulo Barros · Hospital Albert Einstein, São Paulo",
-    pmKicker: "Módulos de Nivelación",
-    courseKicker: "Curso Principal",
-    liveKicker: "Sesión Sincrónica",
-    presKicker: "Etapa Presencial",
-    footerText: "Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Más de 17 años de experiencia en cirugía videolaparoscópica.",
-    footerNote: "Prototipo de plataforma educativa — Biodesign Brasil.",
-    footerStamp: "Estado al {data} · publicación {n}",
-    footerDraft: "Versión de trabajo, no publicada",
+    docTitle: "Plataforma del residente · Hernia3D",
+    docDesc: "Domina el TAPP antes del primer paciente: curso de hernia inguinal por videolaparoscopia con aprendizaje para el dominio, en un modelo impreso en 3D. Teoría, práctica autoguiada, sesión en vivo y encuentro presencial con el preceptor.",
+    headerTitle: "Plataforma del residente",
+    headerAffil: "Dr. Paulo Barros · Einstein",
+    navAria: "Etapas del curso",
+    navKit: "Kit",
+    navPreparacao: "Preparación",
+    navCurso: "Curso TAPP",
+    navLive: "En vivo",
+    navPresencial: "Presencial",
     navCirurgia: "Quirófano",
     trilhaRot: "Tu camino en 3P",
     p1Nome: "Preparar", p2Nome: "Practicar", p3Nome: "Proceder",
     trilhaDica: "Las tres palabras son las del propio curso: la preparación, la práctica y el procedimiento.",
+    footerText: "Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Más de 17 años en videolaparoscopia.",
+    footerNote: "Prototipo de plataforma educativa · Biodesign Brasil.",
+    footerStamp: "Actualizado el {data} · publicación {n}",
+    footerDraft: "Versión de trabajo, no publicada",
+
+    kitKicker: "Materiales e instrumental",
+    kitHeroTitle: "Kit de instrumentos: tres formas de armar el tuyo",
+    kitHeroSub: "El modelo 3D viene con el curso, prestado. Tú eliges cómo conseguir el instrumental para practicar en casa: hay tres formas, de la más completa a la más libre.",
+    kitPhilosophyNote: "<strong>¿Por qué el curso no exige instrumental registrado ante la autoridad sanitaria (ANVISA, en Brasil)?</strong> Porque ese instrumental es de uso exclusivo en simulación, no destinado a uso en personas. Bajar el costo de entrada es una elección deliberada, no una concesión de calidad.",
+    kitBadge1: "NIVEL 1",
+    kit1Title: "Alquiler del kit completo",
+    kit1Audience: "Para quien quiere empezar sin tener que comprar ni ocuparse del envío",
+    kit1Desc: "Caja de entrenamiento, cámara USB, monitor, pinzas y trócares, entregados listos y devueltos al final del curso.",
+    kit1Estado: "En definición: precio, envío y devolución",
+    kitBadge2: "NIVEL 2",
+    kit2Title: "Libertad guiada",
+    kit2Audience: "Para quien ya tiene parte del instrumental y quiere orientación sobre lo que falta",
+    kit2Desc: "Una lista seleccionada: opciones con registro sanitario, alternativas importadas y proveedores de impresión 3D para piezas específicas del modelo.",
+    kit2Estado: "Lista en elaboración",
+    kitBadge3: "NIVEL 3",
+    kit3Title: "Por tu cuenta",
+    kit3Audience: "Para quien ya tiene experiencia de compra o un preceptor con instrumental propio",
+    kit3Desc: "Solo la lista de requisitos técnicos del modelo; tú eliges dónde comprar.",
+    kit3Estado: "Lista de requisitos en preparación",
+
+    pmKicker: "Primera etapa · P¹ Preparar",
+    pmHeroTitle: "Antes de la práctica: la teoría, la primera sesión y, si te falta base, los premódulos",
+    pmHeroSub: "Todo residente hace la teoría y la primera sesión en el modelo. Los premódulos son solo para quien aún no tiene la base de videolaparoscopia.",
+    p1EtapasTit: "Lo que hace todo residente",
+    p1TeoriaTit: "Teoría del TAPP, con examen",
+    p1TeoriaDesc: "Anatomía, etapas del procedimiento e instrumental, a tu ritmo. El examen pide 90% de aciertos para avanzar, con intentos ilimitados.",
+    p1OnbTit: "Primera sesión en el modelo (onboarding)",
+    p1OnbDesc: "Armas el modelo, conoces las piezas y haces el primer TAPP guiado por un video de referencia, narrado. Esta sesión no se califica y no cuenta entre las sesiones de la práctica.",
     p1Tit: "Preparar: la anatomía que vas a nombrar",
-    p1Sub: "Antes de cortar, nombra. Estas son las seis estructuras que el onboarding presenta en el modelo, vistas desde adentro, por la cámara: medial a la izquierda, lateral a la derecha.",
+    p1Sub: "Antes de cortar, nombra. Estas son las seis estructuras que la primera sesión presenta en el modelo, vistas desde adentro, por la cámara: medial a la izquierda, lateral a la derecha.",
+    p1SubTexto: "Antes de cortar, nombra. Estas son las seis estructuras que la primera sesión presenta en el modelo.",
     mapaNota: "Región inguinal derecha · esquema simplificado, no es un atlas.",
     mapaRotulo: "Región inguinal derecha, vista desde adentro",
     quizTit: "Ponte a prueba",
     quizSub: "Los nombres desaparecen y haces clic en la estructura pedida. Es lo que exige el P¹.",
     quizIni: "empezar", quizDeNovo: "otra vez",
-    quizPergunta: "{i} de {n} · ¿Dónde está {art} <b>{nome}</b>?",
+    quizPergunta: "{i} de {n} · Encuentra {art} <b>{nome}</b>.",
     quizDica: "Haz clic en el mapa, o usa Tab y Enter.",
     quizCerto: "Correcto: {art} {nome}.",
-    quizErro: "Eso es {art} {nome}. Busca {art2} {nome2}.",
+    quizErro: "Marcaste: {nome}. Busca {art2} {nome2}.",
     quizFim: "Reconociste {a} de {n} al primer intento. En el curso, la teoría exige 90% para avanzar.",
-    p2Nota: "P² · haz clic en una macroetapa: en dorado, lo que toca en el modelo.",
-    p2Play: "▶ ver las 5 fases", p2Parar: "❚❚ detener",
-    cirKicker: "Etapa final · P³ Proceder",
-    cirTitle: "Quirófano",
-    cirSub: "Solo llega aquí quien cumplió el criterio de maestría. La cirugía es real, con supervisión presencial que disminuye caso a caso, en tres fases.",
-    cirMapaTit: "Las zonas de peligro, en el paciente",
-    cirMapaSub: "El mismo lugar del modelo, ahora en el paciente: tejido y grasa en lugar de los colores. En rojo, las zonas de peligro; los nervios, punteados, quedan bajo la fascia y no se ven.",
-    cirPerigo: "<strong>Triángulo de la fatalidad</strong>, entre el conducto deferente y los vasos espermáticos: por debajo pasan los vasos ilíacos. <strong>Triángulo del dolor</strong>, junto a los vasos espermáticos y por debajo del tracto iliopúbico: nervios que no se ven. Lesionar uno de ellos es un error mayor.",
-    cirFasesTit: "La supervisión disminuye por fase",
-    faseATit: "Fase A", faseADesc: "Casos 1 a 5 · preceptor vestido en la mesa · meta: 3 casos sin incidentes y menos de 60 min",
-    faseBTit: "Fase B", faseBDesc: "Casos 6 a 15 · preceptor en la sala · meta: 5 casos sin incidentes y menos de 45 min",
-    faseCTit: "Fase C", faseCDesc: "Desde el caso 16 · supervisor disponible en el piso · evaluación individual",
-    cirAberto: "<strong>Lo que aún no se sabe:</strong> ningún ensayo ha mostrado todavía que el entrenamiento en simulador de TAPP reduzca las complicaciones en el paciente. El precedente viene del TEP, y es lo que el ensayo del proyecto va a medir en TAPP.",
-    navPremodulos: "Pre-Módulos",
-    navCurso: "Curso TAPP",
-    navLive: "Live",
-    navPresencial: "Presencial",
-    navKit: "Kit",
-    kitKicker: "Materiales e Instrumental",
-    kitHeroTitle: "Kit de instrumentos — tres formas de armar el suyo",
-    kitHeroSub: "El uso es en simulador, no en cirugía en vivo — por eso el protocolo no exige instrumentos homologados por ANVISA. La prioridad es costo bajo y fácil acceso, sin perder fidelidad técnica al procedimiento.",
-    kitPhilosophyNote: "<strong>¿Por qué sin exigencia ANVISA?</strong> El instrumental se usa en modelo de simulación, no en paciente — reducir el costo de entrada del entrenamiento es una elección deliberada, no una concesión de calidad.",
-    kitBadge1: "NIVEL 1",
-    kit1Title: "Alquiler del Kit Completo",
-    kit1Audience: "Para quien quiere empezar sin fricción de compra o logística",
-    kit1Desc: "Simulador e instrumental completo entregados listos para usar, sin decisión de compra por el residente o el programa.",
-    kitBadge2: "NIVEL 2",
-    kit2Title: "Libertad Guiada",
-    kit2Audience: "Para quien ya tiene parte del instrumental y quiere orientación sobre lo que falta",
-    kit2Desc: "Curaduría de opciones homologadas por ANVISA, alternativas de importación y proveedores de impresión 3D para piezas específicas del simulador.",
-    kitBadge3: "NIVEL 3",
-    kit3Title: "Libertad Libre",
-    kit3Audience: "Para quien ya tiene experiencia de compra o preceptor con stock propio",
-    kit3Desc: "Solo la lista de requisitos técnicos del simulador — la adquisición queda de su cuenta.",
-    kitBtnConsult: "Consultar disponibilidad",
-    kitBtnSoon: "En curaduría",
-    kitBtnList: "Ver requisitos técnicos",
-    unlockCtaTitle: "Módulos completados con criterio de competencia",
-    unlockCtaDesc: "Acceso habilitado a la sesión de corrección técnica. Consulte la pestaña correspondiente para fecha, formato y etapa presencial asociada.",
-    unlockCtaBtn: "Ver sesión en vivo",
-    liveHeroTitle: "Sesión de Corrección Técnica — Dr. Paulo Barros",
-    liveHeroSub: "Etapa sincrónica, restringida a los residentes que completan los 4 módulos de nivelación y la práctica autoguiada con criterio de competencia. El preceptor concentra el tiempo de supervisión directa en quienes presentan resultado concluyente.",
-    liveEligibilityAlert: "Elegibilidad: finalización de los 4 módulos de nivelación (pestaña Pre-Módulos) y criterio de competencia en la práctica autoguiada (GOALS ≥ 18/25, cero errores críticos, 2 sesiones consecutivas).",
-    liveFormatTitle: "Formato de la sesión",
-    liveFormat1Title: "Revisión técnica individualizada",
-    liveFormat1Desc: "Correcciones específicas y sutiles de técnica, a partir del desempeño registrado en la práctica autoguiada.",
-    liveFormat2Title: "Cierre de la etapa remota",
-    liveFormat2Desc: "Última interacción sincrónica antes de la etapa presencial — no sustituye la supervisión en centro quirúrgico.",
-    presHeroTitle: "Encuentro Presencial",
-    presHeroSub: "Etapa complementaria a la sesión en vivo, restringida a los residentes que participen de ella. Formato presencial, con foco en contacto cercano — no en evaluación técnica adicional.",
-    presEligibilityAlert: "Elegibilidad: participación en la Sesión de Corrección Técnica (pestaña Live).",
-    presFormatTitle: "Qué incluye este encuentro",
-    presFormat1Title: "Discusión de casos con pares",
-    presFormat1Desc: "Intercambio de experiencias entre residentes que completaron la misma trayectoria formativa.",
-    presFormat2Title: "Seguimiento individual en tiempo real",
-    presFormat2Desc: "Contacto directo con el Dr. Paulo Barros, con retorno específico por residente, no en formato grupal.",
-    presFormat3Title: "Fecha y lugar",
-    presFormat3Desc: "A confirmar tras la edición de la sesión en vivo correspondiente — información de prototipo, no compromiso agendado.",
-    pmHeroTitle: "Módulos de nivelación — requisitos técnicos previos al entrenamiento específico en TAPP",
-    pmHeroSub: "Cuatro módulos definidos a partir de los errores más frecuentes observados en residentes sin experiencia previa de base. La finalización de los cuatro con criterio de competencia habilita la sesión de corrección técnica a cargo del Dr. Paulo Barros.",
-    trackerLabel: "Progreso en los módulos de nivelación",
+    pmSecTit: "Premódulos: para quien aún no tiene la base",
+    pmSecSub: "Tres módulos de nivelación, aún en producción. No cuentan para el dominio ni abren la sesión en vivo.",
     badgeDirect: "EVIDENCIA DIRECTA",
     badgeDesign: "JUSTIFICACIÓN TÉCNICA",
-    evidenceLegend: "<strong>Evidencia directa</strong>: un estudio publicado evaluó ese tipo específico de entrenamiento y midió resultado. <strong>Justificación técnica</strong>: no hay estudio dedicado a este módulo — la necesidad se deduce de currículos generales de laparoscopia (ej.: FLS) o de una exigencia propia de este protocolo (ej.: fijación de malla sin grapadora).",
-    mod_fundamentos_title: "Fundamentos de Videolaparoscopia",
+    evidenceLegend: "<strong>Evidencia directa</strong>: un estudio publicado evaluó ese tipo de entrenamiento y midió los resultados. <strong>Justificación técnica</strong>: no hay un estudio dedicado a este módulo; la necesidad se deduce de currículos generales de laparoscopia (ej.: FLS) o de una exigencia propia de este protocolo (ej.: fijación de malla sin grapadora).",
+    mod_fundamentos_title: "Fundamentos de videolaparoscopia",
     mod_fundamentos_audience: "Indicado para residentes sin experiencia previa en laparoscopia",
     mod_fundamentos_rationale: "La coordinación cámara-manos y la triangulación de instrumentos son requisito previo de cualquier procedimiento laparoscópico — la misma carencia cubierta por currículos genéricos como el <strong>FLS</strong>, sin especificidad para hernia.",
-    mod_sutura_title: "Sutura y Nudos Intracorpóreos",
+    mod_sutura_title: "Sutura y nudos intracorpóreos",
     mod_sutura_audience: "Indicado para residentes sin práctica de sutura laparoscópica",
-    mod_sutura_rationale: "El cierre peritoneal del TAPP exige sutura continua sin discontinuidades. Basado en la <strong>EPP</strong> (Barreto et al., 2019), instrumento validado en residencia quirúrgica brasileña, con mejora significativa en todos los dominios OSATS tras 7 sesiones.",
-    mod_gaming_title: "Preparación Cognitiva Gamificada",
-    mod_gaming_audience: "Indicado para todos los residentes, previo a la Etapa 0",
-    mod_gaming_rationale: "La secuencia pedagógica influye en el resultado tanto como la herramienta utilizada: la preparación cognitiva gamificada antes del simulador físico reduce el número de intentos hasta la competencia. Ensayo clínico aleatorizado cruzado (Lang et al., 2023): 2,7 vs. 3,2 intentos (p=0,028).",
-    mod_tela_title: "Manejo de Malla sin Fijación Mecánica",
+    mod_sutura_rationale: "El cierre del peritoneo en el TAPP exige sutura continua, sin fallas. Basado en la <strong>EPP</strong> (Barreto et al., 2019), una escala de sutura laparoscópica (cuántos puntos en 18 minutos) validada en residencia quirúrgica en Brasil. Tras 7 sesiones, los residentes mejoraron en todas las dimensiones de la <strong>OSATS</strong>, la evaluación estructurada de la habilidad técnica.",
+    mod_tela_title: "Manejo de malla sin fijación mecánica",
     mod_tela_audience: "Indicado para residentes sin experiencia previa en manejo de malla quirúrgica",
     mod_tela_rationale: "El protocolo utiliza fijación por adhesivo/sutura, sin grapadora — lo que exige un manejo manual más refinado que la fijación mecánica convencional.",
-    statusNone: "No iniciado", statusProgress: "En curso", statusMastered: "Completado",
-    btnStart: "Iniciar módulo", btnMarkDone: "Registrar finalización", btnDone: "Completado",
-    lockedHint: "La sesión en vivo se habilita tras completar los 4 módulos con criterio de competencia.",
-    liveTag: "SESIÓN HABILITADA",
-    liveTitle: "Sesión de Corrección Técnica — Dr. Paulo Barros",
-    liveDateBig: "22 de octubre de 2026",
-    liveDateSub: "19h (hora de Brasilia) · formato remoto · fecha de referencia a efectos de prototipo",
-    liveDesc: "Revisión técnica individualizada a cargo del Dr. Paulo Barros, restringida a los residentes que completen la etapa de nivelación con criterio de competencia.",
-    liveBtn: "Confirmar participación",
-    bonusTag: "ETAPA COMPLEMENTARIA",
-    bonusTitle: "Encuentro presencial",
-    bonusDesc: "Los participantes de la sesión en vivo acceden a un encuentro presencial para discusión de casos con pares y seguimiento directo del Dr. Paulo Barros — cirujano con más de 17 años de experiencia en TAPP, responsable de la concepción clínica y de la dirección estratégica de esta plataforma.",
-    courseHeroTitle: "Hernia Inguinal por Videolaparoscopia (TAPP)",
-    courseHeroSub: "Simulador impreso en 3D asociado a un protocolo de mastery learning, con criterio objetivo de competencia previo a la práctica en paciente.",
-    stat1lbl: "Reducción de complicaciones posoperatorias (Zendejas et al., 2011)",
-    stat2lbl: "Reducción del tiempo quirúrgico con mastery learning",
-    stat3lbl: "Criterio objetivo de competencia (escala GOALS)",
-    stat4lbl: "Sesiones prácticas hasta el criterio de competencia",
-    journeyTitle: "Secuencia formativa hasta el centro quirúrgico",
-    step1Title: "Práctica Autoguiada", step1Desc: "Mínimo de 16 sesiones en el simulador, a ritmo individual",
-    step2Title: "Sesión de Corrección", step2Desc: "Restringida a quienes completan la etapa anterior con criterio de competencia",
-    step3Title: "Encuentro Presencial", step3Desc: "Discusión de casos con pares y con el Dr. Paulo Barros",
-    step4Title: "Centro Quirúrgico", step4Desc: "Progresión supervisada en paciente real",
+    statusProducao: "En producción",
+
+    courseKicker: "Curso principal · P² Practicar",
+    courseHeroTitle: "Hernia inguinal por videolaparoscopia (TAPP)",
+    courseHeroSub: "Modelo impreso en 3D y aprendizaje para el dominio: 5 criterios objetivos, cumplidos en el modelo, antes del primer paciente.",
+    stat1lbl: "Reducción de complicaciones posoperatorias (TEP · Zendejas et al., 2011)",
+    stat2lbl: "Reducción del tiempo quirúrgico con el aprendizaje para el dominio (TEP)",
+    stat3lbl: "Nota mínima en la escala GOALS: 1 de los 5 criterios de dominio",
+    stat4lbl: "Sesiones en el modelo, 2 por semana, en un máximo de 12 semanas (cifra por validar)",
+    statNota: "TAPP y TEP son las dos vías de la hernia inguinal por videolaparoscopia: el TAPP pasa por la cavidad abdominal; el TEP queda por fuera del peritoneo. Las dos primeras cifras vienen del TEP; en TAPP aún no se han demostrado. Las 16 sesiones son la cifra del protocolo, aún pendiente de validación por el panel de expertos.",
+    journeyTitle: "Secuencia formativa hasta el quirófano",
+    step1Title: "Práctica autoguiada", step1Desc: "16 sesiones o más (por validar), 2 por semana, en un máximo de 12 semanas",
+    stepPortaTitle: "Dominio", stepPortaDesc: "Los 5 criterios cumplidos, verificados por el preceptor: abre la sesión en vivo y da el certificado de dominio del TAPP",
+    step2Title: "Sesión de corrección", step2Desc: "En vivo y remota, solo para quien alcanzó el dominio",
+    step3Title: "Encuentro presencial", step3Desc: "Discusión de casos con los pares y con el preceptor",
+    step4Title: "Quirófano", step4Desc: "Los primeros 10 a 15 casos en paciente real, con supervisión que disminuye",
+    lockedHint: "La sesión en vivo se abre solo para quien alcanza el dominio, con los 5 criterios cumplidos:",
+    critLista: "<li>desempeño global (GOALS) ≥ 18 de 25</li><li>ningún error crítico</li><li>14 de 14 etapas obligatorias</li><li>confianza ≥ 7 de 10</li><li>2 sesiones aprobadas seguidas</li>",
+    lockedHint2: "Los premódulos no abren la sesión en vivo: depende solo de los 5 criterios.",
     macroTitle: "Macroetapas del procedimiento TAPP",
-    macroSub: "Cada etapa indica, cuando corresponde, el módulo de nivelación más relacionado con la habilidad exigida.",
-    macro1Title: "Verificación y Orientación Anatómica", macro1Desc: "Identificación del ligamento de Cooper, vasos epigástricos, conducto deferente y vasos espermáticos antes de iniciar la disección.", macro1Tag: "Módulo relacionado: Fundamentos de Videolaparoscopia →",
-    macro2Title: "Colgajo Peritoneal", macro2Desc: "Incisión peritoneal con extensión adecuada hasta la línea media y lateralmente más allá de las espinas ilíacas.", macro2Clinical: "Correlato clínico: la perforación más allá del límite se asocia a conversión a cirugía abierta", macro2Tag: "Módulo relacionado: Fundamentos de Videolaparoscopia →",
-    macro3Title: "Disección Preperitoneal", macro3Desc: "Exposición completa del ligamento de Cooper y preservación del conducto deferente y vasos espermáticos.", macro3Clinical: "Correlato clínico: la exposición insuficiente se asocia a recidiva precoz; la lesión del cordón se asocia a infertilidad y orquitis isquémica", macro3Tag: "Habilidad específica del TAPP — se trabaja en la práctica autoguiada, sin módulo dedicado",
-    macro4Title: "Posicionamiento de la Malla", macro4Desc: "Introducción por el trócar sin pérdida de orientación, con cobertura mínima de seguridad en todos los márgenes sobre el orificio miopectíneo.", macro4Clinical: "Correlato clínico: la cobertura insuficiente se asocia a recidiva medial o superior", macro4Tag: "Módulo relacionado: Manejo de Malla sin Fijación Mecánica →",
-    macro5Title: "Cierre del Peritoneo", macro5Desc: "Sutura continua con cobertura completa de la malla, sin discontinuidades.", macro5Clinical: "Correlato clínico: la falla de cierre se asocia a obstrucción intestinal por hernia interna", macro5Tag: "Módulo relacionado: Sutura y Nudos Intracorpóreos →",
-    ceTitle: "Lista de Autoevaluación — Errores Críticos (CE)",
-    ceSub: "Autoevalúe su última sesión de práctica. Cualquier ítem marcado es un error crítico — repita esta etapa antes de avanzar. Es el mismo criterio de \"cero errores críticos\" exigido para la elegibilidad en la sesión en vivo.",
+    macroSub: "Cada etapa indica, cuando corresponde, el premódulo de nivelación más relacionado con la habilidad exigida.",
+    macro1Title: "Verificación y orientación anatómica", macro1Desc: "Identificación del ligamento de Cooper, vasos epigástricos, conducto deferente y vasos espermáticos antes de iniciar la disección.", macro1Tag: "Premódulo relacionado: Fundamentos de videolaparoscopia →",
+    macro2Title: "Colgajo peritoneal", macro2Desc: "Incisión peritoneal con extensión adecuada hasta la línea media y lateralmente más allá de las espinas ilíacas.", macro2Clinical: "Correlato clínico: la perforación más allá del límite se asocia a conversión a cirugía abierta", macro2Tag: "Premódulo relacionado: Fundamentos de videolaparoscopia →",
+    macro3Title: "Disección preperitoneal", macro3Desc: "Exposición completa del ligamento de Cooper y preservación del conducto deferente y vasos espermáticos.", macro3Clinical: "Correlato clínico: la exposición insuficiente se asocia a recidiva precoz; la lesión del cordón se asocia a infertilidad y orquitis isquémica", macro3Tag: "Habilidad específica del TAPP — se trabaja en la práctica autoguiada, sin premódulo dedicado",
+    macro4Title: "Posicionamiento de la malla", macro4Desc: "Introducción por el trócar sin pérdida de orientación, con cobertura mínima de seguridad en todos los bordes sobre el orificio miopectíneo.", macro4Clinical: "Correlato clínico: la cobertura insuficiente se asocia a recidiva medial o superior", macro4Tag: "Premódulo relacionado: Manejo de malla sin fijación mecánica →",
+    macro5Title: "Cierre del peritoneo", macro5Desc: "Sutura continua con cobertura completa de la malla, sin discontinuidades.", macro5Clinical: "Correlato clínico: la falla de cierre se asocia a obstrucción intestinal por hernia interna", macro5Tag: "Premódulo relacionado: Sutura y nudos intracorpóreos →",
+    p2Nota: "P² · haz clic en una macroetapa: en dorado, lo que toca en el modelo.",
+    p2Play: "▶ ver las 5 fases", p2Parar: "❚❚ detener",
+    ceTitle: "Lista de autoevaluación: errores críticos (CE)",
+    ceSub: "Autoevalúa tu última sesión de práctica. Un error crítico basta para que la sesión no cuente como aprobada. No tener errores críticos es 1 de los 5 criterios de dominio.",
     ce1Text: "Incisión por debajo del anillo interno", ce1Cons: "Compromiso de la disección; conversión a cirugía abierta",
     ce2Text: "Perforación peritoneal > 2 cm", ce2Cons: "Conversión; hernia interna",
     ce3Text: "Lesión de los vasos epigástricos", ce3Cons: "Sangrado intraoperatorio",
@@ -1116,36 +1147,102 @@ const I18N = {
     ce5Text: "Lesión del conducto deferente o de los vasos espermáticos", ce5Cons: "Infertilidad; orquitis isquémica",
     ce6Text: "Cobertura insuficiente del Cooper (< 2 cm)", ce6Cons: "Recidiva medial",
     ce7Text: "Malla sin superposición superior (< 2 cm)", ce7Cons: "Recidiva superior",
-    ce8Text: "Gap ≥ 2 cm en el cierre peritoneal", ce8Cons: "Obstrucción intestinal por hernia interna",
-    ceResultOk: "Ningún error crítico marcado — criterio de competencia cumplido.",
-    ceResultFailSuffix: " error(es) crítico(s) marcado(s) — repita esta etapa antes de avanzar a la sesión en vivo.",
-    sourcesText: "Referencias: Zendejas et al., 2011 (Annals of Surgery, ECA nivel 1) · Zendejas et al., 2012 (currículo) · Lang et al., 2023 (Surgical Endoscopy) · Barreto et al., 2019 (Rev Bras Educ Méd) · Barros et al., 2024 (Einstein — São Paulo)"
+    ce8Text: "Brecha ≥ 2 cm en el cierre peritoneal", ce8Cons: "Obstrucción intestinal por hernia interna",
+    ceResultOk: "Ningún error crítico en esta sesión; faltan los otros criterios de dominio.",
+    ceResultFail1: "1 error crítico marcado: esta sesión no cuenta como aprobada. Enfócate en ese punto en la próxima.",
+    ceResultFailN: "{n} errores críticos marcados: esta sesión no cuenta como aprobada. Enfócate en esos puntos en la próxima.",
+    ceLimpa: "Nueva sesión: borrar las marcas",
+    sourcesText: "Referencias: Zendejas et al., 2011 (Annals of Surgery, ensayo aleatorizado en TEP) · Zendejas et al., 2012 (currículo) · Lang et al., 2023 (Surgical Endoscopy) · Barreto et al., 2019 (Rev Bras Educ Méd) · Barros et al., 2024 (Einstein, São Paulo)",
+
+    liveKicker: "Sesión en vivo",
+    liveHeroTitle: "Sesión de corrección técnica con el preceptor",
+    liveHeroSub: "Sesión remota, en vivo, solo para quien alcanzó el dominio en la práctica autoguiada. El preceptor concentra la supervisión directa en quien ya cumplió los 5 criterios.",
+    liveEligibilityAlert: "<strong>Quién participa:</strong> solo quien alcanzó el dominio, con los 5 criterios cumplidos. El preceptor verifica los registros de las dos sesiones aprobadas.",
+    liveProxTag: "PRÓXIMA EDICIÓN",
+    liveTitle: "Sesión de corrección técnica",
+    liveDateBig: "Fecha por definir",
+    liveDateSub: "formato remoto, en vivo",
+    liveDesc: "Revisión técnica individual: el preceptor observa en vivo y corrige lo que la lista de verificación no detecta.",
+    liveEstado: "Bloqueada hasta alcanzar el dominio",
+    liveFormatTitle: "Formato de la sesión",
+    liveFormat1Title: "Revisión técnica individualizada",
+    liveFormat1Desc: "Correcciones específicas y sutiles de técnica, a partir del desempeño registrado en la práctica autoguiada.",
+    liveFormat2Title: "Cierre de la etapa remota",
+    liveFormat2Desc: "Última interacción sincrónica antes de la etapa presencial; no sustituye la supervisión en el quirófano.",
+
+    presKicker: "Etapa presencial",
+    presHeroTitle: "Encuentro presencial",
+    presHeroSub: "Etapa complementaria a la sesión en vivo, para quien participó en ella. El foco es el contacto cercano, no una evaluación técnica adicional.",
+    presEligibilityAlert: "<strong>Quién participa:</strong> quien pasó por la sesión de corrección en vivo (pestaña En vivo).",
+    bonusTag: "ETAPA COMPLEMENTARIA",
+    bonusTitle: "Encuentro presencial",
+    bonusDesc: "Quien pasó por la sesión en vivo tiene un encuentro presencial para discutir casos con los pares y contar con el seguimiento directo del preceptor, cirujano con más de 17 años en videolaparoscopia, responsable de la concepción clínica y de la conducción de esta plataforma.",
+    presFormatTitle: "Qué incluye este encuentro",
+    presFormat1Title: "Discusión de casos con pares",
+    presFormat1Desc: "Intercambio de experiencias entre residentes que completaron la misma trayectoria formativa.",
+    presFormat2Title: "Seguimiento individual en tiempo real",
+    presFormat2Desc: "Contacto directo con el preceptor, con devolución específica para cada residente, no en formato grupal.",
+    presFormat3Title: "Fecha y lugar",
+    presFormat3Desc: "A confirmar después de la sesión en vivo correspondiente. Es información de prototipo, no un compromiso agendado.",
+
+    cirKicker: "Etapa final · P³ Proceder",
+    cirTitle: "Quirófano",
+    cirSub: "Solo llega aquí quien tiene el certificado de dominio del TAPP. La cirugía es real: el curso acompaña los primeros 10 a 15 casos, con supervisión presencial que disminuye por fases.",
+    cirMapaTit: "Las zonas de peligro, en el paciente",
+    cirMapaSub: "El mismo lugar del modelo, ahora en el paciente: tejido y grasa en lugar de los colores. En rojo, las zonas de peligro; los nervios, punteados, quedan bajo la fascia y no se ven.",
+    cirMapaSubTexto: "En el paciente, el tejido y la grasa esconden lo que el modelo muestra en colores. Dos zonas piden cuidado redoblado.",
+    cirPerigo: "<strong>Triángulo de la fatalidad</strong>, entre el conducto deferente y los vasos espermáticos: por debajo pasan los vasos ilíacos. <strong>Triángulo del dolor</strong>, junto a los vasos espermáticos y por debajo del tracto iliopúbico: nervios que no se ven. Lesionar uno de ellos es un error mayor.",
+    cirFasesTit: "La supervisión disminuye por fase",
+    faseATit: "Fase A", faseADesc: "Casos 1 a 5 · preceptor con ropa estéril, en el campo quirúrgico · meta: 3 casos sin incidentes y menos de 60 min",
+    faseBTit: "Fase B", faseBDesc: "Casos 6 a 15 · preceptor en la sala · meta: 5 casos sin incidentes y menos de 45 min",
+    faseCTit: "Fase C", faseCDesc: "Desde el caso 16 · supervisor disponible en el hospital · evaluación individual",
+    cirFasesNota: "Los 10 a 15 casos que acompaña el curso, según el volumen del servicio, quedan en las fases A y B. La fase C empieza en el caso 16.",
+    cirAberto: "<strong>Lo que aún no se sabe:</strong> ningún ensayo ha mostrado todavía que el entrenamiento en simulador de TAPP reduzca las complicaciones en el paciente. El precedente viene del TEP; es lo que un ensayo planificado por el proyecto, aún sin fecha, quiere medir en TAPP."
   }
 };
 
+// o idioma vale também quando o navegador bloqueia o localStorage
+let idioma = null;
 function getLanguage() {
-  try { return localStorage.getItem('hernia3d_lang') || 'pt'; } catch(e) { return 'pt'; }
+  if (idioma) return idioma;
+  try { idioma = localStorage.getItem('hernia3d_lang'); } catch(e) {}
+  if (!I18N[idioma]) idioma = 'pt';
+  return idioma;
 }
 
 function setLanguage(lang) {
-  try { localStorage.setItem('hernia3d_lang', lang); } catch(e) {}
-  document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
-  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-  const dict = I18N[lang];
+  idioma = I18N[lang] ? lang : 'pt';
+  try { localStorage.setItem('hernia3d_lang', idioma); } catch(e) {}
+  const dict = I18N[idioma], ver = mapaVisivel();
+  ['pt', 'es'].forEach(l => {
+    const b = document.getElementById('lang-' + l);
+    b.classList.toggle('active', l === idioma);
+    b.setAttribute('aria-pressed', l === idioma ? 'true' : 'false');
+  });
+  // a página troca inteira: o idioma do documento, o título da aba e a descrição
+  document.documentElement.lang = idioma === 'es' ? 'es' : 'pt-BR';
+  document.title = dict.docTitle;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute('content', dict.docDesc);
+  // com o mapa oculto, o texto que o descreve dá lugar à versão sem ele (data-i18n-sem-mapa)
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
+    const key = (!ver && el.getAttribute('data-i18n-sem-mapa')) || el.getAttribute('data-i18n');
     if (dict[key]) el.textContent = dict[key];
   });
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const key = el.getAttribute('data-i18n-html');
     if (dict[key]) el.innerHTML = dict[key];
   });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria');
+    if (dict[key]) el.setAttribute('aria-label', dict[key]);
+  });
   carimbo(dict);
-  renderAll();
+  renderCe();
   renderMapas();
 }
 
-// a meta "publicacao" (N|AAAA-MM-DD) é preenchida pelo publica_tudo.py; vazia, a página é a do vault
+// a meta "publicacao" (N|AAAA-MM-DD) é preenchida na publicação; vazia, a página é a versão de trabalho
 function carimbo(dict) {
   const m = document.querySelector('meta[name="publicacao"]');
   const v = m ? m.content.split('|') : [];
@@ -1155,77 +1252,42 @@ function carimbo(dict) {
 }
 
 // ════════════════════════════════════════
-// TAB NAVIGATION
+// TAB NAVIGATION · cada aba tem o seu #endereço: recarregar mantém a aba e o Voltar do navegador funciona
 // ════════════════════════════════════════
 
-function switchTab(name) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  const navButtons = document.querySelectorAll('nav button');
-  navButtons.forEach(el => el.classList.remove('active'));
-  const targetNavBtn = document.querySelector('nav button[onclick="switchTab(\'' + name + '\')"]');
-  if (targetNavBtn) targetNavBtn.classList.add('active');
+const ABAS = ['kit', 'preparacao', 'curso', 'live', 'presencial', 'cirurgia'];
+// endereços antigos que continuam valendo: #premodulos abre a Preparação (e o endereço passa ao nome novo)
+const ANTIGOS = { premodulos: 'preparacao' };
+function abaDoEndereco() {
+  const h = decodeURIComponent(location.hash.slice(1)), aba = ANTIGOS[h] || h;
+  if (aba !== h) { try { history.replaceState(null, '', '#' + aba); } catch (e) {} }
+  return ABAS.indexOf(aba) >= 0 ? aba : 'kit';
+}
+// quem chega por um botão dentro do conteúdo (o pré-módulo citado numa macroetapa) segue a leitura pelo título da aba nova
+let focoNoTitulo = false;
+function mostraAba(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.toggle('active', el.id === 'tab-' + name));
+  document.querySelectorAll('header nav button').forEach(b => {
+    const on = b.dataset.tab === name;
+    b.classList.toggle('active', on);
+    if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
   marcaTrilha(name);
-  window.scrollTo(0, 0);
+  if (focoNoTitulo) {
+    focoNoTitulo = false;
+    const t = document.querySelector('#tab-' + name + ' .hero h2');
+    if (t) t.focus({ preventScroll: true });
+  }
 }
-
-// ════════════════════════════════════════
-// MÓDULOS — PROGRESSÃO
-// ════════════════════════════════════════
-
-const MODULES = ['fundamentos', 'sutura', 'gaming', 'tela'];
-const STATE_ORDER = ['none', 'progress', 'mastered'];
-
-function getModuleStates() {
-  try { return JSON.parse(localStorage.getItem('hernia3d_modules') || '{}'); } catch(e) { return {}; }
+function switchTab(name) {
+  if (ABAS.indexOf(name) < 0) name = 'kit';
+  if (location.hash && abaDoEndereco() === name) { mostraAba(name); window.scrollTo(0, 0); return; }
+  location.hash = name;  // o hashchange mostra a aba
 }
-function saveModuleStates(states) {
-  try { localStorage.setItem('hernia3d_modules', JSON.stringify(states)); } catch(e) {}
-}
+window.addEventListener('hashchange', () => { mostraAba(abaDoEndereco()); window.scrollTo(0, 0); });
 
-function advanceModule(moduleId) {
-  const states = getModuleStates();
-  const current = states[moduleId] || 'none';
-  const next = STATE_ORDER[Math.min(STATE_ORDER.indexOf(current) + 1, STATE_ORDER.length - 1)];
-  states[moduleId] = next;
-  saveModuleStates(states);
-  renderModule(moduleId);
-  renderTracker();
-}
-
-function renderModule(moduleId) {
-  const dict = I18N[getLanguage()];
-  const states = getModuleStates();
-  const state = states[moduleId] || 'none';
-  const card = document.getElementById('module-card-' + moduleId);
-  const status = document.getElementById('module-status-' + moduleId);
-  const btn = document.getElementById('module-btn-' + moduleId);
-  card.classList.remove('progress', 'mastered');
-  if (state === 'progress') card.classList.add('progress');
-  if (state === 'mastered') card.classList.add('mastered');
-  status.textContent = state === 'progress' ? dict.statusProgress : state === 'mastered' ? dict.statusMastered : dict.statusNone;
-  btn.textContent = state === 'none' ? dict.btnStart : state === 'progress' ? dict.btnMarkDone : dict.btnDone;
-  btn.disabled = state === 'mastered';
-  btn.className = state === 'mastered' ? 'btn btn-done' : 'btn btn-outline';
-}
-
-function renderTracker() {
-  const states = getModuleStates();
-  const masteredCount = MODULES.filter(m => states[m] === 'mastered').length;
-  document.getElementById('mastery-count').textContent = masteredCount + ' / ' + MODULES.length;
-  document.getElementById('mastery-bar-fill').style.width = Math.round((masteredCount / MODULES.length) * 100) + '%';
-  const unlockSection = document.getElementById('unlock-section');
-  const lockedHint = document.getElementById('locked-hint');
-  const unlocked = masteredCount === MODULES.length;
-  unlockSection.style.display = unlocked ? 'block' : 'none';
-  lockedHint.style.display = unlocked ? 'none' : 'block';
-}
-
-function renderAll() {
-  MODULES.forEach(renderModule);
-  renderTracker();
-  renderCe();
-}
+// A live não depende dos pré-módulos: abre só com a maestria (os 5 critérios), que o preceptor confere.
+// Por isso não há aqui progresso de módulos nem desbloqueio; os módulos aparecem como "em produção".
 
 // ════════════════════════════════════════
 // CHECKLIST DE AUTOAVALIAÇÃO — ERROS CRÍTICOS (CE)
@@ -1263,8 +1325,16 @@ function renderCe() {
   if (result) {
     result.classList.toggle('ok', count === 0);
     result.classList.toggle('fail', count > 0);
-    result.textContent = count === 0 ? dict.ceResultOk : (count + dict.ceResultFailSuffix);
+    result.textContent = count === 0 ? dict.ceResultOk : count === 1 ? dict.ceResultFail1 : dict.ceResultFailN.replace('{n}', count);
   }
+  const limpa = document.getElementById('ce-limpa');
+  if (limpa) limpa.hidden = count === 0;
+}
+// nova sessão: as marcas da anterior saem, e o foco volta ao primeiro item
+function limpaCe() {
+  saveCeState({});
+  renderCe();
+  document.getElementById('ce-1').focus();
 }
 
 // ════════════════════════════════════════
@@ -1272,7 +1342,7 @@ function renderCe() {
 // ════════════════════════════════════════
 // Esquema simplificado da região inguinal direita, vista por dentro (TAPP), com os nomes do protocolo e do checklist.
 // As posições ainda serão validadas pelo preceptor: enquanto MAPA_VALIDADO for false, a página publicada mostra
-// só os nomes e o texto; aberta no vault (sem carimbo de publicação), mostra o mapa.
+// só os nomes e o texto; na versão de trabalho (sem carimbo de publicação), mostra o mapa.
 const MAPA_VALIDADO = false;
 function mapaVisivel() {
   const m = document.querySelector('meta[name="publicacao"]');
@@ -1434,7 +1504,7 @@ function renderMapas() {
   const lang = getLanguage(), dict = I18N[lang], nomes = ANAT_NOMES[lang], ver = mapaVisivel();
   document.getElementById('mapa-p1').parentNode.querySelectorAll('.mapa-fig, .mapa-nota, .leg-mob').forEach(el => { el.style.display = ver ? '' : 'none'; });
   document.getElementById('quiz-box').style.display = ver ? '' : 'none';
-  document.getElementById('chips-p1').innerHTML = ver ? '' : P1_EST.map(id => '<span>' + escH(nomes[id][1]) + '</span>').join('');
+  document.getElementById('lista-p1').innerHTML = ver ? '' : P1_EST.map(id => '<li>' + escH(nomes[id][1]) + '</li>').join('');
   document.getElementById('macro-card').classList.toggle('sem-mapa', !ver);
   document.getElementById('mapa-p3').parentNode.style.display = ver ? '' : 'none';
   if (!ver) return;
@@ -1449,20 +1519,32 @@ function renderMapas() {
 }
 
 // a trilha dos 3Ps, sob o menu: acende o P da aba aberta
-const P_DA_ABA = { premodulos: 0, curso: 1, live: 1, presencial: 1, cirurgia: 2 };
+const P_DA_ABA = { preparacao: 0, curso: 1, live: 1, presencial: 1, cirurgia: 2 };
 function marcaTrilha(name) {
-  document.querySelectorAll('.trilha-p button').forEach((b, i) => b.classList.toggle('on', P_DA_ABA[name] === i));
+  document.querySelectorAll('.trilha-p button').forEach((b, i) => {
+    const on = P_DA_ABA[name] === i;
+    b.classList.toggle('on', on);
+    if (on) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.trilha-p button').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+  // tudo o que leva a uma aba (o menu, a trilha dos 3Ps, os pré-módulos citados nas macroetapas) tem data-tab
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('[data-tab]');
+    if (b) { focoNoTitulo = !!b.closest('main'); switchTab(b.dataset.tab); }
+  });
+  document.getElementById('ce-limpa').addEventListener('click', limpaCe);
   const m1 = document.getElementById('mapa-p1');
   m1.addEventListener('click', ev => { const g = ev.target.closest('.est'); if (g) responde(g.dataset.e); });
   m1.addEventListener('keydown', ev => { const g = ev.target.closest('.est'); if (g && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); responde(g.dataset.e); } });
-  document.querySelectorAll('#macro-card .moment').forEach((m, i) => {
-    m.classList.add('fase');
-    m.addEventListener('click', () => { paraR2(); faseR2 = i; desenhaR2(); });
-  });
+  // as macroetapas só são clicáveis quando o mapa aparece
+  if (mapaVisivel()) {
+    document.querySelectorAll('#macro-card .moment').forEach((m, i) => {
+      m.classList.add('fase');
+      m.addEventListener('click', () => { paraR2(); faseR2 = i; desenhaR2(); });
+    });
+  }
   document.getElementById('play-p2').addEventListener('click', () => {
     if (timerR2) { paraR2(); return; }
     faseR2 = 0; desenhaR2(); document.getElementById('play-p2').textContent = I18N[getLanguage()].p2Parar; timerR2 = setTimeout(andaR2, 1600);
@@ -1470,8 +1552,21 @@ document.addEventListener('DOMContentLoaded', function () {
   if (estreita.addEventListener) estreita.addEventListener('change', renderMapas);
 });
 
+// no celular (e um pouco acima, onde o menu já tem duas linhas), em pé ou deitado, a linha da marca, do atalho e do idioma rola para fora; só o menu fica preso no alto
+const soMenuPreso = window.matchMedia('(max-width: 700px), (max-height: 500px)');
+function ajustaBarra() {
+  const barra = document.querySelector('header.barra'), nav = barra.querySelector('nav');
+  // só quando o menu tem linha própria, abaixo da marca
+  barra.style.top = soMenuPreso.matches && nav.offsetTop > 20 ? (4 - nav.offsetTop) + 'px' : '';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   setLanguage(getLanguage());
+  mostraAba(abaDoEndereco());
+  ajustaBarra();
+  // a altura da linha da marca muda com a largura, o idioma e as fontes
+  if (window.ResizeObserver) new ResizeObserver(ajustaBarra).observe(document.querySelector('header.barra'));
+  if (soMenuPreso.addEventListener) soMenuPreso.addEventListener('change', ajustaBarra);
 });
 </script>
 
