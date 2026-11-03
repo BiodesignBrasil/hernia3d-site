@@ -4,56 +4,68 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sistemática Hernia3D</title>
-<meta name="description" content="A curva sai do centro cirúrgico: o curso de maestria em TAPP em quatro camadas — quem sustenta e quem ganha, a curva de aprendizado, o que se oferece e o que o residente vive.">
-<meta name="publicacao" content="6|2026-10-30">
+<meta name="description" content="A curva sai do centro cirúrgico: o curso de maestria em TAPP em quatro camadas — quem sustenta e quem ganha, a curva de aprendizado, o que se oferece e o que o residente vive — e o que falta definir para virar negócio.">
+<meta name="publicacao" content="7|2026-11-02">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sistemática Hernia3D · a curva sai do centro cirúrgico">
-<meta property="og:description" content="O curso de maestria em TAPP em quatro camadas navegáveis: quem sustenta e quem ganha, a curva de aprendizado em três tempos, o que se oferece, o que se vive.">
+<meta property="og:description" content="O curso de maestria em TAPP em quatro camadas navegáveis: quem sustenta e quem ganha, a curva de aprendizado, o que se oferece, o que se vive. E a direção: o que falta definir para virar negócio.">
 <meta property="og:image" content="https://biodesignbrasil.github.io/hernia3d-site/sistematica/img/og_curva.png">
 <meta property="og:url" content="https://biodesignbrasil.github.io/hernia3d-site/sistematica/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=pub-6">
+<link rel="stylesheet" href="css/styles.css?v=pub-7">
 </head>
 <body>
 
-<header>
-  <div class="brand-mark" aria-hidden="true">H³D</div>
-  <div class="title-block">
-    <div class="kicker">Sistemática Hernia3D · curso de maestria em TAPP</div>
-    <h1>A curva sai do centro cirúrgico.</h1>
-  </div>
+<!-- uma barra só, no molde das Sistemáticas irmãs: a marca, as abas como pílulas, o atalho para a peça irmã -->
+<nav class="barra">
+  <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">H³D</span><span class="wm-nome">Sistemática<small>Hernia3D · curso de maestria em TAPP</small></span></a>
+  <div class="nav-links" id="camadas" role="tablist" aria-label="a abertura, as quatro camadas e a direção"></div>
   <a class="nav-irma" href="../" data-irma>
     <span class="irma-mark" aria-hidden="true">H³D</span><span>Plataforma do <b>residente</b></span>
   </a>
-</header>
-
-<nav id="camadas" role="tablist" aria-label="as quatro camadas"></nav>
+</nav>
 
 <main class="palco">
   <p class="pergunta" id="pergunta"></p>
+  <p class="manchete" id="manchete"></p>
 
   <div class="vistas">
+    <section class="vista v-dupla" id="v-abertura" role="tabpanel" aria-label="Abertura">
+      <div class="cena"><svg id="ps" viewBox="0 0 900 470" role="img" aria-label="Os 3Ps em três degraus: preparar e praticar no modelo, a porta da maestria, proceder no paciente"></svg></div>
+      <aside class="leitura" id="leitura-abe" aria-live="polite"></aside>
+    </section>
+
     <section class="vista v-dupla" id="v-ecossistema" role="tabpanel" aria-label="Ecossistema">
       <div class="cena"><svg id="eco" viewBox="0 0 900 530" role="img" aria-label="Quem sustenta o curso, o curso, e quem ganha com ele"></svg></div>
       <aside class="leitura" id="leitura-eco" aria-live="polite"></aside>
     </section>
 
-    <section class="vista v-dupla" id="v-sistema" role="tabpanel" aria-label="Sistema">
-      <div class="cena"><svg id="curva" viewBox="0 0 900 510" role="img" aria-label="A curva de aprendizado do TAPP, hoje no paciente e, com o Hernia3D, no modelo"></svg></div>
+    <section class="vista v-dupla cheia" id="v-sistema" role="tabpanel" aria-label="Sistema">
+      <div class="cena">
+        <div class="tempos" id="tempos" role="tablist" aria-label="os dois olhares"></div>
+        <div class="duo" id="duo" aria-label="os dois olhares, lado a lado">
+          <svg id="sis1" viewBox="0 0 900 530" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Hoje, no paciente: a subida inteira acontece no paciente"></svg>
+          <div class="dobradica" id="dobradica"></div>
+          <svg id="sis2" viewBox="0 0 900 530" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Com o Hernia3D, no modelo: a parte íngreme fica no modelo, em três passos"></svg>
+        </div>
+        <svg id="curva" viewBox="0 0 900 530" role="img" aria-label="A curva de aprendizado do TAPP, no olhar em foco"></svg>
+      </div>
       <aside class="leitura" id="leitura-sis" aria-live="polite"></aside>
     </section>
 
-    <section class="vista v-dupla" id="v-servicos" role="tabpanel" aria-label="Serviços">
-      <div class="painel" id="matriz"></div>
-      <aside class="leitura" id="leitura-serv" aria-live="polite"></aside>
+    <section class="vista v-cheia" id="v-servicos" role="tabpanel" aria-label="Serviços">
+      <div class="painel" id="portfolio" data-cresce="1.3"></div>
     </section>
 
     <section class="vista v-jornadas" id="v-jornadas" role="tabpanel" aria-label="Jornadas">
-      <div class="painel" id="blueprint"></div>
-      <aside class="leitura" id="leitura-jor"></aside>
+      <div class="painel" id="blueprint" data-cresce="1.25"></div>
+    </section>
+
+    <section class="vista v-direcao" id="v-direcao" role="tabpanel" aria-label="Direção">
+      <div class="painel" id="direcao" data-piso="0.55"></div>
     </section>
   </div>
 
@@ -65,7 +77,7 @@
   </p>
 </main>
 
-<script src="js/data.js?v=pub-6"></script>
-<script src="js/script.js?v=pub-6"></script>
+<script src="js/data.js?v=pub-7"></script>
+<script src="js/script.js?v=pub-7"></script>
 </body>
 </html>

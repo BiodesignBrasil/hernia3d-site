@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hernia 3D Model — Curso TAPP</title>
 <meta name="description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal laparoscópica num simulador impresso em 3D. Kit, pré-módulos, prática autoguiada, live e presencial com o preceptor.">
-<meta name="publicacao" content="6|2026-10-30">
+<meta name="publicacao" content="7|2026-11-02">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hernia 3D Model · Curso TAPP">
 <meta property="og:description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal laparoscópica num simulador impresso em 3D.">
@@ -42,50 +42,46 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font); background: var(--neutral-100); color: var(--neutral-900); min-height: 100vh; line-height: 1.5; }
 
-  header {
-    background: linear-gradient(120deg, var(--primary-dark) 0%, #0A2A4D 100%); color: white; padding: 0 24px;
-    display: flex; align-items: center; height: 66px;
-    box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; gap: 16px;
-    border-bottom: 2px solid var(--accent);
+  /* ---- uma barra só, como na Sistemática e nas peças irmãs: a marca, as abas em pílula, a peça irmã e o idioma ---- */
+  header.barra {
+    background: #FAF8F3; color: var(--primary-dark); padding: 0 20px;
+    display: flex; align-items: center; height: 58px; gap: 14px;
+    position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #BDB5A3;
   }
+  .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; min-width: 0; }
   .brand-mark {
-    width: 36px; height: 36px; border-radius: 6px; background: var(--accent); color: var(--primary-dark);
-    font-family: var(--font-serif); font-weight: 700; font-size: 15px; letter-spacing: -0.02em;
+    width: 34px; height: 34px; border-radius: 6px; background: var(--accent); color: var(--primary-dark);
+    font-family: var(--font-serif); font-weight: 700; font-size: 14px; letter-spacing: -0.02em;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  header .title-block { flex: 1; }
-  header h1 { font-family: var(--font-serif); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
-  header .subtitle { font-size: 11px; opacity: 0.65; letter-spacing: .04em; text-transform: uppercase; margin-top: 1px; }
-  .header-affil {
-    font-size: 11px; color: rgba(255,255,255,0.78); text-align: right; line-height: 1.4;
-    padding-right: 18px; margin-right: 2px; border-right: 1px solid rgba(255,255,255,0.22); flex-shrink: 0;
-  }
-  .lang-switch { display: flex; border: 1px solid rgba(255,255,255,0.35); border-radius: 5px; overflow: hidden; flex-shrink: 0; }
-  .lang-switch button {
-    background: transparent; border: none; color: rgba(255,255,255,0.7);
-    font-size: 12px; font-weight: 600; padding: 6px 12px; cursor: pointer; letter-spacing: .02em;
-  }
-  .lang-switch button.active { background: rgba(255,255,255,0.92); color: var(--primary-dark); }
+  header .title-block { min-width: 0; }
+  header h1 { font-family: var(--font-serif); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+  header .subtitle { font-size: 9.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600); margin-top: 3px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 330px; }
+  header nav { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; justify-content: safe center; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+  header nav::-webkit-scrollbar { display: none; }
+  header nav button { cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600);
+    background: transparent; border: 1px solid transparent; border-radius: 999px; padding: 6px 11px; white-space: nowrap;
+    transition: color .15s, background .15s, border-color .15s; }
+  header nav button:hover { color: var(--primary-dark); border-color: #BDB5A3; }
+  header nav button.active { background: var(--primary-dark); border-color: var(--primary-dark); color: #fff; }
+  header nav button.active .nav-p { color: #E8C66A; }
+  .lang-switch { display: flex; border: 1px solid #BDB5A3; border-radius: 999px; overflow: hidden; flex-shrink: 0; }
+  .lang-switch button { background: transparent; border: none; color: var(--neutral-600); font-size: 11.5px; font-weight: 600; padding: 5px 11px; cursor: pointer; }
+  .lang-switch button.active { background: var(--primary-dark); color: #fff; }
   /* atalho para a peça irmã (Sistemática Hernia3D, 08_sintese) — mesmo gesto do par site ↔ peça no Longevidade */
-  .nav-irma { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px; border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 999px; color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
-  .nav-irma b { color: #fff; font-weight: 600; }
-  .nav-irma:hover { background: rgba(255,255,255,0.1); }
-  .nav-irma .irma-mark { width: 22px; height: 22px; border-radius: 5px; background: rgba(255,255,255,0.92); color: var(--primary-dark);
+  .nav-irma { display: inline-flex; align-items: center; gap: 8px; padding: 4px 13px 4px 5px; border: 1px solid #BDB5A3; border-radius: 999px;
+    background: rgba(255,255,255,.6); color: var(--neutral-700); text-decoration: none; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+  .nav-irma b { color: var(--primary-dark); font-weight: 600; }
+  .nav-irma:hover { background: #fff; border-color: var(--primary-dark); }
+  .nav-irma .irma-mark { width: 22px; height: 22px; border-radius: 5px; background: var(--accent); color: var(--primary-dark);
     font-family: var(--font-serif); font-weight: 700; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+  @media (max-width: 1440px) { header .subtitle { display: none; } header nav button { letter-spacing: .07em; padding: 6px 9px; } }
+  @media (max-width: 1100px) {
+    header.barra { height: auto; flex-wrap: wrap; padding: 8px 14px; gap: 6px 12px; }
+    header nav { flex: 1 1 100%; order: 3; justify-content: flex-start; }
+  }
   @media (max-width: 760px) { .nav-irma span:last-child { display: none; } }
-
-  nav {
-    background: white; border-bottom: 1px solid var(--neutral-200);
-    display: flex; position: sticky; top: 60px; z-index: 99;
-  }
-  nav button {
-    flex: 1; padding: 15px 16px; border: none; background: none; cursor: pointer;
-    font-size: 13.5px; font-weight: 600; color: var(--neutral-600);
-    border-bottom: 2px solid transparent; transition: all 0.15s; letter-spacing: .01em;
-  }
-  nav button:hover { color: var(--primary); background: var(--neutral-50); }
-  nav button.active { color: var(--primary-dark); border-bottom-color: var(--primary-dark); }
 
   .container { max-width: 980px; margin: 0 auto; padding: 32px 20px 60px; }
   .tab-content { display: none; }
@@ -231,23 +227,157 @@
   @media (max-width: 640px) {
     .journey { flex-direction: column; gap: 14px; }
     .journey-step:not(:last-child)::after { display: none; }
-    header h1 { font-size: 14px; }
-    header .subtitle { display: none; }
-    .header-affil { display: none; }
+    header h1 { font-size: 15px; }
     .hero h2 { font-size: 21px; }
-    nav button { font-size: 12px; padding: 13px 8px; }
+    header nav button { font-size: 10.5px; padding: 5px 9px; }
+  }
+
+  /* ---- os 3Ps: a trilha, o menu e o mapa da região inguinal ---- */
+  .k0 { --k: #B8860B; --kf: #F4EAD2; } .k1 { --k: #0C325A; --kf: #E3EAF2; } .k2 { --k: #B3261E; --kf: #F6E3E0; }
+  .nav-p { display: inline-block; font-family: var(--font-serif); font-weight: 700; font-size: 12.5px; color: var(--k); margin-right: 5px; }
+  .trilha-p { background: var(--neutral-50); border-bottom: 1px solid var(--neutral-200); }
+  .trilha-p .container { padding: 8px 20px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .trilha-p .rot { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600); margin-right: 4px; }
+  .trilha-p button { display: inline-flex; align-items: baseline; gap: 6px; border: 1px solid var(--neutral-200); background: white; border-radius: 999px;
+    padding: 3px 12px; cursor: pointer; font: inherit; font-size: 12.5px; color: var(--neutral-700); }
+  .trilha-p button b { font-family: var(--font-serif); color: var(--k); font-size: 14px; }
+  .trilha-p button.on { background: var(--kf); border-color: var(--k); color: var(--neutral-900); font-weight: 600; }
+  .trilha-p .seta { color: var(--neutral-300); }
+  .trilha-p .dica-p { font-size: 11.5px; color: var(--neutral-600); margin-left: auto; }
+  .p-card { border-left: 4px solid var(--k); }
+  .p-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .p-head .sig { font-family: var(--font-serif); font-weight: 700; font-size: 26px; color: var(--k); line-height: 1; }
+  .p-head h3 { font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--primary-dark); }
+  .p-sub { font-size: 13px; color: var(--neutral-700); margin-bottom: 14px; max-width: 720px; line-height: 1.6; }
+  .p-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; }
+  .mapa-fig { border: 1px solid var(--neutral-200); border-radius: var(--radius); background: #FAF8F3; overflow: hidden; }
+  .mapa-fig svg { display: block; width: 100%; height: auto; }
+  .mapa-nota { font-size: 11.5px; color: var(--neutral-600); margin-top: 5px; }
+  .leg-mob { display: none; margin: 6px 0 0; padding: 0; list-style: none; font-size: 12.5px; columns: 2; column-gap: 14px; }
+  .leg-mob li { break-inside: avoid; margin: 0 0 3px; }
+  .leg-mob b { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; background: #0C325A; color: #fff; font-size: 10.5px;
+    align-items: center; justify-content: center; margin-right: 6px; }
+  .quiz-box { border: 1px solid var(--neutral-200); border-radius: var(--radius); padding: 12px 14px; background: var(--neutral-50); }
+  .quiz-box h4 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--neutral-600); margin-bottom: 4px; }
+  .quiz-box p { font-size: 13px; color: var(--neutral-700); }
+  .quiz-p { margin-top: 8px; font-size: 14px !important; color: var(--neutral-900) !important; }
+  .quiz-p b { font-family: var(--font-serif); font-size: 16px; color: var(--primary-dark); }
+  .fb { margin-top: 4px; min-height: 1.4em; } .fb.ok { color: var(--success) !important; } .fb.erro { color: var(--error) !important; }
+  .chips-r { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips-r span { border: 1px solid var(--neutral-200); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; background: white; }
+  #macro-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); column-gap: 22px; }
+  #macro-card > h3, #macro-card > p { grid-column: 1 / -1; }
+  #macro-card.sem-mapa { grid-template-columns: minmax(0, 1fr); }
+  #macro-card.sem-mapa .macro-mapa { display: none; }
+  #macro-card .moment.fase { cursor: pointer; }
+  #macro-card .moment.fase.on { background: #F4EAD2; border-left-color: #B8860B; }
+  .macro-mapa { position: sticky; top: 130px; align-self: start; }
+  .macro-mapa .linha { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .macro-mapa .linha span { font-size: 12px; color: var(--neutral-600); }
+  .abc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .abc div { border-radius: var(--radius); padding: 12px 14px; color: #fff; background: #0C325A; font-size: 12.5px; line-height: 1.45; }
+  .abc div:nth-child(2) { background: #3D5F84; } .abc div:nth-child(3) { background: #7F96B0; }
+  .abc b { display: block; font-size: 14px; margin-bottom: 2px; }
+  .aberto-r { border: 1px dashed var(--error); border-radius: var(--radius); padding: 10px 14px; color: var(--error); font-size: 13px; line-height: 1.55; }
+
+  /* o mapa: uma geometria só, três peles (as cores do modelo, o checklist, o paciente) */
+  .mapa { --ouro: #B8860B; --ouro-claro: #F4EAD2; --tinta: #0C325A; --risco: #B3261E; --papel: #FAF8F3;
+    --fundo: #FFFDF8; --musc: #fff; --musc-s: #0C325A; --osso: #fff; --osso-s: #0C325A; --lig: #fff; --lig-s: #0C325A; --art: #0C325A; --vei: #0C325A;
+    --nervo: #0C325A; --nervo-dash: 3 2.5; --cordao: #fff; --cordao-s: #0C325A; --zona-f: none; --zona-s: #0C325A; --def-f: none; --def-s: #0C325A;
+    --perit: none; --perit-s: #0C325A; --orif: #0C325A; --ref: #fff; --ref-s: #0C325A; --saco: none; --saco-s: #0C325A; --ctx: #F4F1EA; }
+  .mapa * { transition: fill .35s, stroke .35s, opacity .35s; }
+  .mapa .moldura { fill: var(--papel); } .mapa .fundo { fill: var(--fundo); }
+  .mapa .ctx { fill: var(--ctx); stroke: rgba(12,50,90,.18); stroke-width: 1; }
+  .mapa .t-musc .f { fill: var(--musc); stroke: var(--musc-s); stroke-width: 1; }
+  .mapa .t-osso .fx1 { fill: none; stroke: var(--osso-s); stroke-width: 12; stroke-linecap: round; }
+  .mapa .t-osso .fx2 { fill: none; stroke: var(--osso); stroke-width: 9; stroke-linecap: round; }
+  .mapa .t-lig .fx1 { fill: none; stroke: var(--lig-s); stroke-width: 9; stroke-linecap: round; }
+  .mapa .t-lig .fx2 { fill: none; stroke: var(--lig); stroke-width: 6; stroke-linecap: round; }
+  .mapa .art { fill: none; stroke: var(--art); stroke-width: 3.4; stroke-linecap: round; }
+  .mapa .vei { fill: none; stroke: var(--vei); stroke-width: 2.6; stroke-linecap: round; }
+  .mapa .nv { fill: none; stroke: var(--nervo); stroke-width: 2.3; stroke-linecap: round; stroke-dasharray: var(--nervo-dash); }
+  .mapa .cd1 { fill: none; stroke: var(--cordao-s); stroke-width: 6.5; stroke-linecap: round; }
+  .mapa .cd2 { fill: none; stroke: var(--cordao); stroke-width: 4; stroke-linecap: round; }
+  .mapa .t-zona .f { fill: var(--zona-f); stroke: var(--zona-s); stroke-width: 1.3; stroke-dasharray: 5 3; }
+  .mapa .t-defeito .f { fill: var(--def-f); stroke: var(--def-s); stroke-width: 1.2; stroke-dasharray: 2 2.5; }
+  .mapa .t-anel .f { fill: var(--def-f); stroke: var(--def-s); stroke-width: 1.6; }
+  .mapa .t-anel .saco { fill: var(--saco); stroke: var(--saco-s); stroke-width: 1; }
+  .mapa .t-camada .f { fill: var(--perit); stroke: var(--perit-s); stroke-width: 1.2; }
+  .mapa .t-camada .borda { fill: none; stroke: var(--perit-s); stroke-width: 2.4; stroke-dasharray: 7 4; }
+  .mapa .t-contorno .ct { fill: none; stroke: var(--orif); stroke-width: 1.8; stroke-dasharray: 7 4; }
+  .mapa .t-ref .f { fill: var(--ref); stroke: var(--ref-s); stroke-width: 1; }
+  .mapa .hit { fill: none; stroke: transparent; stroke-width: 16; pointer-events: stroke; }
+  .mapa .lm { stroke: rgba(12,50,90,.35); stroke-width: 1; stroke-dasharray: 3 4; }
+  .mapa .lm-rot { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; fill: #6B6A64; }
+  .mapa .est:not(.on) { opacity: .32; }
+  .mapa.quiz .est { cursor: pointer; } .mapa .est:focus { outline: none; } .mapa .est:focus-visible { outline: 2px solid #B8860B; }
+  .mapa .rot text { font-size: 13.5px; font-weight: 500; fill: var(--tinta); }
+  .mapa .rot .perigo text { fill: var(--risco); font-weight: 600; }
+  .mapa .rot line { stroke: var(--tinta); stroke-opacity: .5; stroke-width: 1; } .mapa .rot circle { fill: var(--tinta); }
+  .mapa .rot .perigo line { stroke: var(--risco); } .mapa .rot .perigo circle { fill: var(--risco); }
+  .mapa .pts { display: none; }
+  .mapa .pts circle { fill: var(--tinta); stroke: #fff; stroke-width: 2; } .mapa .pts text { fill: #fff; font-size: 14px; font-weight: 700; text-anchor: middle; }
+  .mapa.sem-nomes .rot { display: none; }
+  .mapa.compacto .rot { display: none; } .mapa.compacto .pts { display: inline; }
+  .leg-mob.sempre { display: block; margin-top: 8px; }
+  .mapa[data-pele="modelo"] { --fundo: #E6D0C4; --musc: #C98476; --musc-s: #A9645A; --osso: #F8F4EA; --osso-s: #BDB5A3;
+    --lig: #F1E9D8; --lig-s: #C2B596; --art: #B3261E; --vei: #2F5C9A; --nervo: #E0A91A; --nervo-dash: none; --cordao: #FBF8F1; --cordao-s: #9F947F;
+    --def-s: rgba(12,50,90,.28); --perit: rgba(214,231,243,.62); --perit-s: #8EAAC0; --orif: rgba(12,50,90,.3); --ref: #E3B7A9; --ref-s: #C4978A;
+    --saco: #D6AE62; --saco-s: #A9853E; --ctx: #F6F1E7; }
+  .mapa[data-pele="checklist"] { --fundo: #F6F2EA; --musc: #E9E3D7; --musc-s: #D3CBBB; --osso: #F4F0E7; --osso-s: #CFC7B6;
+    --lig: #F4F0E7; --lig-s: #CFC7B6; --art: #CDC4B4; --vei: #CDC4B4; --nervo: #D3CABA; --nervo-dash: none; --cordao: #F4F0E7; --cordao-s: #C9C0AF;
+    --def-s: #CFC7B6; --perit: rgba(232,226,214,.55); --perit-s: #CFC7B6; --orif: #BDB5A3; --ref: #EEE8DC; --ref-s: #D6CFC0; --saco: #E2DACB; --saco-s: #CFC7B6; }
+  .mapa[data-pele="checklist"] .est:not(.on) { opacity: 1; }
+  .mapa[data-pele="checklist"] .on .f { fill: var(--ouro-claro); stroke: var(--ouro); }
+  .mapa[data-pele="checklist"] .on .fx1, .mapa[data-pele="checklist"] .on .cd1, .mapa[data-pele="checklist"] .on .art, .mapa[data-pele="checklist"] .on .vei,
+  .mapa[data-pele="checklist"] .on .nv, .mapa[data-pele="checklist"] .on .ct, .mapa[data-pele="checklist"] .on .borda { stroke: var(--ouro); }
+  .mapa[data-pele="checklist"] .on .saco { fill: var(--ouro); }
+  .mapa[data-pele="checklist"] .t-zona.on .f { fill: url(#hachura-ouro); }
+  .mapa[data-pele="paciente"] { --fundo: #F0DDB4; --musc: #D49C8A; --musc-s: #B97E6C; --osso: #F3ECDD; --osso-s: #CDBF9F;
+    --lig: #EFE4CC; --lig-s: #CBB991; --art: #B3261E; --vei: #2F5C9A; --nervo: #C9971A; --nervo-dash: 3 3; --cordao: #F6F1E6; --cordao-s: #B5A27F;
+    --zona-f: url(#hachura); --zona-s: #B3261E; --def-s: rgba(12,50,90,.25); --perit: rgba(244,228,216,.74); --perit-s: #D3B3A0; --orif: rgba(12,50,90,.28);
+    --ref: #E6B4A2; --ref-s: #C98F7C; --saco: #D9BC8E; --saco-s: #B29364; --ctx: #F5EEE0; }
+  @media (prefers-reduced-motion: reduce) { .mapa * { transition: none; } }
+  @media (max-width: 760px) {
+    .p-grade, #macro-card { grid-template-columns: minmax(0, 1fr); }
+    .macro-mapa { position: static; margin-top: 14px; }
+    .abc { grid-template-columns: minmax(0, 1fr); }
+    .trilha-p .dica-p { margin-left: 0; }
+  }
+  @media (max-width: 640px) {
+    .mapa .rot { display: none; } .mapa .pts { display: inline; } .mapa.sem-nomes .pts { display: none; } .leg-mob { display: block; }
   }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="hachura" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="rgba(179,38,30,.10)"/><line x1="0" y1="0" x2="0" y2="7" stroke="#B3261E" stroke-width="1.6" opacity=".55"/>
+    </pattern>
+    <pattern id="hachura-ouro" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="rgba(184,134,11,.10)"/><line x1="0" y1="0" x2="0" y2="7" stroke="#B8860B" stroke-width="1.4" opacity=".55"/>
+    </pattern>
+  </defs>
+</svg>
 
-<header>
-  <div class="brand-mark" aria-hidden="true">H³D</div>
-  <div class="title-block">
-    <h1>Hernia 3D Model — Curso TAPP</h1>
-    <div class="subtitle" data-i18n="headerSubtitle">Mastery Learning · Hérnia Inguinal</div>
+<!-- uma barra só, como na Sistemática e nas peças irmãs: a marca, as abas, o atalho para a peça irmã e o idioma -->
+<header class="barra">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">H³D</div>
+    <div class="title-block">
+      <h1>Hernia 3D Model · Curso TAPP</h1>
+      <div class="subtitle"><span data-i18n="headerSubtitle">Mastery Learning · Hérnia Inguinal</span> · <span data-i18n="headerAffil">Dr. Paulo Barros · Hospital Albert Einstein, São Paulo</span></div>
+    </div>
   </div>
-  <div class="header-affil" data-i18n="headerAffil">Dr. Paulo Barros · Hospital Albert Einstein, São Paulo</div>
+  <nav>
+    <button class="active" onclick="switchTab('kit')" data-i18n="navKit">Kit</button>
+    <button onclick="switchTab('premodulos')"><span class="nav-p k0">P¹</span><span data-i18n="navPremodulos">Pré-Módulos</span></button>
+    <button onclick="switchTab('curso')"><span class="nav-p k1">P²</span><span data-i18n="navCurso">Curso TAPP</span></button>
+    <button onclick="switchTab('live')"><span class="nav-p k1">P²</span><span data-i18n="navLive">Live</span></button>
+    <button onclick="switchTab('presencial')"><span class="nav-p k1">P²</span><span data-i18n="navPresencial">Presencial</span></button>
+    <button onclick="switchTab('cirurgia')"><span class="nav-p k2">P³</span><span data-i18n="navCirurgia">Centro cirúrgico</span></button>
+  </nav>
   <a class="nav-irma" href="sistematica/" data-irma><span class="irma-mark" aria-hidden="true">⊃</span><span>Sistemática <b>Hernia3D</b></span></a>
   <div class="lang-switch">
     <button id="lang-pt" class="active" onclick="setLanguage('pt')">PT</button>
@@ -255,13 +385,15 @@
   </div>
 </header>
 
-<nav>
-  <button class="active" onclick="switchTab('kit')" data-i18n="navKit">Kit</button>
-  <button onclick="switchTab('premodulos')" data-i18n="navPremodulos">Pré-Módulos</button>
-  <button onclick="switchTab('curso')" data-i18n="navCurso">Curso TAPP</button>
-  <button onclick="switchTab('live')" data-i18n="navLive">Live</button>
-  <button onclick="switchTab('presencial')" data-i18n="navPresencial">Presencial</button>
-</nav>
+<div class="trilha-p">
+  <div class="container">
+    <span class="rot" data-i18n="trilhaRot">Seu caminho em 3Ps</span>
+    <button class="k0" data-tab="premodulos"><b>P¹</b><span data-i18n="p1Nome">Preparar</span></button><span class="seta">→</span>
+    <button class="k1" data-tab="curso"><b>P²</b><span data-i18n="p2Nome">Praticar</span></button><span class="seta">→</span>
+    <button class="k2" data-tab="cirurgia"><b>P³</b><span data-i18n="p3Nome">Proceder</span></button>
+    <span class="dica-p" data-i18n="trilhaDica">As três palavras são as do próprio curso: a preparação, a prática e o procedimento.</span>
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════
      TAB 0 — KIT DE INSTRUMENTOS
@@ -411,6 +543,24 @@
 
   </div>
 
+  <div class="card p-card k0">
+    <div class="p-head"><span class="sig">P¹</span><h3 data-i18n="p1Tit">Preparar: a anatomia que você vai nomear</h3></div>
+    <p class="p-sub" data-i18n="p1Sub">Antes de cortar, nomeie. Estas são as seis estruturas que o onboarding apresenta no modelo, vistas por dentro, pela câmera: medial à esquerda, lateral à direita.</p>
+    <div class="p-grade">
+      <div>
+        <div class="mapa-fig" id="mapa-p1"></div>
+        <p class="mapa-nota" data-i18n="mapaNota">Região inguinal direita · esquema simplificado, não é atlas.</p>
+        <ol class="leg-mob" id="leg-p1"></ol>
+        <div class="chips-r" id="chips-p1"></div>
+      </div>
+      <div class="quiz-box" id="quiz-box">
+        <h4 data-i18n="quizTit">Teste-se</h4>
+        <p data-i18n="quizSub">Os nomes somem e você clica na estrutura pedida. É o que o P¹ cobra.</p>
+        <div id="quiz"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="unlock-section" id="unlock-section" style="display:none;">
     <div class="live-card">
       <span class="tag" data-i18n="liveTag">SESSÃO HABILITADA</span>
@@ -471,7 +621,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="macro-card">
     <h3 style="margin-bottom:4px;font-size:14.5px;" data-i18n="macroTitle">Macroetapas do procedimento TAPP</h3>
     <p style="font-size:12px;color:var(--neutral-600);margin-bottom:14px;" data-i18n="macroSub">Cada etapa indica, quando aplicável, o pré-módulo de nivelamento mais relacionado à habilidade exigida.</p>
     <div class="moment-list">
@@ -504,6 +654,12 @@
         <div class="clinical" data-i18n="macro5Clinical">Correlato clínico: falha de fechamento associa-se a obstrução intestinal por hérnia interna</div>
         <span class="premodule-tag" onclick="switchTab('premodulos')" data-i18n="macro5Tag">Pré-módulo relacionado: Sutura e Nós Intracorpóreos →</span>
       </div>
+    </div>
+    <div class="macro-mapa">
+      <div class="linha"><span data-i18n="p2Nota">P² · clique numa macroetapa: em ouro, o que ela toca no modelo.</span>
+        <button class="btn btn-outline" type="button" id="play-p2" data-i18n="p2Play">▶ ver as 5 fases</button></div>
+      <div class="mapa-fig" id="mapa-p2"></div>
+      <ol class="leg-mob sempre" id="leg-p2"></ol>
     </div>
   </div>
 
@@ -617,6 +773,46 @@
 </div>
 </div>
 
+<!-- ════════════════════════════════════════
+     TAB 5 — CENTRO CIRÚRGICO (P³ Proceder)
+════════════════════════════════════════ -->
+<div id="tab-cirurgia" class="tab-content">
+<div class="container">
+
+  <div class="hero">
+    <span class="hero-kicker" data-i18n="cirKicker">Etapa final · P³ Proceder</span>
+    <h2 data-i18n="cirTitle">Centro cirúrgico</h2>
+    <p data-i18n="cirSub">Só chega aqui quem passou no critério de maestria. A cirurgia é real, com supervisão presencial que diminui caso a caso, em três fases.</p>
+  </div>
+
+  <div class="card p-card k2">
+    <div class="p-head"><span class="sig">P³</span><h3 data-i18n="cirMapaTit">As zonas de perigo, no paciente</h3></div>
+    <p class="p-sub" data-i18n="cirMapaSub">O mesmo lugar do modelo, agora no paciente: tecido e gordura no lugar das cores. Em vermelho, as zonas de perigo; os nervos, tracejados, ficam sob a fáscia e não se veem.</p>
+    <div class="p-grade">
+      <div>
+        <div class="mapa-fig" id="mapa-p3"></div>
+        <ol class="leg-mob" id="leg-p3"></ol>
+      </div>
+      <div>
+        <p style="font-size:13.5px;line-height:1.6;" data-i18n-html="cirPerigo"><strong>Triângulo do desastre</strong>, entre o ducto deferente e os vasos espermáticos: por baixo passam os vasos ilíacos. <strong>Triângulo da dor</strong>, ao lado dos vasos espermáticos e abaixo do trato iliopúbico: nervos que não se veem. Ferir um deles é erro maior.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:12px;font-size:14.5px;" data-i18n="cirFasesTit">A supervisão diminui por fase</h3>
+    <div class="abc">
+      <div><b data-i18n="faseATit">Fase A</b><span data-i18n="faseADesc">Casos 1 a 5 · preceptor paramentado na mesa · meta: 3 casos sem incidente e menos de 60 min</span></div>
+      <div><b data-i18n="faseBTit">Fase B</b><span data-i18n="faseBDesc">Casos 6 a 15 · preceptor na sala · meta: 5 casos sem incidente e menos de 45 min</span></div>
+      <div><b data-i18n="faseCTit">Fase C</b><span data-i18n="faseCDesc">A partir do caso 16 · supervisor disponível no andar · avaliação individual</span></div>
+    </div>
+  </div>
+
+  <p class="aberto-r" data-i18n-html="cirAberto"><strong>O que ainda não se sabe:</strong> nenhum ensaio mostrou ainda que o treino em simulador de TAPP reduz complicação no paciente. O precedente vem do TEP, e é o que o ensaio do projeto vai medir no TAPP.</p>
+
+</div>
+</div>
+
 <footer class="site-footer">
   <div class="container">
     <p data-i18n="footerText">Dr. Paulo Henrique Fogaça de Barros · Hospital Albert Einstein, São Paulo · Mais de 17 anos de experiência em cirurgia videolaparoscópica.</p>
@@ -642,6 +838,35 @@ const I18N = {
     footerNote: "Protótipo de plataforma educacional — Biodesign Brasil.",
     footerStamp: "Estado em {data} · publicação {n}",
     footerDraft: "Versão de trabalho, não publicada",
+    navCirurgia: "Centro cirúrgico",
+    trilhaRot: "Seu caminho em 3Ps",
+    p1Nome: "Preparar", p2Nome: "Praticar", p3Nome: "Proceder",
+    trilhaDica: "As três palavras são as do próprio curso: a preparação, a prática e o procedimento.",
+    p1Tit: "Preparar: a anatomia que você vai nomear",
+    p1Sub: "Antes de cortar, nomeie. Estas são as seis estruturas que o onboarding apresenta no modelo, vistas por dentro, pela câmera: medial à esquerda, lateral à direita.",
+    mapaNota: "Região inguinal direita · esquema simplificado, não é atlas.",
+    mapaRotulo: "Região inguinal direita, vista por dentro",
+    quizTit: "Teste-se",
+    quizSub: "Os nomes somem e você clica na estrutura pedida. É o que o P¹ cobra.",
+    quizIni: "começar", quizDeNovo: "fazer de novo",
+    quizPergunta: "{i} de {n} · Onde está {art} <b>{nome}</b>?",
+    quizDica: "Clique no mapa, ou use Tab e Enter.",
+    quizCerto: "Certo: {art} {nome}.",
+    quizErro: "Isso é {art} {nome}. Procure {art2} {nome2}.",
+    quizFim: "Você reconheceu {a} de {n} na primeira tentativa. No curso, a teoria cobra 90% para avançar.",
+    p2Nota: "P² · clique numa macroetapa: em ouro, o que ela toca no modelo.",
+    p2Play: "▶ ver as 5 fases", p2Parar: "❚❚ parar",
+    cirKicker: "Etapa final · P³ Proceder",
+    cirTitle: "Centro cirúrgico",
+    cirSub: "Só chega aqui quem passou no critério de maestria. A cirurgia é real, com supervisão presencial que diminui caso a caso, em três fases.",
+    cirMapaTit: "As zonas de perigo, no paciente",
+    cirMapaSub: "O mesmo lugar do modelo, agora no paciente: tecido e gordura no lugar das cores. Em vermelho, as zonas de perigo; os nervos, tracejados, ficam sob a fáscia e não se veem.",
+    cirPerigo: "<strong>Triângulo do desastre</strong>, entre o ducto deferente e os vasos espermáticos: por baixo passam os vasos ilíacos. <strong>Triângulo da dor</strong>, ao lado dos vasos espermáticos e abaixo do trato iliopúbico: nervos que não se veem. Ferir um deles é erro maior.",
+    cirFasesTit: "A supervisão diminui por fase",
+    faseATit: "Fase A", faseADesc: "Casos 1 a 5 · preceptor paramentado na mesa · meta: 3 casos sem incidente e menos de 60 min",
+    faseBTit: "Fase B", faseBDesc: "Casos 6 a 15 · preceptor na sala · meta: 5 casos sem incidente e menos de 45 min",
+    faseCTit: "Fase C", faseCDesc: "A partir do caso 16 · supervisor disponível no andar · avaliação individual",
+    cirAberto: "<strong>O que ainda não se sabe:</strong> nenhum ensaio mostrou ainda que o treino em simulador de TAPP reduz complicação no paciente. O precedente vem do TEP, e é o que o ensaio do projeto vai medir no TAPP.",
     navPremodulos: "Pré-Módulos",
     navCurso: "Curso TAPP",
     navLive: "Live",
@@ -760,6 +985,35 @@ const I18N = {
     footerNote: "Prototipo de plataforma educativa — Biodesign Brasil.",
     footerStamp: "Estado al {data} · publicación {n}",
     footerDraft: "Versión de trabajo, no publicada",
+    navCirurgia: "Quirófano",
+    trilhaRot: "Tu camino en 3P",
+    p1Nome: "Preparar", p2Nome: "Practicar", p3Nome: "Proceder",
+    trilhaDica: "Las tres palabras son las del propio curso: la preparación, la práctica y el procedimiento.",
+    p1Tit: "Preparar: la anatomía que vas a nombrar",
+    p1Sub: "Antes de cortar, nombra. Estas son las seis estructuras que el onboarding presenta en el modelo, vistas desde adentro, por la cámara: medial a la izquierda, lateral a la derecha.",
+    mapaNota: "Región inguinal derecha · esquema simplificado, no es un atlas.",
+    mapaRotulo: "Región inguinal derecha, vista desde adentro",
+    quizTit: "Ponte a prueba",
+    quizSub: "Los nombres desaparecen y haces clic en la estructura pedida. Es lo que exige el P¹.",
+    quizIni: "empezar", quizDeNovo: "otra vez",
+    quizPergunta: "{i} de {n} · ¿Dónde está {art} <b>{nome}</b>?",
+    quizDica: "Haz clic en el mapa, o usa Tab y Enter.",
+    quizCerto: "Correcto: {art} {nome}.",
+    quizErro: "Eso es {art} {nome}. Busca {art2} {nome2}.",
+    quizFim: "Reconociste {a} de {n} al primer intento. En el curso, la teoría exige 90% para avanzar.",
+    p2Nota: "P² · haz clic en una macroetapa: en dorado, lo que toca en el modelo.",
+    p2Play: "▶ ver las 5 fases", p2Parar: "❚❚ detener",
+    cirKicker: "Etapa final · P³ Proceder",
+    cirTitle: "Quirófano",
+    cirSub: "Solo llega aquí quien cumplió el criterio de maestría. La cirugía es real, con supervisión presencial que disminuye caso a caso, en tres fases.",
+    cirMapaTit: "Las zonas de peligro, en el paciente",
+    cirMapaSub: "El mismo lugar del modelo, ahora en el paciente: tejido y grasa en lugar de los colores. En rojo, las zonas de peligro; los nervios, punteados, quedan bajo la fascia y no se ven.",
+    cirPerigo: "<strong>Triángulo de la fatalidad</strong>, entre el conducto deferente y los vasos espermáticos: por debajo pasan los vasos ilíacos. <strong>Triángulo del dolor</strong>, junto a los vasos espermáticos y por debajo del tracto iliopúbico: nervios que no se ven. Lesionar uno de ellos es un error mayor.",
+    cirFasesTit: "La supervisión disminuye por fase",
+    faseATit: "Fase A", faseADesc: "Casos 1 a 5 · preceptor vestido en la mesa · meta: 3 casos sin incidentes y menos de 60 min",
+    faseBTit: "Fase B", faseBDesc: "Casos 6 a 15 · preceptor en la sala · meta: 5 casos sin incidentes y menos de 45 min",
+    faseCTit: "Fase C", faseCDesc: "Desde el caso 16 · supervisor disponible en el piso · evaluación individual",
+    cirAberto: "<strong>Lo que aún no se sabe:</strong> ningún ensayo ha mostrado todavía que el entrenamiento en simulador de TAPP reduzca las complicaciones en el paciente. El precedente viene del TEP, y es lo que el ensayo del proyecto va a medir en TAPP.",
     navPremodulos: "Pre-Módulos",
     navCurso: "Curso TAPP",
     navLive: "Live",
@@ -888,6 +1142,7 @@ function setLanguage(lang) {
   });
   carimbo(dict);
   renderAll();
+  renderMapas();
 }
 
 // a meta "publicacao" (N|AAAA-MM-DD) é preenchida pelo publica_tudo.py; vazia, a página é a do vault
@@ -910,6 +1165,7 @@ function switchTab(name) {
   navButtons.forEach(el => el.classList.remove('active'));
   const targetNavBtn = document.querySelector('nav button[onclick="switchTab(\'' + name + '\')"]');
   if (targetNavBtn) targetNavBtn.classList.add('active');
+  marcaTrilha(name);
   window.scrollTo(0, 0);
 }
 
@@ -1010,6 +1266,209 @@ function renderCe() {
     result.textContent = count === 0 ? dict.ceResultOk : (count + dict.ceResultFailSuffix);
   }
 }
+
+// ════════════════════════════════════════
+// OS 3Ps NO MAPA DA REGIÃO INGUINAL
+// ════════════════════════════════════════
+// Esquema simplificado da região inguinal direita, vista por dentro (TAPP), com os nomes do protocolo e do checklist.
+// As posições ainda serão validadas pelo preceptor: enquanto MAPA_VALIDADO for false, a página publicada mostra
+// só os nomes e o texto; aberta no vault (sem carimbo de publicação), mostra o mapa.
+const MAPA_VALIDADO = false;
+function mapaVisivel() {
+  const m = document.querySelector('meta[name="publicacao"]');
+  return MAPA_VALIDADO || !(m && m.content);
+}
+const EPI = 'M584,214 C566,190 540,140 508,92 C488,60 470,30 462,0';
+const desloca = (d, dx) => d.replace(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g, (m, x, y) => (+x + dx) + ',' + y);
+// g: os traços · alvo: onde a linha do nome toca · rot: lado do nome (e = medial, d = lateral) e altura
+const ANATOMIA = [
+  { id: 'peritonio', tipo: 'camada', alvo: [440, 58], rot: ['e', 44], g: [{ k: 'forma', d: 'M380,0 L760,0 L760,92 C700,98 600,101 500,98 C440,97 410,96 380,95 Z' }, { k: 'borda', d: 'M412,96 C470,98 600,101 740,94' }] },
+  { id: 'orificio', tipo: 'contorno', alvo: [661, 200], rot: ['d', 196], g: [{ k: 'contorno', d: 'M462,106 C520,94 600,100 652,128 C664,180 660,240 628,288 C590,298 520,304 452,304 C450,240 452,170 462,106 Z' }] },
+  { id: 'cooper', tipo: 'osso', alvo: [468, 297], rot: ['e', 298], g: [{ k: 'faixa', d: 'M430,304 C470,294 515,289 556,291' }] },
+  { id: 'trato', tipo: 'lig', alvo: [698, 142], rot: ['d', 118], g: [{ k: 'faixa', d: 'M742,122 C680,150 560,210 452,270' }] },
+  { id: 'psoas', tipo: 'musc', alvo: [736, 410], rot: ['d', 430], g: [{ k: 'forma', d: 'M608,262 C650,232 700,214 760,206 L760,440 L622,440 C612,390 604,320 608,262 Z' }] },
+  { id: 'epigastricos', tipo: 'vaso', alvo: [535, 135], rot: ['e', 112], g: [{ k: 'vei', d: desloca(EPI, -5) }, { k: 'vei', d: desloca(EPI, 5) }, { k: 'art', d: EPI }] },
+  { id: 'iliacos', tipo: 'vaso', alvo: [612, 330], rot: ['d', 344], g: [{ k: 'vei', d: 'M624,440 C602,380 576,300 562,214' }, { k: 'art', d: 'M652,440 C628,380 602,300 588,206' }] },
+  { id: 'espermaticos', tipo: 'vaso', alvo: [652, 318], rot: ['d', 270], g: [{ k: 'vei', d: 'M616,181 C626,220 644,290 668,360 C678,392 686,420 694,440' }, { k: 'art', d: 'M611,181 C621,220 639,290 663,360 C673,392 681,420 689,440' }] },
+  { id: 'deferente', tipo: 'cordao', alvo: [508, 332], rot: ['e', 372], g: [{ k: 'cordao', d: 'M596,182 C584,208 570,236 552,264 C528,302 490,350 456,440' }] },
+  { id: 'genitofemoral', tipo: 'nervo', alvo: [692, 318], rot: ['d', 382], g: [{ k: 'nervo', d: 'M714,440 C704,370 686,300 662,172' }] },
+  { id: 'cutaneo', tipo: 'nervo', alvo: [744, 300], rot: ['d', 408], g: [{ k: 'nervo', d: 'M750,440 C746,360 740,250 732,132' }] },
+  { id: 'corona', tipo: 'vaso', alvo: [507, 312], rot: ['e', 336], g: [{ k: 'art', d: 'M502,252 C504,272 507,296 509,334' }] },
+  { id: 'anel', tipo: 'anel', alvo: [622, 166], rot: ['d', 158], g: [{ k: 'forma', d: 'M586,168 A18,13 0 1 0 622,168 A18,13 0 1 0 586,168 Z' }, { k: 'saco', d: 'M594,170 A10,7.5 0 1 0 614,170 A10,7.5 0 1 0 594,170 Z' }] },
+  { id: 'hesselbach', tipo: 'defeito', alvo: [500, 196], rot: ['e', 196], g: [{ k: 'forma', d: 'M470,100 C500,124 528,152 546,188 L552,214 C520,234 488,252 458,266 C460,210 464,150 470,100 Z' }] },
+  { id: 'femoral', tipo: 'defeito', alvo: [540, 258], rot: ['e', 258], g: [{ k: 'forma', d: 'M524,226 L554,218 C558,240 560,262 558,284 L522,290 C526,268 526,246 524,226 Z' }] },
+  { id: 'desastre', tipo: 'zona', alvo: [568, 300], rot: ['d', 306], perigo: true, g: [{ k: 'forma', d: 'M602,186 C590,212 562,262 524,314 L670,374 C652,320 630,252 612,186 Z' }] },
+  { id: 'dor', tipo: 'zona', alvo: [712, 200], rot: ['d', 232], perigo: true, g: [{ k: 'forma', d: 'M616,190 L740,128 L756,250 L702,440 L694,440 C684,410 676,392 666,360 C642,290 624,222 616,190 Z' }] },
+  { id: 'umbilical', tipo: 'ref', alvo: [425, 160], rot: ['e', 154], g: [{ k: 'forma', d: 'M434,372 C426,300 412,170 398,0 L413,0 C427,170 441,300 448,368 Z' }] },
+  { id: 'bexiga', tipo: 'ref', alvo: [404, 404], rot: ['e', 420], g: [{ k: 'forma', d: 'M380,356 C410,356 438,382 442,440 L380,440 Z' }] }
+];
+const ANAT_NOMES = {
+  pt: { peritonio: ['o', 'peritônio'], orificio: ['o', 'orifício miopectíneo'], cooper: ['o', 'ligamento de Cooper'], trato: ['o', 'trato iliopúbico'],
+    psoas: ['o', 'músculo iliopsoas'], epigastricos: ['os', 'vasos epigástricos'], iliacos: ['os', 'vasos ilíacos'], espermaticos: ['os', 'vasos espermáticos'],
+    deferente: ['o', 'ducto deferente'], genitofemoral: ['o', 'nervo genitofemoral'], cutaneo: ['o', 'nervo cutâneo femoral'], corona: ['a', 'corona mortis'],
+    anel: ['o', 'anel interno e saco'], hesselbach: ['o', 'triângulo de Hesselbach'], femoral: ['o', 'canal femoral'], desastre: ['o', 'triângulo do desastre'],
+    dor: ['o', 'triângulo da dor'], umbilical: ['o', 'ligamento umbilical medial'], bexiga: ['a', 'bexiga'] },
+  es: { peritonio: ['el', 'peritoneo'], orificio: ['el', 'orificio miopectíneo'], cooper: ['el', 'ligamento de Cooper'], trato: ['el', 'tracto iliopúbico'],
+    psoas: ['el', 'músculo iliopsoas'], epigastricos: ['los', 'vasos epigástricos'], iliacos: ['los', 'vasos ilíacos'], espermaticos: ['los', 'vasos espermáticos'],
+    deferente: ['el', 'conducto deferente'], genitofemoral: ['el', 'nervio genitofemoral'], cutaneo: ['el', 'nervio cutáneo femoral'], corona: ['la', 'corona mortis'],
+    anel: ['el', 'anillo interno y saco'], hesselbach: ['el', 'triángulo de Hesselbach'], femoral: ['el', 'canal femoral'], desastre: ['el', 'triángulo de la fatalidad'],
+    dor: ['el', 'triángulo del dolor'], umbilical: ['el', 'ligamento umbilical medial'], bexiga: ['la', 'vejiga'] }
+};
+const POR_ID = {};
+ANATOMIA.forEach(a => { POR_ID[a.id] = a; });
+const LINEAR = { vaso: 1, nervo: 1, cordao: 1, lig: 1, osso: 1, contorno: 1 };
+const ORDEM = ['psoas', 'dor', 'desastre', 'hesselbach', 'femoral', 'umbilical', 'orificio', 'trato', 'cooper', 'iliacos', 'corona',
+  'espermaticos', 'deferente', 'genitofemoral', 'cutaneo', 'epigastricos', 'anel', 'peritonio'];
+// P¹: as seis estruturas que o onboarding apresenta no modelo · P²: o que cada macroetapa toca · P³: as zonas de perigo e seus limites
+const P1_EST = ['peritonio', 'epigastricos', 'cooper', 'deferente', 'espermaticos', 'anel'];
+const FASES_EST = [
+  ['orificio', 'cooper', 'trato', 'epigastricos', 'umbilical', 'deferente', 'espermaticos', 'anel'],
+  ['peritonio', 'anel', 'umbilical', 'epigastricos'],
+  ['cooper', 'trato', 'anel', 'deferente', 'espermaticos', 'desastre'],
+  ['orificio', 'cooper', 'hesselbach', 'femoral', 'anel'],
+  ['peritonio', 'cooper']
+];
+const P3_EST = ['desastre', 'dor', 'deferente', 'espermaticos', 'iliacos', 'epigastricos', 'corona'];
+const estreita = window.matchMedia('(max-width:640px)');
+const escH = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+function traco(p) {
+  switch (p.k) {
+    case 'forma': return "<path class='f' d='" + p.d + "'/>";
+    case 'borda': return "<path class='borda' d='" + p.d + "'/>";
+    case 'faixa': return "<path class='fx1' d='" + p.d + "'/><path class='fx2' d='" + p.d + "'/>";
+    case 'art': return "<path class='art' d='" + p.d + "'/>";
+    case 'vei': return "<path class='vei' d='" + p.d + "'/>";
+    case 'nervo': return "<path class='nv' d='" + p.d + "'/>";
+    case 'cordao': return "<path class='cd1' d='" + p.d + "'/><path class='cd2' d='" + p.d + "'/>";
+    case 'contorno': return "<path class='ct' d='" + p.d + "'/>";
+    case 'saco': return "<path class='saco' d='" + p.d + "'/>";
+  }
+  return '';
+}
+function estrutura(a, o) {
+  const on = o.on.indexOf(a.id) >= 0;
+  let s = "<g class='est t-" + a.tipo + (on ? ' on' : '') + "' data-e='" + a.id + "'";
+  if (o.quiz) s += (on ? " tabindex='0'" : '') + " role='button' aria-label='?'";
+  s += '>' + (o.quiz ? '' : '<title>' + escH(o.nomes[a.id][1]) + '</title>');
+  a.g.forEach(p => { s += traco(p); });
+  if (o.quiz && LINEAR[a.tipo]) a.g.forEach(p => { s += "<path class='hit' d='" + p.d + "'/>"; });
+  return s + '</g>';
+}
+// o nome escrito no desenho, com uma linha até a estrutura; no celular, um número e a legenda embaixo
+function rotulos(ids, nomes) {
+  let s = "<g class='rot'>", p = "<g class='pts'>";
+  ids.forEach((id, i) => {
+    const a = POR_ID[id], esq = a.rot[0] === 'e', y = a.rot[1];
+    s += '<g' + (a.perigo ? " class='perigo'" : '') + "><line x1='" + (esq ? 374 : 766) + "' y1='" + (y - 4) + "' x2='" + a.alvo[0] + "' y2='" + a.alvo[1] + "'/>" +
+      "<circle cx='" + a.alvo[0] + "' cy='" + a.alvo[1] + "' r='2.8'/>" +
+      "<text x='" + (esq ? 370 : 770) + "' y='" + y + "' text-anchor='" + (esq ? 'end' : 'start') + "'>" + escH(nomes[id][1]) + '</text></g>';
+    p += "<g><circle cx='" + a.alvo[0] + "' cy='" + a.alvo[1] + "' r='11'/><text x='" + a.alvo[0] + "' y='" + (a.alvo[1] + 5) + "'>" + (i + 1) + '</text></g>';
+  });
+  return s + '</g>' + p + '</g>';
+}
+function mapa(o) {
+  const vb = estreita.matches || o.compacto ? '380 0 380 440' : '180 0 780 440';
+  let s = "<svg class='mapa" + (o.quiz ? ' quiz' : '') + (o.compacto ? ' compacto' : '') + "' viewBox='" + vb + "' data-pele='" + o.pele + "' role='img' aria-label='" + escH(o.rotulo) + "'>" +
+    "<rect class='moldura' x='180' y='0' width='780' height='440'/><rect class='fundo' x='380' y='0' width='380' height='440'/>" +
+    "<path class='ctx' d='M760,146 C748,148 741,160 743,176 C750,250 748,330 732,440 L760,440 Z'/>";
+  ORDEM.forEach(id => { s += estrutura(POR_ID[id], o); });
+  s += "<line class='lm' x1='380' y1='0' x2='380' y2='356'/>" + estrutura(POR_ID.bexiga, o);
+  s += "<text class='lm-rot' x='386' y='346'>" + (getLanguage() === 'es' ? 'LÍNEA MEDIA' : 'LINHA MÉDIA') + '</text>';
+  return s + rotulos(o.rotulos, o.nomes) + '</svg>';
+}
+function legenda(id, ids, nomes) {
+  document.getElementById(id).innerHTML = ids.map((e, i) => '<li><b>' + (i + 1) + '</b>' + escH(nomes[e][1]) + '</li>').join('');
+}
+
+// P¹ · o teste: os nomes somem e o residente clica na estrutura pedida
+let quiz = { ativo: false, ordem: [], i: 0, acertos: 0, errou: false };
+function embaralha(v) { for (let i = v.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [v[i], v[j]] = [v[j], v[i]]; } return v; }
+function preenche(t, v) { return t.replace(/\{(\w+)\}/g, (m, k) => (v[k] !== undefined ? v[k] : m)); }
+function telaQuiz(fb, cls) {
+  const dict = I18N[getLanguage()], nomes = ANAT_NOMES[getLanguage()], box = document.getElementById('quiz');
+  if (!quiz.ativo) {
+    box.innerHTML = (fb ? "<p class='fb ok'>" + fb + '</p>' : '') + "<button class='btn btn-outline' type='button' id='quiz-ini' style='margin-top:8px'>" +
+      escH(fb ? dict.quizDeNovo : dict.quizIni) + '</button>';
+    document.getElementById('quiz-ini').addEventListener('click', iniciaQuiz);
+    return;
+  }
+  const alvo = nomes[quiz.ordem[quiz.i]];
+  box.innerHTML = "<p class='quiz-p'>" + preenche(dict.quizPergunta, { i: quiz.i + 1, n: quiz.ordem.length, art: alvo[0], nome: escH(alvo[1]) }) + '</p>' +
+    "<p class='fb " + (cls || '') + "' aria-live='polite'>" + (fb || escH(dict.quizDica)) + '</p>';
+}
+function iniciaQuiz() {
+  quiz = { ativo: true, ordem: embaralha(P1_EST.slice()), i: 0, acertos: 0, errou: false };
+  document.querySelector('#mapa-p1 svg').classList.add('sem-nomes');
+  telaQuiz();
+}
+function responde(id) {
+  if (!quiz.ativo) return;
+  const dict = I18N[getLanguage()], nomes = ANAT_NOMES[getLanguage()], alvoId = quiz.ordem[quiz.i];
+  if (id !== alvoId) {
+    quiz.errou = true;
+    telaQuiz(escH(preenche(dict.quizErro, { art: nomes[id][0], nome: nomes[id][1], art2: nomes[alvoId][0], nome2: nomes[alvoId][1] })), 'erro');
+    return;
+  }
+  if (!quiz.errou) quiz.acertos++;
+  quiz.errou = false;
+  quiz.i++;
+  if (quiz.i < quiz.ordem.length) { telaQuiz(escH(preenche(dict.quizCerto, { art: nomes[id][0], nome: nomes[id][1] })), 'ok'); return; }
+  quiz.ativo = false;
+  document.querySelector('#mapa-p1 svg').classList.remove('sem-nomes');
+  telaQuiz(escH(preenche(dict.quizFim, { a: quiz.acertos, n: quiz.ordem.length })));
+}
+
+// P² · as 5 macroetapas acendem no mapa
+let faseR2 = 0, timerR2 = null;
+function desenhaR2() {
+  const lang = getLanguage(), nomes = ANAT_NOMES[lang];
+  document.getElementById('mapa-p2').innerHTML = mapa({ pele: 'checklist', on: FASES_EST[faseR2], rotulos: FASES_EST[faseR2], nomes: nomes, compacto: true, rotulo: I18N[lang].mapaRotulo });
+  legenda('leg-p2', FASES_EST[faseR2], nomes);
+  document.querySelectorAll('#macro-card .moment').forEach((m, i) => m.classList.toggle('on', i === faseR2));
+}
+function paraR2() { if (timerR2) { clearTimeout(timerR2); timerR2 = null; } document.getElementById('play-p2').textContent = I18N[getLanguage()].p2Play; }
+function andaR2() { if (faseR2 < FASES_EST.length - 1) { faseR2++; desenhaR2(); timerR2 = setTimeout(andaR2, 1600); } else paraR2(); }
+
+function renderMapas() {
+  const lang = getLanguage(), dict = I18N[lang], nomes = ANAT_NOMES[lang], ver = mapaVisivel();
+  document.getElementById('mapa-p1').parentNode.querySelectorAll('.mapa-fig, .mapa-nota, .leg-mob').forEach(el => { el.style.display = ver ? '' : 'none'; });
+  document.getElementById('quiz-box').style.display = ver ? '' : 'none';
+  document.getElementById('chips-p1').innerHTML = ver ? '' : P1_EST.map(id => '<span>' + escH(nomes[id][1]) + '</span>').join('');
+  document.getElementById('macro-card').classList.toggle('sem-mapa', !ver);
+  document.getElementById('mapa-p3').parentNode.style.display = ver ? '' : 'none';
+  if (!ver) return;
+  document.getElementById('mapa-p1').innerHTML = mapa({ pele: 'modelo', on: P1_EST, rotulos: P1_EST, quiz: true, nomes: nomes, rotulo: dict.mapaRotulo });
+  if (quiz.ativo) document.querySelector('#mapa-p1 svg').classList.add('sem-nomes');
+  legenda('leg-p1', P1_EST, nomes);
+  telaQuiz();
+  desenhaR2();
+  if (!timerR2) document.getElementById('play-p2').textContent = dict.p2Play;
+  document.getElementById('mapa-p3').innerHTML = mapa({ pele: 'paciente', on: P3_EST, rotulos: P3_EST, nomes: nomes, rotulo: dict.mapaRotulo });
+  legenda('leg-p3', P3_EST, nomes);
+}
+
+// a trilha dos 3Ps, sob o menu: acende o P da aba aberta
+const P_DA_ABA = { premodulos: 0, curso: 1, live: 1, presencial: 1, cirurgia: 2 };
+function marcaTrilha(name) {
+  document.querySelectorAll('.trilha-p button').forEach((b, i) => b.classList.toggle('on', P_DA_ABA[name] === i));
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.trilha-p button').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+  const m1 = document.getElementById('mapa-p1');
+  m1.addEventListener('click', ev => { const g = ev.target.closest('.est'); if (g) responde(g.dataset.e); });
+  m1.addEventListener('keydown', ev => { const g = ev.target.closest('.est'); if (g && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); responde(g.dataset.e); } });
+  document.querySelectorAll('#macro-card .moment').forEach((m, i) => {
+    m.classList.add('fase');
+    m.addEventListener('click', () => { paraR2(); faseR2 = i; desenhaR2(); });
+  });
+  document.getElementById('play-p2').addEventListener('click', () => {
+    if (timerR2) { paraR2(); return; }
+    faseR2 = 0; desenhaR2(); document.getElementById('play-p2').textContent = I18N[getLanguage()].p2Parar; timerR2 = setTimeout(andaR2, 1600);
+  });
+  if (estreita.addEventListener) estreita.addEventListener('change', renderMapas);
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   setLanguage(getLanguage());
