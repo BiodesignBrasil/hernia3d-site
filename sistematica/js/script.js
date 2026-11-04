@@ -120,7 +120,8 @@
     var topo = document.querySelector("nav.barra").offsetHeight;
     palco.style.height = Math.max(420, document.documentElement.clientHeight - topo) + "px";
   }
-  function reencaixa() { ajustaAbas(); dimensiona(); ajustaveis.forEach(encaixa); }
+  // o teto de crescimento do quadro do modelo, no par da Direção, depende da largura dele: refeito a cada encaixe
+  function reencaixa() { ajustaAbas(); dimensiona(); ajustaCresceDuo(); ajustaveis.forEach(encaixa); }
   // empilhada, o toque que muda uma leitura fora da vista rola até ela, logo abaixo da barra parada
   function rolaAte(alvo) {
     if (window.innerWidth > EMPILHA || !alvo) return;

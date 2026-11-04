@@ -414,7 +414,7 @@ svg text{font-family:var(--font)}
 .v-direcao[data-modo="gargalo"] #direcao{display:none}
 /* o par, lado a lado (o modo que abre): à esquerda o barril, só o desenho; à direita a conclusão e o quadro do modelo, sem
    os cartões. Um clique num lado o põe em foco. O botão de volta só aparece com um lado em foco */
-.v-direcao[data-modo="duo"]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:0 26px}
+.v-direcao.on[data-modo="duo"]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:0 26px}
 .v-direcao[data-modo="duo"] .modos{grid-column:1/-1}
 .v-direcao[data-modo="duo"] .v-gargalo{display:block;min-height:0;cursor:pointer}
 .v-direcao[data-modo="duo"] #leitura-gar{display:none}
@@ -609,7 +609,7 @@ svg text{font-family:var(--font)}
   /* a Direção empilhada: a grade do quadro, logo abaixo o cartão do bloco escolhido (só ele), e o elo no fim. Tudo na
      ordem do HTML (a do Tab): os blocos já vêm na ordem da cadeia, e o elo desta tela é o que vem depois do cartão */
   /* a Direção empilhada: as pílulas dos modos, e no modo GARGALO o barril em cima e a leitura embaixo */
-  .v-direcao.on{display:block}
+  .v-direcao.on,.v-direcao.on[data-modo="duo"]{display:block}
   .v-gargalo{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
   .g-lista{grid-template-columns:minmax(0,1fr)}
   .modos{flex-wrap:wrap}
