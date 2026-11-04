@@ -7,7 +7,8 @@
      sistema     — a curva de aprendizado: hoje no paciente, com o Hernia3D no modelo
      serviços    — o que se oferece em cada etapa, e quem paga cada parte
      jornadas    — o que o residente vive, e o que roda por trás
-     direção     — o que falta definir para o curso virar negócio (02/11/2026), no molde do HDB e da Longevidade
+     direção     — o que falta definir para o curso virar negócio (02/11/2026), no molde do HDB e da Longevidade, em dois
+                   modos (04/11/2026): GARGALO, o barril de Liebig com a restrição de hoje, e MODELO, os nove blocos
    As abas, as perguntas, as manchetes e os elos vêm de camadas.csv; a 00 e a 05 são as pontas.
    Dados: js/data.js, GERADO de 08_sintese/dados/*.csv (não editar à mão).
    Sem valores em reais nesta peça.
@@ -182,8 +183,9 @@
       botoes[x.id].tabIndex = x.id === v.id ? 0 : -1;
     });
     document.getElementById("pergunta").innerHTML = "<b>" + v.n + " · " + esc(v.rot) + "</b> · " + esc(v.perg);
-    document.getElementById("manchete").textContent = v.manchete || "";
     if (item !== undefined) seleciona(v.id, item);
+    // a Direção tem uma manchete por modo: a do barril, enquanto o modo GARGALO estiver aberto (um item a põe no MODELO)
+    document.getElementById("manchete").textContent = v.id === "direcao" ? mancheteDirecao() : (v.manchete || "");
     estadoNaUrl();
     reencaixa();
     // empilhada, a página rola: quem troca de aba volta ao topo
@@ -194,11 +196,13 @@
     if (vista === "ecossistema") selecionaEco(item);
     else if (vista === "sistema") escolheTempo(olharDoItem(item), item);
     else if (vista === "servicos") selecionaServico(item);
-    else if (vista === "direcao") mostraBloco(item);
+    // um item da Direção é um bloco do BMC: abre o modo MODELO naquele bloco
+    else if (vista === "direcao") { poeModo("modelo"); mostraBloco(item); }
   }
   function estadoNaUrl() {
     var q = "?vista=" + vistaAtual + (selecao[vistaAtual] ? "&item=" + encodeURIComponent(selecao[vistaAtual]) : "") +
-      (vistaAtual === "sistema" && !comparativo ? "&olhar=" + olharAtual : "");
+      (vistaAtual === "sistema" && !comparativo ? "&olhar=" + olharAtual : "") +
+      (vistaAtual === "direcao" && modoDir === "modelo" ? "&modo=modelo" : "");
     try { history.replaceState(null, "", q); } catch (e) { /* file:// em alguns navegadores */ }
   }
   // cls, quando houver, diz em que arranjo o elo aparece (so-desktop ou so-empilhado)
@@ -741,8 +745,9 @@
      No molde dos portfólios irmãos (HDB, Longevidade): um cartão por oferta, o que entra à vista, uma marca por
      dimensão (quem paga, uma vez por cartão e em tinta neutra; físico ou digital no quadrado; em aberto
      tracejado). Os itens do curso se agrupam pelos 3Ps (componentes.csv, coluna p); as ofertas de um mesmo grupo
-     (servicos.csv, coluna grupo) dividem um cartão, como as três portas do kit. As ofertas que só tocam o P¹, curtas,
-     dividem uma coluna, uma em cima da outra, entre o curso e o kit. O que não se vende, o estudo, fica fora dos
+     (servicos.csv, coluna grupo) dividem um cartão, como as três portas do kit. Os cartões seguem a ordem de servicos.csv,
+     que é a do residente, do início para o fim (04/11/2026): o kit, os pré-módulos, o curso. As ofertas que só tocam o
+     P¹, curtas, dividem uma coluna, uma em cima da outra. O que não se vende, o estudo, fica fora dos
      cartões, numa linha do rodapé. Sem painel ao lado, sem eixo de estações e sem dica no mouse. O título de cada
      cartão é um botão (o teclado chega nele); o clique no resto do cartão faz o mesmo. */
   var portfolio = document.getElementById("portfolio");
@@ -980,6 +985,266 @@
     mostraBloco("proposta");
   })();
 
+  /* ================= 05 · DIREÇÃO, modo GARGALO: o barril de Liebig (04/11/2026) =================
+     A Direção tem dois modos, como a 02 tem dois olhares: GARGALO, que abre primeiro, e MODELO, os nove blocos.
+     O barril: cada aduela é uma restrição do curso, na ordem em que vão aparecer (gargalo.csv); a altura é o quanto
+     está resolvida; a água para na mais baixa, que é a restrição de hoje (o build garante que é a primeira da ordem).
+     Só o que o BMC não tem entra aqui: a ordem, o fluxo que cada aduela destrava e a alavanca; a descrição de cada
+     bloco mora no modo MODELO, e a aduela escolhida leva lá. No desktop, o barril em perspectiva: a parede de trás na
+     altura do barril inteiro, a água, as aduelas da frente da esquerda para a direita, o aro, e a água que escapa pela
+     mais baixa. No celular, as aduelas em fileira reta com a linha d'água (redesenhado ao cruzar os 767px). */
+  var vDirecao = document.getElementById("v-direcao"), modosEl = document.getElementById("modos");
+  var svgB = document.getElementById("barril"), leituraGar = document.getElementById("leitura-gar");
+  // as restrições (frente) e o que já está de pé (trás), de gargalo.csv
+  var GARG = (D.gargalo || []).filter(function (a) { return a.lado !== "tras"; }), BASE = (D.gargalo || []).filter(function (a) { return a.lado === "tras"; });
+  var ADUELA = {}; GARG.forEach(function (a) { ADUELA[a.id] = a; });
+  var modoDir = "gargalo", aduelaAtual = null, ADUELAS = {};
+  // os nomes dos botões, pedidos pelo usuário (04/11/2026); os ids (gargalo, modelo) ficam, inclusive no endereço
+  var MODOS = [["gargalo", "Lei dos mínimos", "o que limita agora"], ["modelo", "Modelo de negócio", "os nove blocos"]];
+  modosEl.innerHTML = MODOS.map(function (m) {
+    return "<button type='button' data-modo='" + m[0] + "' role='tab' aria-selected='false'>" + m[1] + "<small>" + m[2] + "</small></button>";
+  }).join("");
+  function poeModo(m) {
+    modoDir = m === "modelo" ? "modelo" : "gargalo";
+    vDirecao.classList.toggle("modo-modelo", modoDir === "modelo");
+    Array.prototype.forEach.call(modosEl.querySelectorAll("button"), function (b) {
+      var on = b.dataset.modo === modoDir;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+  function mancheteDirecao() {
+    var v = VISTAS.filter(function (x) { return x.id === "direcao"; })[0];
+    return modoDir !== "modelo" && (D.sintese || {}).gargalo ? D.sintese.gargalo : (v ? v.manchete : "");
+  }
+  function modoDirecao(m) {
+    poeModo(m);
+    // de volta ao barril, o endereço deixa de levar o bloco (que é um item do MODELO)
+    if (modoDir !== "modelo") selecao.direcao = null;
+    if (vistaAtual === "direcao") document.getElementById("manchete").textContent = mancheteDirecao();
+    estadoNaUrl();
+    reencaixa();
+  }
+  Array.prototype.forEach.call(modosEl.querySelectorAll("button"), function (b) {
+    b.addEventListener("click", function () { modoDirecao(b.dataset.modo); });
+  });
+  /* o barril ilustrado (04/11/2026), no molde da imagem clássica da lei do mínimo, na versão chapada: um tonel mais largo
+     em cima, visto de cima, com as aduelas como tábuas de cores claras, cada uma com a face de cima e a sombra do lado;
+     as de trás altas (o barril inteiro), as cinco restrições na frente com o nome escrito na vertical; um aro de metal,
+     a água dentro com a legenda do que o curso entrega hoje, e a água que vaza pela aduela mais baixa até a poça.
+     SVG puro, sem biblioteca; as alturas vêm do CSV. Geometria: o raio cresce com a altura (raioW) e cada ponto
+     (ângulo, altura) vai para a tela por pontoW; a vista é de cima (W.k), para a água aparecer */
+  var W = { cx: 370, yb: 432, H: 300, rEnd: 184, rTopo: 250, k: 0.34, hMin: 120, abre: 0.84 };
+  function raioW(t) { return W.rEnd + (W.rTopo - W.rEnd) * t; }
+  function pontoW(th, hh, esc) { var r = raioW(hh / W.H) * (esc || 1); return [W.cx + r * Math.sin(th), W.yb - hh + r * W.k * Math.cos(th)]; }
+  function dPts(pts, fecha) { return "M" + pts.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" L") + (fecha ? " Z" : ""); }
+  // o contorno de uma tábua entre dois ângulos, da base até a altura h (uma borda sobe, a outra desce)
+  function faixaW(th1, th2, h, esc) {
+    var pts = [], N = 8, i;
+    for (i = 0; i <= N; i++) pts.push(pontoW(th1, h * i / N, esc));
+    for (i = N; i >= 0; i--) pts.push(pontoW(th2, h * i / N, esc));
+    return dPts(pts, true);
+  }
+  // a face de cima da tábua, entre o contorno de fora e o de dentro
+  function tampoW(th1, th2, h) { return dPts([pontoW(th1, h), pontoW(th2, h), pontoW(th2, h, 0.92), pontoW(th1, h, 0.92)], true); }
+  function arcoW(h, de, ate, esc) {
+    var pts = [], N = 28;
+    for (var i = 0; i <= N; i++) pts.push(pontoW(de + (ate - de) * i / N, h, esc));
+    return pts;
+  }
+  function hDe(a) { return W.hMin + (W.H - W.hMin - 30) * a.altura / 100; }
+  var rad = Math.PI / 180;
+  // as cores das cinco tábuas da frente (a restrição de hoje em vermelho) e das de trás: face, lado e tampo
+  var CORES = [["#E9A598", "#C97A6C", "#F4C7BE"], ["#F3EFE5", "#CFC6B0", "#FBF9F3"], ["#DCE6F0", "#B3C3D3", "#EDF2F7"],
+               ["#F4E4B4", "#D4BD7E", "#FAF0D2"], ["#DCE8D8", "#B2C4AC", "#EBF2E8"]];
+  var CORES_TRAS = [["url(#fundoTras0)", "#CFC6B0", "#F7F3EA"], ["url(#fundoTras1)", "#C2BAA8", "#EFEBE3"]];
+  function defsBarril(svg) {
+    var defs = el("defs", {}, svg);
+    var gm = el("linearGradient", { id: "metal", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    [["0", "#C9C5BA"], ["0.5", "#EFEDE6"], ["1", "#A9A497"]].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1] }, gm); });
+    // as faces de dentro das tábuas de trás escurecem para baixo, para terem fundo e não parecerem chapadas
+    [["fundoTras0", "#F4EFE4", "#D1C8B3"], ["fundoTras1", "#EAE4D6", "#C4BBA6"]].forEach(function (c) {
+      var gt = el("linearGradient", { id: c[0], x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+      el("stop", { offset: "0", "stop-color": c[1] }, gt); el("stop", { offset: "1", "stop-color": c[2] }, gt);
+    });
+    var ga = el("radialGradient", { id: "agua", cx: 0.5, cy: 0.45, r: 0.62 }, defs);
+    [["0", "#E4F2FB"], ["0.55", "#B4D4EE"], ["1", "#7EB0DC"]].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1] }, ga); });
+  }
+  function montaBarril() {
+    while (svgB.firstChild) svgB.removeChild(svgB.firstChild);
+    ADUELAS = {};
+    if (!GARG.length) return;
+    var cel = celular(), n = GARG.length;
+    defsBarril(svgB);
+    var g = el("g", {}, svgB);
+    // no desktop a caixa é recortada ao barril (740 de largura): o desenho fica maior na tela e as letras, legíveis
+    svgB.setAttribute("viewBox", "0 0 " + (cel ? 900 : 740) + " " + (cel ? 600 : 530));
+    function cor(i) { return CORES[i % CORES.length]; }
+    function grupoAduela(a, i) {
+      var ad = el("g", { "class": "aduela clicavel" + (i === 0 ? " restricao" : ""), tabindex: 0, role: "button",
+        "aria-pressed": "false", "aria-label": (i + 1) + " · " + a.aduela + (i === 0 ? ": a restrição de hoje" : "") }, g);
+      ad.dataset.ad = a.id;
+      clicavel(ad, function () { selecionaGar(a.id); });
+      ADUELAS[a.id] = ad;
+      return ad;
+    }
+    function numero(ad, x, y, i, r) {
+      el("circle", { cx: x, cy: y, r: r, "class": "bar-num" }, ad);
+      texto(ad, x, y + r * 0.4, String(i + 1), "bar-num-t", "middle");
+    }
+    if (cel) {
+      // a fileira reta: a água atrás, no nível da aduela mais baixa; as tábuas na ordem, com a sombra do lado; os nomes embaixo
+      var vao = 860 / n, wc = Math.min(130, vao - 30), hC = function (a) { return 60 + 240 * a.altura / 100; }, yAguaC = 400 - hC(GARG[0]);
+      el("rect", { x: 20, y: yAguaC, width: 860, height: 400 - yAguaC, fill: "url(#agua)" }, g);
+      el("line", { x1: 20, y1: yAguaC, x2: 880, y2: yAguaC, "class": "bar-agua-linha" }, g);
+      el("line", { x1: 20, y1: 40, x2: 80, y2: 40, "class": "bar-agua-linha" }, g);
+      texto(g, 92, 49, "o nível de hoje: a água para na aduela mais baixa", "bar-nivel");
+      GARG.forEach(function (a, i) {
+        var x = 20 + vao * (i + 0.5), h = hC(a), ad = grupoAduela(a, i), c = cor(i);
+        el("rect", { x: x - wc / 2, y: 400 - h, width: wc, height: h, fill: c[0], "class": "bar-face" }, ad);
+        el("rect", { x: x + wc / 2 - 14, y: 400 - h, width: 14, height: h, fill: c[1], "class": "bar-lado" }, ad);
+        if (i === 0) el("ellipse", { cx: x, cy: 406, rx: wc * 0.7, ry: 7, "class": "bar-poca" }, ad);
+        numero(ad, x, 400 - h - 28, i, 22);
+        quebra(a.aduela, 9).forEach(function (l, k) { texto(ad, x, 448 + k * 34, l, "bar-rot", "middle"); });
+      });
+      el("line", { x1: 20, y1: 400, x2: 880, y2: 400, "class": "bar-aro" }, g);
+      return;
+    }
+    // todas as tábuas em volta, pela distância: as nove altas (o barril inteiro) e as cinco restrições na frente, na
+    // ordem, da esquerda para a direita. As de trás pintam antes da água; as da frente, depois (a mais central por cima)
+    // as da frente e as de trás com a mesma largura na tela, e não o mesmo ângulo: nenhuma fica de lado, estreita. As
+    // da frente ocupam o arco da frente entre -abre e +abre do raio; as de trás, o arco de trás, na ordem do CSV da
+    // esquerda para a direita; as laterais do barril, sem nome, fecham a volta em quatro tábuas finas
+    var abre = W.abre, passoF = 2 * abre / n, passoB = BASE.length ? 2 * abre / BASE.length : 0, todas = [];
+    GARG.forEach(function (a, i) { todas.push({ a: a, i: i, th1: Math.asin(-abre + passoF * i), th2: Math.asin(-abre + passoF * (i + 1)), h: hDe(a), cor: cor(i) }); });
+    BASE.forEach(function (b, j) { todas.push({ b: b, th1: Math.PI - Math.asin(-abre + passoB * (j + 1)), th2: Math.PI - Math.asin(-abre + passoB * j), h: W.H, cor: CORES_TRAS[j % 2] }); });
+    var aL = Math.asin(abre);
+    [[-Math.PI + aL, -Math.PI / 2], [-Math.PI / 2, -aL], [aL, Math.PI / 2], [Math.PI / 2, Math.PI - aL]].forEach(function (l, j) {
+      todas.push({ th1: l[0], th2: l[1], h: W.H, cor: CORES_TRAS[(j + 1) % 2] });
+    });
+    todas.forEach(function (t) { var folga = (t.th2 - t.th1) * 0.05; t.th1 += folga; t.th2 -= folga; t.thc = (t.th1 + t.th2) / 2; t.cos = Math.cos(t.thc); });
+    todas.sort(function (p, q) { return p.cos - q.cos; });
+    var aduelas = [], base = [];
+    function tabua(t) {
+      var pai = t.a ? grupoAduela(t.a, t.i) : el("g", { "class": "tabua-pe" }, g);
+      if (t.b) { el("title", {}, pai).textContent = t.b.aduela + " (já está de pé): " + t.b.oque; base.push({ t: t, pai: pai }); }
+      el("path", { d: faixaW(t.th1, t.th2, t.h), fill: t.cor[0], "class": "bar-face" + (t.a ? " c-" + t.a.confianca : "") }, pai);
+      el("path", { d: faixaW(t.th2 - (t.th2 - t.th1) * 0.12, t.th2, t.h), fill: t.cor[1], "class": "bar-lado" }, pai);
+      el("path", { d: tampoW(t.th1, t.th2, t.h), fill: t.cor[2], "class": "bar-tampo" }, pai);
+      if (t.a) aduelas.push({ ad: pai, a: t.a, i: t.i, h: t.h, thc: t.thc });
+    }
+    todas.filter(function (t) { return t.cos < 0; }).forEach(tabua);
+    // a água: o corpo (aparece onde uma tábua da frente é mais baixa) e a superfície, no nível da tábua mais baixa
+    var hAgua = hDe(GARG[0]), tAgua = hAgua / W.H;
+    var corpo = arcoW(0, -Math.PI / 2, Math.PI / 2, 0.92).concat(arcoW(hAgua, Math.PI / 2, -Math.PI / 2, 0.92));
+    el("path", { d: dPts(corpo, true), fill: "#9EC4E6", "class": "bar-agua" }, g);
+    var ra = raioW(tAgua) * 0.92, ya = W.yb - hAgua;
+    el("ellipse", { cx: W.cx, cy: ya, rx: ra, ry: ra * W.k, fill: "url(#agua)", "class": "bar-agua-sup" }, g);
+    el("ellipse", { cx: W.cx - ra * 0.4, cy: ya - ra * W.k * 0.35, rx: ra * 0.22, ry: ra * W.k * 0.18, "class": "bar-brilho" }, g);
+    todas.filter(function (t) { return t.cos >= 0; }).forEach(tabua);
+    // o aro de metal, pela frente, e o pé
+    [[18, 10], [142, 13]].forEach(function (aro) {
+      var de = arcoW(aro[0] - aro[1] / 2, -Math.PI / 2, Math.PI / 2, 1.01), ate = arcoW(aro[0] + aro[1] / 2, Math.PI / 2, -Math.PI / 2, 1.01);
+      el("path", { d: dPts(de.concat(ate), true), fill: "url(#metal)", "class": "bar-aro-flat" }, g);
+    });
+    // a água vaza pela tábua mais baixa: o fio desce pela frente dela até a poça
+    // (pela borda de fora da tábua, para não cobrir o nome escrito nela)
+    var r0 = aduelas.filter(function (x) { return x.i === 0; })[0], thj = r0.thc - (r0.thc - todas.filter(function (t) { return t.a === r0.a; })[0].th1) * 0.7;
+    var p0 = pontoW(thj, r0.h), p1 = pontoW(thj, r0.h * 0.5, 1.06), p2 = pontoW(thj, 0, 1.05), p3 = [p2[0] - 22, p2[1] + 24];
+    el("path", { d: "M" + p0[0].toFixed(1) + " " + p0[1].toFixed(1) + " Q" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1) +
+      " Q" + (p2[0] - 5).toFixed(1) + " " + (p2[1] + 22).toFixed(1) + " " + p3[0].toFixed(1) + " " + p3[1].toFixed(1), "class": "bar-jorro" }, g);
+    el("path", { d: "M" + (p3[0] - 70) + " " + (p3[1] + 4) + " c 10 -14 50 -18 90 -12 c 30 4 60 10 70 18 c 8 8 -10 16 -40 18 c -40 3 -90 2 -110 -6 c -14 -5 -18 -12 -10 -18 z", "class": "bar-poca" }, g);
+    // o nome curto do que já está de pé, na vertical, acima da água, em cada tábua de trás (uma palavra cabe até nas estreitas)
+    var gRot = el("g", { "class": "bar-rotulos" }, g);
+    base.forEach(function (x) {
+      var nome = x.t.b.curto.toUpperCase(), larg = Math.abs(pontoW(x.t.th2, W.H)[0] - pontoW(x.t.th1, W.H)[0]);
+      if (larg < 22) {
+        // de lado, a tábua é estreita demais para o nome dentro: ele fica fora do barril, na horizontal, com um traço até
+        // a tábua (as voltadas para a frente, mais embaixo; as de trás, mais acima, para os dois nomes de cada lado não se tocarem)
+        var esq = Math.sin(x.t.thc) < 0, hc = x.t.cos >= 0 ? 92 : 206, rc = raioW(hc / W.H), yc = pontoW(x.t.thc, hc)[1];
+        var xb = esq ? W.cx - rc : W.cx + rc;
+        el("line", { x1: xb + (esq ? -2 : 2), y1: yc, x2: xb + (esq ? -12 : 12), y2: yc, "class": "bar-chamada" }, gRot);
+        texto(gRot, xb + (esq ? -16 : 16), yc + 5, nome, "bar-nome-tras", esq ? "end" : "start");
+        return;
+      }
+      var sala = W.H - hAgua - 34, maxCar = Math.max(4, Math.floor(sala / 9.4));
+      var linhas = quebra(nome, maxCar);
+      if (linhas.length > 2) linhas = quebra(nome, Math.ceil(nome.length / 2) + 1);
+      // nas tábuas de trás o nome começa acima da água (mais alto nas estreitas, de lado); nas de lado voltadas para a
+      // frente, que mostram a face de fora, começa embaixo, entre os dois aros, longe do nome da vizinha de trás
+      var frenteLado = x.t.cos >= 0, h0 = frenteLado ? 40 : hAgua + 18 + (1 - Math.abs(x.t.cos)) * 30, esc = frenteLado ? 1 : 0.92;
+      var pe = pontoW(x.t.thc, h0, esc), alto = pontoW(x.t.thc, W.H, esc), nL = linhas.length;
+      var ang = Math.atan2(alto[1] - pe[1], alto[0] - pe[0]) * 180 / Math.PI;
+      linhas.forEach(function (l, k) {
+        var dy = (k - (nL - 1) / 2) * 16 + 4, tx = texto(gRot, 0, 0, l, "bar-nome-tras", "start");
+        tx.setAttribute("transform", "translate(" + pe[0].toFixed(1) + " " + pe[1].toFixed(1) + ") rotate(" + ang.toFixed(1) + ") translate(0 " + dy + ")");
+      });
+    });
+    // o nome na vertical dentro de cada tábua (em até duas linhas, acima do pé e abaixo do aro), o número no topo
+    aduelas.forEach(function (x) {
+      var nome = x.a.curto.toUpperCase(), sala = Math.min(x.h, 136) - 40, maxCar = Math.max(4, Math.floor(sala / 10.4));
+      var linhas = quebra(nome, maxCar);
+      if (linhas.length > 2) linhas = quebra(nome, Math.ceil(nome.length / 2) + 1);
+      var base = pontoW(x.thc, 40), topo = pontoW(x.thc, x.h), nL = linhas.length;
+      var ang = Math.atan2(topo[1] - base[1], topo[0] - base[0]) * 180 / Math.PI;
+      var maior = Math.max.apply(null, linhas.map(function (l) { return l.length; })), encolhe = Math.min(1, sala / (maior * 10.4));
+      linhas.forEach(function (l, k) {
+        var dy = (k - (nL - 1) / 2) * 17 + 4, t = texto(x.ad, 0, 0, l, "bar-nome", "start");
+        if (encolhe < 1) t.setAttribute("style", "font-size:" + (15 * encolhe).toFixed(1) + "px");
+        t.setAttribute("transform", "translate(" + base[0].toFixed(1) + " " + base[1].toFixed(1) + ") rotate(" + ang.toFixed(1) + ") translate(0 " + dy + ")");
+      });
+      numero(x.ad, topo[0], topo[1] - 30, x.i, 13);
+    });
+    // o nível de hoje, ao lado da superfície
+    var pn = pontoW(Math.PI / 2, hAgua, 1.02);
+    el("line", { x1: pn[0] + 4, y1: pn[1], x2: pn[0] + 22, y2: pn[1], "class": "bar-agua-linha" }, g);
+    texto(g, pn[0] + 28, pn[1] + 4, "o nível de hoje", "bar-nivel");
+    texto(g, 24, 523, "A altura de cada tábua é o quanto está resolvida; a água para na mais baixa. Clique numa tábua.", "bar-dica");
+  }
+  /* a leitura, ao lado do barril: o cartão da tábua em foco (ao abrir, a restrição de hoje), com o que ela destrava, a
+     alavanca, quem e até quando; a ordem das restrições, cada uma com o que destrava; e o que já está de pé. Sem marcas
+     de procedência aqui: elas ficam no contorno das tábuas e no vault */
+  function leituraGargalo(id) {
+    if (!GARG.length) { escreve(leituraGar, elo("direcao")); return; }
+    var foco = ADUELA[id] || GARG[0], n = GARG.indexOf(foco) + 1;
+    var html = "<div class='bloco g-cartao" + (n === 1 ? " restricao" : "") + "'>" +
+      "<div class='rotulo'>" + (n === 1 ? "A restrição de hoje" : "A " + n + "ª na ordem: limita depois da " + (n - 1) + "ª") + "</div>" +
+      "<h3><i class='g-num'>" + n + "</i>" + esc(foco.aduela) + "</h3>" +
+      "<dl class='g-dl'><dt>O que é</dt><dd>" + esc(ponto(maiuscula(foco.oque))) + "</dd>" +
+      "<dt>O que destrava</dt><dd>" + esc(ponto(maiuscula(foco.fluxo))) + "</dd>" +
+      "<dt>A alavanca</dt><dd>" + esc(ponto(maiuscula(foco.alavanca))) + "</dd>" +
+      "<dt>Quem</dt><dd>" + esc(ponto(maiuscula(foco.quem))) + "</dd>" +
+      "<dt>Até quando</dt><dd>" + esc(ponto(maiuscula(foco.prazo))) + "</dd></dl>" +
+      "<button type='button' class='l-elo g-ver' data-vista='direcao' data-item='" + foco.bloco + "'>ver no modelo de negócio →</button></div>";
+    // a lista só com os nomes: o cartão acima explica a tábua em foco, e um toque troca o foco
+    html += "<div class='bloco'><div class='rotulo'>As restrições, na ordem em que limitam</div><ol class='g-lista'>" + GARG.map(function (a, i) {
+      return "<li" + (a === foco ? " class='on'" : "") + "><button type='button' class='g-ad" + (i === 0 ? " restricao" : "") + "' data-ad='" + a.id +
+        "' aria-pressed='" + (a === foco ? "true" : "false") + "'><i>" + (i + 1) + "</i><span class='g-nome'>" + esc(a.aduela) + "</span></button></li>";
+    }).join("") + "</ol></div>";
+    if (BASE.length) html += "<div class='bloco'><div class='rotulo'>O que já está de pé, nas tábuas altas</div><p class='g-base'>" +
+      BASE.map(function (b) { return esc(b.aduela); }).join(" · ") + ".</p></div>";
+    html += elo("direcao");
+    escreve(leituraGar, html);
+    Array.prototype.forEach.call(leituraGar.querySelectorAll(".g-ad"), function (b) {
+      b.addEventListener("click", function () { selecionaGar(b.dataset.ad); });
+    });
+  }
+  // sempre há uma tábua em foco (a de hoje, ao abrir). quieto: ao abrir e ao redesenhar, sem anunciar nem rolar
+  function selecionaGar(id, quieto) {
+    aduelaAtual = ADUELA[id] ? id : GARG[0].id;
+    Object.keys(ADUELAS).forEach(function (k) {
+      ADUELAS[k].classList.toggle("on", k === aduelaAtual);
+      ADUELAS[k].setAttribute("aria-pressed", k === aduelaAtual ? "true" : "false");
+    });
+    leituraGargalo(aduelaAtual);
+    if (!quieto) { anuncia(ADUELA[aduelaAtual].aduela); rolaAte(leituraGar); }
+    reencaixa();
+  }
+  // quando a tela cruza os 767px, o barril se redesenha no outro arranjo, com a mesma aduela escolhida
+  function redesenhaBarril() { montaBarril(); selecionaGar(aduelaAtual, true); }
+  if (CEL.addEventListener) CEL.addEventListener("change", redesenhaBarril);
+  else if (CEL.addListener) CEL.addListener(redesenhaBarril);
+
   /* ---------- carimbo: a meta "publicacao" (N|AAAA-MM-DD) é preenchida pelo publica_tudo.py ---------- */
   (function () {
     var m = document.querySelector('meta[name="publicacao"]'), v = m ? m.content.split("|") : [];
@@ -992,6 +1257,11 @@
   leituraEcossistema(null, null);
   selecionaServico(null);
   leituraAbertura();
+  // a Direção abre no barril; ?modo=modelo (ou um item, que é um bloco) abre os nove blocos
+  poeModo(q.get("modo"));
+  montaBarril();
+  leituraGargalo();
+  if (GARG.length) selecionaGar(GARG[0].id, true);
   // ?olhar=1|2 (o antigo ?tempo= vale como olhar: 1 é hoje, 2 e 3 são com o Hernia3D)
   var olharUrl = +(q.get("olhar") || q.get("tempo") || 0);
   abre(q.get("vista") || "abertura", q.get("item") || undefined);

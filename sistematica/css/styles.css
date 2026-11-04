@@ -391,7 +391,72 @@ svg text{font-family:var(--font)}
 /* ---- 05 · direção: a conclusão, as três definições e o modelo de negócio (02/11/2026; molde: o HDB e a Longevidade) ----
    À esquerda, pouco e grande: a conclusão em serifa, as três definições numeradas, uma linha sobre o que trava primeiro, o quadro.
    À direita, um cartão com ar: o pedido à instituição na cor do bloco, o que temos e o que falta definir, o que já sabemos e o que falta. */
-.v-direcao.on{display:block}
+.v-direcao.on{display:flex;flex-direction:column}
+/* os dois modos da Direção (04/11/2026): GARGALO, o barril, abre primeiro; MODELO, os nove blocos, a um clique. As duas
+   pílulas no alto são o gesto dos dois olhares da 02 */
+.modos{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:0 0 8px}
+.modos button{cursor:pointer;display:inline-flex;align-items:baseline;gap:7px;background:transparent;border:1px solid var(--filete-forte);border-radius:999px;
+  padding:4px 13px;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);transition:color .15s,background .15s,border-color .15s}
+.modos button small{font-family:var(--serif);font-style:italic;font-size:12.5px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--cinza-escuro)}
+.modos button:hover{color:var(--tinta);border-color:var(--cinza)}
+.modos button.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.modos button.on small{color:#E8C66A}
+.v-gargalo{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,40%);grid-template-rows:minmax(0,1fr);gap:26px}
+#direcao{flex:1 1 auto}
+.v-direcao.modo-modelo .v-gargalo{display:none}
+.v-direcao:not(.modo-modelo) #direcao{display:none}
+/* o barril ilustrado (04/11/2026): tábuas de cores claras, cada uma com a face de cima e a sombra do lado; a restrição de
+   hoje em vermelho; a água com gradiente e a legenda do que o curso entrega hoje; o aro de metal; o nome na vertical dentro
+   de cada tábua; a tábua escolhida (ou sob o mouse) ganha o contorno dourado */
+.bar-face,.bar-lado,.bar-tampo{stroke:#5E4D38;stroke-width:1;stroke-linejoin:round}
+.bar-face.c-aberto{stroke-dasharray:5 3}
+.aduela:hover .bar-face,.aduela.on .bar-face{stroke:var(--ouro);stroke-width:3}
+.aduela:focus-visible{outline:none}
+.aduela:focus-visible .bar-face{stroke:var(--ouro);stroke-width:3}
+.bar-aro-flat{stroke:#8E8878;stroke-width:1}
+.bar-aro{fill:none;stroke:var(--tinta);stroke-width:12;stroke-linecap:round;opacity:.9}
+.bar-agua{opacity:.95}
+.bar-agua-sup{stroke:#5E93C4;stroke-width:1}
+.bar-brilho{fill:#fff;opacity:.55}
+.bar-agua-linha{stroke:var(--tinta);stroke-width:1.2;stroke-dasharray:6 4}
+.bar-jorro{fill:none;stroke:#9EC4E6;stroke-width:9;stroke-linecap:round;opacity:.9}
+.bar-poca{fill:#B4D4EE;stroke:#5E93C4;stroke-width:1;opacity:.9}
+.bar-num{fill:var(--tinta)}
+.aduela.restricao .bar-num{fill:var(--risco)}
+.bar-num-t{fill:var(--papel);font-size:14.5px;font-weight:700}
+.bar-nome{font-size:15px;font-weight:700;letter-spacing:0;fill:var(--tinta)}
+.bar-nome-tras{font-size:15px;font-weight:700;letter-spacing:.02em;fill:var(--tinta)}
+.bar-chamada{stroke:var(--cinza-escuro);stroke-width:1.2}
+.aduela.restricao .bar-nome{fill:#5A1A12}
+.bar-rot{font-size:14px;font-weight:600;fill:var(--tinta)}
+.aduela.restricao .bar-rot{fill:var(--risco)}
+.bar-nivel{font-size:13px;font-style:italic;fill:var(--cinza-escuro)}
+.bar-dica{font-size:13px;font-style:italic;fill:var(--cinza)}
+/* a leitura do barril, didática: o cartão da tábua em foco (a restrição de hoje em vermelho), com rótulos em palavras
+   comuns; a ordem das restrições, cada uma com o que destrava; e o que já está de pé */
+.g-cartao{padding:10px 14px 11px;border:1px solid var(--filete);border-left:4px solid var(--tinta);border-radius:0 8px 8px 0;background:#fff}
+.g-cartao.restricao{border-left-color:var(--risco)}
+.g-cartao .rotulo{margin-bottom:5px}
+.g-cartao h3{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.2;color:var(--tinta);margin:0 0 7px}
+.g-cartao.restricao h3{color:var(--risco)}
+.g-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--papel);
+  font-family:var(--font);font-style:normal;font-size:12px;font-weight:700}
+.g-cartao.restricao .g-num{background:var(--risco)}
+.g-dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0;font-size:13.5px;line-height:1.38;color:var(--texto)}
+.g-dl dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);padding-top:3px;white-space:nowrap}
+.g-dl dd{margin:0}
+.g-cartao .g-ver{padding:5px 0 0;font-size:13.5px}
+/* as sete em duas colunas, lidas em linha: cabem numa tela baixa sem encolher a leitura */
+.g-lista{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2px 8px}
+.g-ad{display:grid;grid-template-columns:22px 1fr;gap:0 9px;align-items:center;width:100%;text-align:left;cursor:pointer;background:none;border:0;
+  border-left:3px solid transparent;border-radius:0 6px 6px 0;padding:4px 8px 5px;color:var(--texto)}
+.g-ad:hover{background:var(--papel-2)}
+.g-lista li.on .g-ad{background:var(--ouro-claro);border-left-color:var(--ouro)}
+.g-ad i{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--papel);font-style:normal;font-size:12px;font-weight:700}
+.g-ad.restricao i{background:var(--risco)}
+.g-nome{font-family:var(--serif);font-size:14.5px;font-weight:600;line-height:1.2;color:var(--tinta)}
+.g-ad.restricao .g-nome{color:var(--risco)}
+.g-base{font-size:13px;line-height:1.4;color:var(--cinza-escuro)}
 .bmc-dir{display:grid;grid-template-columns:440px minmax(0,1fr);gap:26px;align-items:stretch}
 .bmc-col{display:flex;flex-direction:column;gap:12px}
 .bmc-col .l-elo{padding-top:0}
@@ -522,6 +587,12 @@ svg text{font-family:var(--font)}
   .pf-grade{grid-template-columns:minmax(0,1fr)}
   /* a Direção empilhada: a grade do quadro, logo abaixo o cartão do bloco escolhido (só ele), e o elo no fim. Tudo na
      ordem do HTML (a do Tab): os blocos já vêm na ordem da cadeia, e o elo desta tela é o que vem depois do cartão */
+  /* a Direção empilhada: as pílulas dos modos, e no modo GARGALO o barril em cima e a leitura embaixo */
+  .v-direcao.on{display:block}
+  .v-gargalo{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .g-lista{grid-template-columns:minmax(0,1fr)}
+  .modos{flex-wrap:wrap}
+  .modos button{min-height:36px}
   .bmc-dir{display:flex;flex-direction:column;gap:12px}
   .bmc-col{display:contents}
   .pv-cards>.pv-card{display:none}
@@ -592,6 +663,13 @@ svg text{font-family:var(--font)}
   /* 02: os rótulos da curva crescem (o desenho tem um terço da largura); os nomes ao lado do P e a unidade das zonas saem */
   .p-rot,.duo .p-rot{font-size:36px}
   .p-rot-nome,.zr-un{display:none}
+  /* 05: no celular o barril vira uma fileira reta de aduelas com a linha d'água; os rótulos crescem como os da curva */
+  .bar-rot{font-size:32px}
+  .bar-num-t{font-size:26px}
+  .bar-nivel,.bar-topo-rot{font-size:26px;letter-spacing:.06em}
+  .modos{gap:6px}
+  .modos button{padding:0 10px;font-size:12px;letter-spacing:.06em}
+  .modos button small{font-size:12px}
   .zr,.duo .zr{font-size:34px;letter-spacing:.04em}
   .criterio-rot,.duo .criterio-rot,.eixo-rot,.duo .eixo-rot,.nada-rot,.duo .nada-rot{font-size:34px}
   .criterio-rot{stroke-width:8px}
@@ -604,6 +682,8 @@ svg text{font-family:var(--font)}
 @media (max-width:389px){
   nav.barra{padding:8px 10px;gap:6px 10px}
   .pecas a{padding:6px 5px}
+  /* as duas pílulas dos modos da Direção numa linha só: ficam com o nome */
+  .modos button small{display:none}
 }
 /* telas muito estreitas (abaixo de 360px): o número da aba sobe para cima do nome, para as três colunas caberem sem
    rolagem lateral, e os rótulos da curva crescem um pouco, para não descer de 12px (o do critério, no alto do

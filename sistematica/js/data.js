@@ -600,105 +600,6 @@ window.H3D = {
  ],
  "servicos": [
   {
-   "id": "curso",
-   "nome": "Curso de maestria em TAPP",
-   "curto": "Curso",
-   "descricao": "o percurso inteiro, da preparação ao encontro presencial, com o modelo 3D em comodato",
-   "enquadramento": "curso",
-   "confianca": "provavel",
-   "grupo": "",
-   "etapas": [
-    "E0",
-    "E1",
-    "E2",
-    "E3a",
-    "E3b"
-   ],
-   "p": [
-    "P1",
-    "P2"
-   ],
-   "itens": [
-    {
-     "item": "Plataforma bilíngue (PT/ES) com teoria e teste",
-     "canal": "digital",
-     "confianca": "confirmado",
-     "p": "P1"
-    },
-    {
-     "item": "Primeira sessão com vídeo de referência",
-     "canal": "digital",
-     "confianca": "confirmado",
-     "p": "P1"
-    },
-    {
-     "item": "Modelo 3D da região inguinal, em comodato",
-     "canal": "presencial",
-     "confianca": "confirmado",
-     "p": "P2"
-    },
-    {
-     "item": "Prática autoguiada com checklist de erros críticos",
-     "canal": "presencial",
-     "confianca": "confirmado",
-     "p": "P2"
-    },
-    {
-     "item": "Sessão de correção ao vivo, para quem chega com maestria",
-     "canal": "digital",
-     "confianca": "confirmado",
-     "p": "P2"
-    },
-    {
-     "item": "Encontro presencial com o preceptor e os pares",
-     "canal": "presencial",
-     "confianca": "confirmado",
-     "p": "P2"
-    },
-    {
-     "item": "Certificado de maestria",
-     "canal": "digital",
-     "confianca": "aberto",
-     "p": "P2"
-    }
-   ]
-  },
-  {
-   "id": "premodulos",
-   "nome": "Pré-módulos de nivelamento",
-   "curto": "Pré-módulos",
-   "descricao": "habilidades de base para quem ainda não chega pronto ao TAPP",
-   "enquadramento": "curso",
-   "confianca": "aberto",
-   "grupo": "",
-   "etapas": [
-    "E0"
-   ],
-   "p": [
-    "P1"
-   ],
-   "itens": [
-    {
-     "item": "Fundamentos de videolaparoscopia",
-     "canal": "digital",
-     "confianca": "provavel",
-     "p": ""
-    },
-    {
-     "item": "Sutura e nós intracorpóreos",
-     "canal": "digital",
-     "confianca": "provavel",
-     "p": ""
-    },
-    {
-     "item": "Manuseio de tela sem fixação mecânica",
-     "canal": "digital",
-     "confianca": "provavel",
-     "p": ""
-    }
-   ]
-  },
-  {
    "id": "kit1",
    "nome": "Kit · porta 1 · aluguel",
    "curto": "Aluguel",
@@ -794,6 +695,105 @@ window.H3D = {
      "canal": "presencial",
      "confianca": "confirmado",
      "p": ""
+    }
+   ]
+  },
+  {
+   "id": "premodulos",
+   "nome": "Pré-módulos de nivelamento",
+   "curto": "Pré-módulos",
+   "descricao": "habilidades de base para quem ainda não chega pronto ao TAPP",
+   "enquadramento": "curso",
+   "confianca": "aberto",
+   "grupo": "",
+   "etapas": [
+    "E0"
+   ],
+   "p": [
+    "P1"
+   ],
+   "itens": [
+    {
+     "item": "Fundamentos de videolaparoscopia",
+     "canal": "digital",
+     "confianca": "provavel",
+     "p": ""
+    },
+    {
+     "item": "Sutura e nós intracorpóreos",
+     "canal": "digital",
+     "confianca": "provavel",
+     "p": ""
+    },
+    {
+     "item": "Manuseio de tela sem fixação mecânica",
+     "canal": "digital",
+     "confianca": "provavel",
+     "p": ""
+    }
+   ]
+  },
+  {
+   "id": "curso",
+   "nome": "Curso de maestria em TAPP",
+   "curto": "Curso",
+   "descricao": "o percurso inteiro, da preparação ao encontro presencial, com o modelo 3D em comodato",
+   "enquadramento": "curso",
+   "confianca": "provavel",
+   "grupo": "",
+   "etapas": [
+    "E0",
+    "E1",
+    "E2",
+    "E3a",
+    "E3b"
+   ],
+   "p": [
+    "P1",
+    "P2"
+   ],
+   "itens": [
+    {
+     "item": "Plataforma bilíngue (PT/ES) com teoria e teste",
+     "canal": "digital",
+     "confianca": "confirmado",
+     "p": "P1"
+    },
+    {
+     "item": "Primeira sessão com vídeo de referência",
+     "canal": "digital",
+     "confianca": "confirmado",
+     "p": "P1"
+    },
+    {
+     "item": "Modelo 3D da região inguinal, em comodato",
+     "canal": "presencial",
+     "confianca": "confirmado",
+     "p": "P2"
+    },
+    {
+     "item": "Prática autoguiada com checklist de erros críticos",
+     "canal": "presencial",
+     "confianca": "confirmado",
+     "p": "P2"
+    },
+    {
+     "item": "Sessão de correção ao vivo, para quem chega com maestria",
+     "canal": "digital",
+     "confianca": "confirmado",
+     "p": "P2"
+    },
+    {
+     "item": "Encontro presencial com o preceptor e os pares",
+     "canal": "presencial",
+     "confianca": "confirmado",
+     "p": "P2"
+    },
+    {
+     "item": "Certificado de maestria",
+     "canal": "digital",
+     "confianca": "aberto",
+     "p": "P2"
     }
    ]
   },
@@ -1175,7 +1175,7 @@ window.H3D = {
    "rotulo": "O que se oferece",
    "cam": "serviços",
    "pergunta": "O que entra em cada oferta, e quem paga?",
-   "manchete": "Três ofertas: o curso, os pré-módulos que nivelam e o kit em três portas.",
+   "manchete": "Três ofertas, na ordem em que o residente as encontra: o kit em três portas, os pré-módulos que nivelam e o curso.",
    "elo": "como o residente vive isso, etapa por etapa?",
    "livro": ""
   },
@@ -1436,7 +1436,164 @@ window.H3D = {
  ],
  "sintese": {
   "direcao": "O curso fica de pé com três definições: quem paga, o tempo do preceptor e a prova no TAPP",
-  "fator_minimo": "Quem paga o curso",
-  "limite": "o modelo se imprime sob demanda, mas a frota do piloto ainda precisa ser paga. O recurso mais escasso é o tempo do preceptor, e antes dele falta quem pague"
- }
+  "fator_minimo": "A prova no TAPP",
+  "limite": "o estudo de validação vem antes de tudo: é a evidência que o comprador pede. Depois, falta quem pague. O recurso mais escasso é o tempo do preceptor, e a frota do piloto ainda precisa ser paga",
+  "gargalo": "Uma restrição por vez: hoje, o estudo de validação. Até ele subir, as outras esperam"
+ },
+ "gargalo": [
+  {
+   "id": "estudo",
+   "lado": "frente",
+   "aduela": "Estudo de validação",
+   "curto": "ESTUDO",
+   "oque": "o estudo no Einstein que testa a versão nova do modelo com residentes e cirurgiões: se ele distingue quem já domina a técnica de quem está aprendendo",
+   "fluxo": "do protótipo à evidência que o comprador pede para aprovar o piloto",
+   "alavanca": "a aprovação ética e a coleta com os residentes do estudo",
+   "quem": "o responsável clínico do projeto, com o comitê de ética",
+   "prazo": "coleta depois da aprovação ética, data a confirmar",
+   "confianca": "provavel",
+   "bloco": "proposta",
+   "altura": 8
+  },
+  {
+   "id": "modelo",
+   "lado": "tras",
+   "aduela": "Modelo 3D em comodato",
+   "curto": "MODELO 3D",
+   "oque": "o modelo impresso da região inguinal, emprestado ao residente durante o curso",
+   "fluxo": "",
+   "alavanca": "",
+   "quem": "",
+   "prazo": "",
+   "confianca": "confirmado",
+   "bloco": "recursos",
+   "altura": 100
+  },
+  {
+   "id": "comprador",
+   "lado": "frente",
+   "aduela": "Quem compra",
+   "curto": "QUEM COMPRA",
+   "oque": "quem paga a taxa do curso: o programa de residência, o hospital de ensino, o Einstein ou o próprio residente · hoje, nenhum confirmado",
+   "fluxo": "de zero a uma turma de 6",
+   "alavanca": "uma carta de intenção de um programa, com valor e rubrica",
+   "quem": "a coordenação do projeto, com quem compra",
+   "prazo": "antes do piloto",
+   "confianca": "aberto",
+   "bloco": "segmentos",
+   "altura": 15
+  },
+  {
+   "id": "protocolo",
+   "lado": "tras",
+   "aduela": "Protocolo de maestria",
+   "curto": "PROTOCOLO",
+   "oque": "o protocolo de maestria: repetir no modelo até cumprir os cinco critérios",
+   "fluxo": "",
+   "alavanca": "",
+   "quem": "",
+   "prazo": "",
+   "confianca": "confirmado",
+   "bloco": "atividades",
+   "altura": 100
+  },
+  {
+   "id": "preceptor",
+   "lado": "frente",
+   "aduela": "Formato do preceptor",
+   "curto": "PRECEPTOR",
+   "oque": "como o preceptor entra no curso: quatro encontros por ano, com a live e o presencial só para quem chegou à maestria · é o recurso mais escasso",
+   "fluxo": "de uma turma a 45 aprovados por ano",
+   "alavanca": "o preceptor confirma os quatro encontros por ano, com a live e o presencial só para quem chega à maestria",
+   "quem": "o responsável clínico do projeto",
+   "prazo": "antes do piloto",
+   "confianca": "provavel",
+   "bloco": "recursos",
+   "altura": 55
+  },
+  {
+   "id": "ps",
+   "lado": "tras",
+   "aduela": "Os 3Ps do curso",
+   "curto": "3PS",
+   "oque": "o desenho do curso em três passos: preparar, praticar, proceder",
+   "fluxo": "",
+   "alavanca": "",
+   "quem": "",
+   "prazo": "",
+   "confianca": "confirmado",
+   "bloco": "proposta",
+   "altura": 100
+  },
+  {
+   "id": "entrada",
+   "lado": "frente",
+   "aduela": "Entrada em casa",
+   "curto": "EM CASA",
+   "oque": "o que o residente precisa para começar a treinar em casa: o modelo emprestado, o kit de instrumental numa das três portas e os pré-módulos de nivelamento",
+   "fluxo": "a turma inteira treinando já na primeira semana",
+   "alavanca": "o aluguel do kit com preço e logística, e os três pré-módulos de nivelamento prontos",
+   "quem": "a coordenação do projeto, com o fornecedor do kit",
+   "prazo": "antes do piloto",
+   "confianca": "aberto",
+   "bloco": "canais",
+   "altura": 30
+  },
+  {
+   "id": "einstein",
+   "lado": "tras",
+   "aduela": "Einstein, casa do estudo",
+   "curto": "EINSTEIN",
+   "oque": "a casa do estudo de validação, com centro de treinamento próprio",
+   "fluxo": "",
+   "alavanca": "",
+   "quem": "",
+   "prazo": "",
+   "confianca": "confirmado",
+   "bloco": "parcerias",
+   "altura": 100
+  },
+  {
+   "id": "frota",
+   "lado": "frente",
+   "aduela": "Frota de modelos",
+   "curto": "MODELOS",
+   "oque": "quantos modelos impressos o piloto precisa, e quem paga por eles: o modelo se imprime sob demanda, mas a frota do piloto ainda não tem dono",
+   "fluxo": "8 modelos para 45 aprovados por ano · 13 com o modelo doze semanas em casa",
+   "alavanca": "definir quem paga os modelos e os kits do piloto",
+   "quem": "a coordenação do projeto",
+   "prazo": "antes do piloto",
+   "confianca": "aberto",
+   "bloco": "recursos",
+   "altura": 30
+  },
+  {
+   "id": "prova",
+   "lado": "frente",
+   "aduela": "Prova no paciente",
+   "curto": "PROVA",
+   "oque": "o ensaio clínico que vai medir se o paciente operado por quem treinou no modelo tem menos complicação · hoje a prova existe só para a outra técnica, a TEP",
+   "fluxo": "do programa que compra a quem paga a cirurgia: o SUS e as operadoras",
+   "alavanca": "o ensaio clínico de transferência, depois do estudo de validação",
+   "quem": "o responsável clínico do projeto, pelo ensaio clínico",
+   "prazo": "18 a 24 meses depois do estudo de validação",
+   "confianca": "aberto",
+   "bloco": "proposta",
+   "altura": 20
+  },
+  {
+   "id": "plataforma",
+   "lado": "frente",
+   "aduela": "Plataforma do residente",
+   "curto": "PLATAFORMA",
+   "oque": "o site onde o residente acompanha o curso: hoje mostra o caminho e os critérios, mas ainda não registra as sessões de cada um",
+   "fluxo": "de uma turma a muitas: cada residente com o seu registro de sessões e de critérios",
+   "alavanca": "o registro das sessões e dos cinco critérios dentro da própria plataforma, antes da segunda turma",
+   "quem": "a coordenação do projeto",
+   "prazo": "depois da primeira turma",
+   "confianca": "provavel",
+   "bloco": "canais",
+   "altura": 60
+  }
+ ]
 };
