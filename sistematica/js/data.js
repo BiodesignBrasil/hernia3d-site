@@ -1438,7 +1438,8 @@ window.H3D = {
   "direcao": "O curso fica de pé com três definições: quem paga, o tempo do preceptor e a prova no TAPP",
   "fator_minimo": "A prova no TAPP",
   "limite": "o estudo de validação vem antes de tudo: é a evidência que o comprador pede. Depois, falta quem pague. O recurso mais escasso é o tempo do preceptor, e a frota do piloto ainda precisa ser paga",
-  "gargalo": "Uma restrição por vez: hoje, o estudo de validação. Até ele subir, as outras esperam"
+  "gargalo": "Uma restrição por vez: hoje, o estudo de validação. Até ele subir, as outras esperam",
+  "duo": "Dois olhares para decidir: a lei dos mínimos, o que limita agora, e o modelo de negócio, os nove blocos"
  },
  "gargalo": [
   {

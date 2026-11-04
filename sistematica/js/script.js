@@ -202,7 +202,7 @@
   function estadoNaUrl() {
     var q = "?vista=" + vistaAtual + (selecao[vistaAtual] ? "&item=" + encodeURIComponent(selecao[vistaAtual]) : "") +
       (vistaAtual === "sistema" && !comparativo ? "&olhar=" + olharAtual : "") +
-      (vistaAtual === "direcao" && modoDir === "modelo" ? "&modo=modelo" : "");
+      (vistaAtual === "direcao" && modoDir !== "duo" ? "&modo=" + modoDir : "");
     try { history.replaceState(null, "", q); } catch (e) { /* file:// em alguns navegadores */ }
   }
   // cls, quando houver, diz em que arranjo o elo aparece (so-desktop ou so-empilhado)
@@ -980,7 +980,10 @@
     };
     // empilhada, o cartão fica logo abaixo da grade: o toque num bloco rola até ele
     Array.prototype.forEach.call(direcao.querySelectorAll(".bmc-b, .dc-resp"), function (b) {
-      b.addEventListener("click", function () { mostraBloco(b.dataset.pv); estadoNaUrl(); rolaAte(direcao.querySelector(".pv-card.on")); });
+      b.addEventListener("click", function () {
+        if (modoDir === "duo") poeModo("modelo");
+        mostraBloco(b.dataset.pv); modoDirecao(modoDir); rolaAte(direcao.querySelector(".pv-card.on"));
+      });
     });
     mostraBloco("proposta");
   })();
@@ -999,35 +1002,60 @@
   var GARG = (D.gargalo || []).filter(function (a) { return a.lado !== "tras"; }), BASE = (D.gargalo || []).filter(function (a) { return a.lado === "tras"; });
   var ADUELA = {}; GARG.forEach(function (a) { ADUELA[a.id] = a; });
   var modoDir = "gargalo", aduelaAtual = null, ADUELAS = {};
-  // os nomes dos botões, pedidos pelo usuário (04/11/2026); os ids (gargalo, modelo) ficam, inclusive no endereço
-  var MODOS = [["gargalo", "Lei dos mínimos", "o que limita agora"], ["modelo", "Modelo de negócio", "os nove blocos"]];
-  modosEl.innerHTML = MODOS.map(function (m) {
-    return "<button type='button' data-modo='" + m[0] + "' role='tab' aria-selected='false'>" + m[1] + "<small>" + m[2] + "</small></button>";
-  }).join("");
+  // os nomes dos cartões, pedidos pelo usuário (04/11/2026); os ids (gargalo, modelo) ficam, inclusive no endereço. Como os
+  // dois olhares da 02, cada cartão explica o seu lado enquanto os dois estão lado a lado; com um em foco, fica só o nome
+  var baixaNome = function (s) { return s.charAt(0).toLowerCase() + s.slice(1); };
+  var MODOS = [
+    ["gargalo", "Lei dos mínimos", "o que limita agora",
+     "O curso como um barril: cada tábua é uma restrição, e a água para na mais baixa. Hoje, a mais baixa é " +
+     (GARG.length ? esc(baixaNome(GARG[0].aduela)) : "a primeira") + "; até ela subir, as outras esperam. Atrás, altas, as tábuas do que já está de pé."],
+    ["modelo", "Modelo de negócio", "os nove blocos",
+     "Os nove blocos, do cliente à receita: em cada um, o que já temos, o que pedimos à instituição e o que ainda falta definir. " +
+     ((D.sintese || {}).direcao ? esc(ponto(D.sintese.direcao)) : "")]
+  ];
+  // como a 02: a aba abre com os dois lado a lado (modo "duo"); um clique num lado o põe em foco, e o botão volta ao par
+  // os dois cartões, um sobre cada lado, como os dois olhares da 02; a volta ao par vem antes deles, com um lado em foco
+  modosEl.innerHTML = "<button type='button' class='volta-duo' data-volta-dir>← os dois, lado a lado</button><div class='modos-par' role='tablist' aria-label='os dois modos da direção'>" +
+    MODOS.map(function (m) {
+      return "<button type='button' data-modo='" + m[0] + "' role='tab' aria-selected='false'>" + m[1] + "<small class='so-foco'>" + m[2] + "</small><small class='so-par'>" + m[3] + "</small></button>";
+    }).join("") + "</div>";
+  // no par, o lado direito é só o desenho do modelo de negócio: o quadro cresce até a largura para que foi desenhado
+  // (440px) ou até 2,2×, o que vier antes; com um lado em foco, volta ao teto de sempre
+  function ajustaCresceDuo() {
+    if (!direcao) return;
+    direcao.setAttribute("data-cresce", modoDir === "duo" ? Math.max(1, Math.min(2.2, direcao.clientWidth / 440)).toFixed(2) : "1.25");
+  }
   function poeModo(m) {
-    modoDir = m === "modelo" ? "modelo" : "gargalo";
-    vDirecao.classList.toggle("modo-modelo", modoDir === "modelo");
-    Array.prototype.forEach.call(modosEl.querySelectorAll("button"), function (b) {
+    modoDir = m === "modelo" || m === "gargalo" ? m : "duo";
+    vDirecao.dataset.modo = modoDir;
+    ajustaCresceDuo();
+    Array.prototype.forEach.call(modosEl.querySelectorAll("[data-modo]"), function (b) {
       var on = b.dataset.modo === modoDir;
       b.classList.toggle("on", on);
       b.setAttribute("aria-selected", on ? "true" : "false");
     });
   }
   function mancheteDirecao() {
-    var v = VISTAS.filter(function (x) { return x.id === "direcao"; })[0];
-    return modoDir !== "modelo" && (D.sintese || {}).gargalo ? D.sintese.gargalo : (v ? v.manchete : "");
+    var v = VISTAS.filter(function (x) { return x.id === "direcao"; })[0], S = D.sintese || {};
+    if (modoDir === "gargalo" && S.gargalo) return S.gargalo;
+    if (modoDir === "duo" && S.duo) return S.duo;
+    return v ? v.manchete : "";
   }
   function modoDirecao(m) {
     poeModo(m);
-    // de volta ao barril, o endereço deixa de levar o bloco (que é um item do MODELO)
+    // fora do modelo de negócio, o endereço deixa de levar o bloco (que é um item dele)
     if (modoDir !== "modelo") selecao.direcao = null;
     if (vistaAtual === "direcao") document.getElementById("manchete").textContent = mancheteDirecao();
     estadoNaUrl();
     reencaixa();
   }
   Array.prototype.forEach.call(modosEl.querySelectorAll("button"), function (b) {
-    b.addEventListener("click", function () { modoDirecao(b.dataset.modo); });
+    b.addEventListener("click", function () { modoDirecao(b.dataset.modo || "duo"); });
   });
+  window.addEventListener("resize", function () { setTimeout(function () { if (modoDir === "duo") { ajustaCresceDuo(); encaixa(direcao); } }, 170); });
+  // no par, um clique no barril (fora de uma tábua) ou no quadro do modelo põe aquele lado em foco
+  svgB.addEventListener("click", function (ev) { if (modoDir === "duo" && !(ev.target.closest && ev.target.closest(".aduela"))) modoDirecao("gargalo"); });
+  if (direcao) direcao.addEventListener("click", function (ev) { if (modoDir === "duo" && !(ev.target.closest && ev.target.closest(".bmc-b, .dc-resp"))) modoDirecao("modelo"); });
   /* o barril ilustrado (04/11/2026), no molde da imagem clássica da lei do mínimo, na versão chapada: um tonel mais largo
      em cima, visto de cima, com as aduelas como tábuas de cores claras, cada uma com a face de cima e a sombra do lado;
      as de trás altas (o barril inteiro), as cinco restrições na frente com o nome escrito na vertical; um aro de metal,
@@ -1077,14 +1105,15 @@
     var cel = celular(), n = GARG.length;
     defsBarril(svgB);
     var g = el("g", {}, svgB);
-    // no desktop a caixa é recortada ao barril (740 de largura): o desenho fica maior na tela e as letras, legíveis
-    svgB.setAttribute("viewBox", "0 0 " + (cel ? 900 : 740) + " " + (cel ? 600 : 530));
+    // no desktop a caixa é recortada ao barril, sem borda em branco sobrando (de 80 a 720): o desenho fica maior na tela, as
+    // letras legíveis, e a leitura ao lado ganha a largura que o desenho não usa
+    svgB.setAttribute("viewBox", cel ? "0 0 900 600" : "80 0 640 530");
     function cor(i) { return CORES[i % CORES.length]; }
     function grupoAduela(a, i) {
       var ad = el("g", { "class": "aduela clicavel" + (i === 0 ? " restricao" : ""), tabindex: 0, role: "button",
         "aria-pressed": "false", "aria-label": (i + 1) + " · " + a.aduela + (i === 0 ? ": a restrição de hoje" : "") }, g);
       ad.dataset.ad = a.id;
-      clicavel(ad, function () { selecionaGar(a.id); });
+      clicavel(ad, function () { if (modoDir === "duo") modoDirecao("gargalo"); selecionaGar(a.id); });
       ADUELAS[a.id] = ad;
       return ad;
     }
@@ -1105,7 +1134,8 @@
         el("rect", { x: x + wc / 2 - 14, y: 400 - h, width: 14, height: h, fill: c[1], "class": "bar-lado" }, ad);
         if (i === 0) el("ellipse", { cx: x, cy: 406, rx: wc * 0.7, ry: 7, "class": "bar-poca" }, ad);
         numero(ad, x, 400 - h - 28, i, 22);
-        quebra(a.aduela, 9).forEach(function (l, k) { texto(ad, x, 448 + k * 34, l, "bar-rot", "middle"); });
+        // os nomes curtos, em duas fileiras alternadas, para sete tábuas caberem na largura do celular
+        quebra(a.curto.toUpperCase(), 11).forEach(function (l, k) { texto(ad, x, 446 + (i % 2) * 40 + k * 32, l, "bar-rot", "middle"); });
       });
       el("line", { x1: 20, y1: 400, x2: 880, y2: 400, "class": "bar-aro" }, g);
       return;
@@ -1199,7 +1229,7 @@
     var pn = pontoW(Math.PI / 2, hAgua, 1.02);
     el("line", { x1: pn[0] + 4, y1: pn[1], x2: pn[0] + 22, y2: pn[1], "class": "bar-agua-linha" }, g);
     texto(g, pn[0] + 28, pn[1] + 4, "o nível de hoje", "bar-nivel");
-    texto(g, 24, 523, "A altura de cada tábua é o quanto está resolvida; a água para na mais baixa. Clique numa tábua.", "bar-dica");
+    texto(g, 92, 523, "A altura de cada tábua é o quanto está resolvida; a água para na mais baixa. Clique numa tábua.", "bar-dica");
   }
   /* a leitura, ao lado do barril: o cartão da tábua em foco (ao abrir, a restrição de hoje), com o que ela destrava, a
      alavanca, quem e até quando; a ordem das restrições, cada uma com o que destrava; e o que já está de pé. Sem marcas
@@ -1213,15 +1243,14 @@
       "<dl class='g-dl'><dt>O que é</dt><dd>" + esc(ponto(maiuscula(foco.oque))) + "</dd>" +
       "<dt>O que destrava</dt><dd>" + esc(ponto(maiuscula(foco.fluxo))) + "</dd>" +
       "<dt>A alavanca</dt><dd>" + esc(ponto(maiuscula(foco.alavanca))) + "</dd>" +
-      "<dt>Quem</dt><dd>" + esc(ponto(maiuscula(foco.quem))) + "</dd>" +
-      "<dt>Até quando</dt><dd>" + esc(ponto(maiuscula(foco.prazo))) + "</dd></dl>" +
+      "<dt>Quem, até quando</dt><dd>" + esc(maiuscula(foco.quem)) + " · " + esc(ponto(foco.prazo)) + "</dd></dl>" +
       "<button type='button' class='l-elo g-ver' data-vista='direcao' data-item='" + foco.bloco + "'>ver no modelo de negócio →</button></div>";
     // a lista só com os nomes: o cartão acima explica a tábua em foco, e um toque troca o foco
     html += "<div class='bloco'><div class='rotulo'>As restrições, na ordem em que limitam</div><ol class='g-lista'>" + GARG.map(function (a, i) {
       return "<li" + (a === foco ? " class='on'" : "") + "><button type='button' class='g-ad" + (i === 0 ? " restricao" : "") + "' data-ad='" + a.id +
         "' aria-pressed='" + (a === foco ? "true" : "false") + "'><i>" + (i + 1) + "</i><span class='g-nome'>" + esc(a.aduela) + "</span></button></li>";
     }).join("") + "</ol></div>";
-    if (BASE.length) html += "<div class='bloco'><div class='rotulo'>O que já está de pé, nas tábuas altas</div><p class='g-base'>" +
+    if (BASE.length) html += "<div class='bloco'><p class='g-base'><b>Já está de pé, nas tábuas altas:</b> " +
       BASE.map(function (b) { return esc(b.aduela); }).join(" · ") + ".</p></div>";
     html += elo("direcao");
     escreve(leituraGar, html);
@@ -1257,7 +1286,7 @@
   leituraEcossistema(null, null);
   selecionaServico(null);
   leituraAbertura();
-  // a Direção abre no barril; ?modo=modelo (ou um item, que é um bloco) abre os nove blocos
+  // a Direção abre com os dois lado a lado; ?modo=gargalo ou ?modo=modelo (ou um item, que é um bloco) abre um em foco
   poeModo(q.get("modo"));
   montaBarril();
   leituraGargalo();
