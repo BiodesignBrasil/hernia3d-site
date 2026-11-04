@@ -9,7 +9,7 @@
      vermelho — o paciente (a zona do paciente, o P³ Proceder e o risco de hoje)
    As cores de quem paga (enquadramentos.csv) ficam nas linhas, nos discos e nas etiquetas.
    O ouro tem dois tons: --ouro para linhas e preenchimentos, --ouro-texto para letras (contraste de 4,5:1).
-   Encaixe sem rolagem no desktop, sem deixar o menor texto abaixo de 10px; abaixo de 1180px a página
+   Encaixe sem rolagem no desktop: o zoom desce até o piso e, se preciso, até 0,5; abaixo de 1180px a página
    empilha e rola; até 767px, a versão do celular (cartões e listas no lugar dos desenhos largos).
    ============================================================ */
 
@@ -49,11 +49,16 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .f-camada:hover{color:var(--tinta);border-color:var(--filete-forte)}
 .f-camada.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
 .f-camada.on small{color:#E8C66A}
-/* as pontas da peça (a 00 e a 05, camadas.csv livro=sim): o rótulo em itálico de livro, sem caixa alta */
-.nav-irma{display:inline-flex;align-items:center;gap:9px;padding:4px 14px 4px 5px;border:1px solid var(--filete-forte);border-radius:999px;
-  background:rgba(255,255,255,.6);color:var(--cinza-escuro);text-decoration:none;font-size:12.5px;white-space:nowrap;flex-shrink:0;transition:background .15s,border-color .15s}
-.nav-irma b{font-weight:600;color:var(--tinta)}
-.nav-irma:hover{background:#fff;border-color:var(--tinta)}
+/* a triangulação: a marca H³D e as outras duas peças numa pílula só, a mesma da plataforma e do caso econômico.
+   Com o painel fora do ar, o publicador marca o link dele com data-painel="revisao" e a dica "em revisão": o sublinhado
+   tracejado é o mesmo da legenda do pé (em aberto, ou a confirmar) */
+.pecas{display:inline-flex;align-items:center;gap:2px;padding:3px 4px 3px 5px;border:1px solid var(--filete-forte);border-radius:999px;
+  background:rgba(255,255,255,.6);font-size:12.5px;white-space:nowrap;flex-shrink:0}
+.pecas a{color:var(--tinta);font-weight:600;text-decoration:none;padding:4px 8px;border-radius:999px;transition:background .15s}
+.pecas a:hover{background:#fff;text-decoration:underline;text-underline-offset:3px}
+.pecas a[data-painel="revisao"]{text-decoration:underline dashed var(--risco);text-underline-offset:4px}
+/* até 1440px a pílula perde a segunda marca e encolhe: as seis abas continuam numa linha só, como antes da triangulação */
+@media (max-width:1440px){.pecas{padding:3px}.pecas .irma-mark{display:none}.pecas a{padding:4px 7px;font-size:12px}}
 .irma-mark{width:24px;height:24px;border-radius:5px;background:var(--ouro);color:var(--tinta);font-family:var(--serif);font-weight:700;
   font-size:10px;display:flex;align-items:center;justify-content:center}
 @media (max-width:1360px){.f-camada{padding:5px 9px;letter-spacing:.12em;font-size:11px}.f-camada small{margin-right:4px}}
@@ -496,7 +501,7 @@ svg text{font-family:var(--font)}
   body{overflow:auto}
   nav.barra{position:sticky;height:auto;padding:8px 16px;flex-wrap:wrap;gap:6px 14px}
   .nav-links{flex:1 1 100%;order:3}
-  .nav-irma{margin-left:auto}
+  .pecas{margin-left:auto}
   .palco{padding:12px 16px}
   .vista.on{display:block;height:auto}
   .cena{height:auto}
@@ -559,10 +564,12 @@ svg text{font-family:var(--font)}
   /* as seis abas em duas linhas de três, com pílulas de 36px */
   .nav-links,.nav-links.duas{display:grid;grid-template-columns:repeat(3,auto);justify-content:stretch;gap:4px}
   .f-camada{display:flex;align-items:center;justify-content:center;min-height:36px;padding:0 6px;font-size:12px;letter-spacing:.06em}
-  /* a peça irmã: uma palavra visível no lugar da segunda marca H³D, para dizer para onde o link leva */
-  .nav-irma{min-height:36px;justify-content:center;padding:4px 12px;font-size:13px}
-  .nav-irma .irma-mark,.nav-irma .irma-do{display:none}
-  .nav-irma>span:last-child{font-weight:600;color:var(--tinta)}
+  /* as outras duas peças: só os nomes, sem a segunda marca H³D */
+  .pecas{min-height:36px;padding:2px 3px;font-size:12px}
+  .pecas .irma-mark{display:none}
+  .pecas a{padding:6px}
+  /* no celular, a marca fica só com o nome: assim a pílula das peças cabe ao lado dela, e a barra parada não cresce */
+  .wm-nome small{display:none}
   .pergunta{font-size:15px}
   .pergunta b{font-size:12px}
   .manchete{font-size:18px}
@@ -592,9 +599,11 @@ svg text{font-family:var(--font)}
   .duo svg:hover{background:none}
   .w5{grid-template-columns:76px 1fr}
 }
-/* até 389px, o subtítulo da marca sai, para a marca e "Plataforma" caberem numa linha só e a barra parada não passar de um sexto da tela */
+/* até 389px, a barra aperta as margens para a marca e a pílula das peças caberem numa linha só, e a barra parada não
+   passar de um sexto da tela (o subtítulo da marca já saiu no bloco do celular) */
 @media (max-width:389px){
-  .wm-nome small{display:none}
+  nav.barra{padding:8px 10px;gap:6px 10px}
+  .pecas a{padding:6px 5px}
 }
 /* telas muito estreitas (abaixo de 360px): o número da aba sobe para cima do nome, para as três colunas caberem sem
    rolagem lateral, e os rótulos da curva crescem um pouco, para não descer de 12px (o do critério, no alto do
