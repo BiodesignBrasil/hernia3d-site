@@ -165,7 +165,6 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .lp::before{content:"";width:18px;height:0;border-top:1.5px solid var(--cinza-escuro)}
 .lp-prov{font-style:italic}
 .lp-aberto::before{border-top-style:dashed}
-.lp-fonte{margin-left:auto}
 
 /* ---- leitura: texto em filetes, sem caixas ---- */
 .bloco{padding:0 0 12px;margin-bottom:12px;border-bottom:1px solid var(--filete)}
@@ -760,7 +759,6 @@ a[data-painel="revisao"]{background:none;color:var(--tinta);border:1px dashed va
   .bp .bp-lin,.bp .bp-zona.vazio{position:sticky;left:0;z-index:1;background:var(--papel);box-shadow:1px 0 0 var(--filete)}
   .bp .bp-vis{height:auto;padding:2px 0 1px}
   .bp .bp-vis span{position:sticky;left:0;right:auto;top:auto;z-index:2;display:inline-block;padding:0 8px 0 0}
-  .lp-fonte{margin-left:0}
   /* alvos de toque de 36px, inclusive as abas (os tablets ficam nesta faixa) */
   .l-elo,.volta-duo,.p-volta,.pc-ver,.p-est button,.w5-p button,.db-ver,.db-prova,.f-camada{min-height:36px}
   .l-elo,.volta-duo,.p-volta{display:flex;align-items:center}

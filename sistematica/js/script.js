@@ -1307,12 +1307,8 @@
     mostraNaSintese(PADRAO);
   })();
 
-  /* ---------- carimbo: a meta "publicacao" (N|AAAA-MM-DD) é preenchida pelo publica_tudo.py ---------- */
-  (function () {
-    var m = document.querySelector('meta[name="publicacao"]'), v = m ? m.content.split("|") : [];
-    document.getElementById("carimbo").textContent = (v[1] ? "Estado em " + v[1].split("-").reverse().join("/") +
-      " · publicação " + v[0] : "Versão de trabalho, não publicada") + " · base: vault do projeto Hernia3D. Valores em reais, só na janela do caso econômico (aba 4ª).";
-  })();
+  /* o carimbo visível saiu do rodapé: a publicação segue só na meta "publicacao" (N|AAAA-MM-DD), que o
+     publica_tudo.py preenche */
 
   /* ---------- início: estado vindo da URL ---------- */
   var q = new URLSearchParams(location.search);
