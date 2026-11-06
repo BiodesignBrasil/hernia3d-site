@@ -6,7 +6,7 @@
 <meta name="description" content="Caso econômico do curso de maestria em TAPP Hernia3D: quanto custa, quanto evita, e para quem. Rodada 3 das premissas.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Caso Econômico Hernia3D</title>
-<meta name="publicacao" content="13|2026-11-06">
+<meta name="publicacao" content="14|2026-11-06">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,14 +50,12 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .f-aba:hover{color:var(--tinta);border-color:var(--filete-forte)}
 .f-aba.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
 .f-aba.on small{color:#E8C66A}
-/* a triangulação: cada peça aponta para as outras duas, numa pílula só, a mesma da Sistemática e da plataforma */
-.pecas{display:inline-flex;align-items:center;gap:2px;padding:3px 4px 3px 5px;border:1px solid var(--filete-forte);border-radius:999px;background:rgba(255,255,255,.6);font-size:12.5px;white-space:nowrap;flex-shrink:0}
-.pecas a{color:var(--tinta);font-weight:600;text-decoration:none;padding:4px 8px;border-radius:999px}
-.pecas a:hover{background:#fff;text-decoration:underline;text-underline-offset:3px}
-.irma-mark{width:24px;height:24px;border-radius:5px;background:var(--ouro);color:var(--tinta);font-family:var(--serif);font-weight:700;font-size:10px;display:flex;align-items:center;justify-content:center}
-@media (max-width:1440px){.pecas{padding:3px}.pecas .irma-mark{display:none}.pecas a{padding:4px 7px;font-size:12px}}
+/* a volta: o painel só aponta para a Sistemática, na aba que o mostra (4ª · Quanto). Um botão, no lugar da pílula das
+   outras duas peças */
+.volta-sis{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border:1px solid var(--filete-forte);border-radius:999px;background:rgba(255,255,255,.6);color:var(--tinta);font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0}
+.volta-sis:hover{background:#fff;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:1360px){.f-aba{padding:5px 9px;letter-spacing:.12em;font-size:11px}.f-aba small{margin-right:4px}}
-@media (prefers-reduced-motion:no-preference){.f-aba,.pecas a{transition:color .15s,background .15s,border-color .15s}}
+@media (prefers-reduced-motion:no-preference){.f-aba,.volta-sis{transition:color .15s,background .15s,border-color .15s}}
 
 /* ---- o palco: a altura exata da tela ---- */
 .palco{display:flex;flex-direction:column;padding:10px 24px 6px;max-width:1800px;margin:0 auto}
@@ -252,12 +250,12 @@ button.seg:hover{filter:brightness(1.12)}
   body{overflow:auto}
   nav.barra{flex-wrap:wrap;gap:6px 14px;padding:8px 16px}
   .nav-links{flex:1 1 100%;order:3}
-  .pecas{margin-left:auto}
+  .volta-sis{margin-left:auto}
   .palco{height:auto!important;padding:12px 18px 14px}
   .vista.on{display:block;height:auto}
   .painel,.leitura{height:auto;overflow:visible}
   .v-dupla .leitura{border-left:0;padding-left:0;border-top:1px solid var(--filete-forte);margin-top:22px;padding-top:16px}
-  .f-aba,.bt-texto,.volta,.l-elo,.n-ver,.mais,.brand,.pecas,.pecas a{min-height:36px}
+  .f-aba,.bt-texto,.volta,.l-elo,.n-ver,.mais,.brand,.volta-sis{min-height:36px}
   .n-ver{min-width:36px}
   .prem,.f-vem button{min-height:36px}
 }
@@ -271,9 +269,7 @@ button.seg:hover{filter:brightness(1.12)}
 @media (max-width:767px){
   nav.barra{padding:6px 12px;gap:6px 10px}
   .wm-nome small{display:none}
-  .pecas{padding:2px 3px;font-size:12px}
-  .pecas .irma-mark{display:none}
-  .pecas a{padding:6px}
+  .volta-sis{padding:4px 10px;font-size:12px}
   .nav-links,.nav-links.duas{display:grid;grid-template-columns:repeat(3,auto);justify-content:stretch;gap:4px}
   .f-aba{display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:.06em;padding:0 6px}
   .palco{padding:10px 14px 14px}
@@ -311,10 +307,10 @@ button.seg:hover{filter:brightness(1.12)}
   .brand{gap:8px}
   .brand-mark{width:30px;height:30px;font-size:13px}
   .wm-nome{font-size:16px}
-  .pecas a{padding:6px 4px}
+  .volta-sis{padding:4px 8px}
 }
 /* em moldura: o painel aberto dentro de outra página (a aba Quanto da Sistemática mostra uma tela por vez). Sai a barra,
-   com o menu e o atalho das peças: o menu é o de quem emoldura. Liga com ?moldura no endereço */
+   com o menu e a volta à Sistemática: o menu é o de quem emoldura. Liga com ?moldura no endereço */
 .em-moldura nav.barra{display:none}
 </style>
 <script>if (/[?&]moldura\b/.test(location.search)) document.documentElement.classList.add('em-moldura');</script>
@@ -323,12 +319,9 @@ button.seg:hover{filter:brightness(1.12)}
 <nav class="barra">
   <a class="brand" href="?vista=leitura" data-vai="leitura"><span class="brand-mark" aria-hidden="true">H³D</span><span class="wm-nome">Caso econômico<small><span class="wm-marca">Hernia3D · </span>curso de maestria em TAPP</small></span></a>
   <div class="nav-links" id="abas" role="tablist" aria-label="as seis abas da conta"></div>
-  <!-- a triangulação: cada peça aponta para as outras duas. Na publicação, os endereços do vault viram os do site -->
-  <div class="pecas" role="group" aria-label="as outras peças do Hernia3D">
-    <span class="irma-mark" aria-hidden="true">H³D</span>
-    <a href="../" data-irma title="Plataforma do residente">Plataforma</a>
-    <a href="../sistematica/" data-irma title="Sistemática Hernia3D">Sistemática</a>
-  </div>
+  <!-- a volta: o painel só aponta para a Sistemática, na aba que o mostra (4ª · Quanto), no passo aberto. Na publicação,
+       o endereço do vault vira o do site -->
+  <a class="volta-sis" href="../sistematica/?vista=economico" data-irma aria-label="Voltar à Sistemática"><span aria-hidden="true">←</span> Sistemática</a>
 </nav>
 <main class="palco">
   <h1 class="pergunta" id="pergunta"></h1>
@@ -844,6 +837,9 @@ button.seg:hover{filter:brightness(1.12)}
     if (IDS.indexOf(id) < 0) id = "leitura";
     var v = VISTAS[IDS.indexOf(id)];
     atual = id;
+    // a volta à Sistemática leva ao passo aberto, quando ele é um dos quatro da aba 4ª · Quanto (a base é o endereço do HTML)
+    var vs = document.querySelector(".volta-sis");
+    if (vs) { vs.dataset.base = vs.dataset.base || vs.getAttribute("href"); vs.setAttribute("href", vs.dataset.base + (["residente", "pagador", "empresa", "escala"].indexOf(id) >= 0 ? "&item=" + id : "")); }
     VISTAS.forEach(function (x) {
       var on = x.id === id;
       document.getElementById("v-" + x.id).classList.toggle("on", on);

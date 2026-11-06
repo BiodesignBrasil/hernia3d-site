@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plataforma do residente · Hernia3D</title>
 <meta name="description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D. Teoria, prática autoguiada, live e encontro presencial com o preceptor.">
-<meta name="publicacao" content="13|2026-11-06">
+<meta name="publicacao" content="14|2026-11-06">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Plataforma do residente · Hernia3D">
 <meta property="og:description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D.">
@@ -73,29 +73,17 @@
   .lang-switch button { background: transparent; border: none; border-radius: 999px; color: var(--neutral-600); font-family: inherit; font-size: 11.5px; font-weight: 600;
     min-height: 36px; min-width: 36px; padding: 0 11px; cursor: pointer; }
   .lang-switch button.active { background: var(--primary-dark); color: #fff; }
-  /* a triangulação: a marca H³D e as outras duas peças numa pílula só, a mesma da Sistemática e do caso econômico.
-     Com o painel fora do ar, o publicador marca o link dele com data-painel="revisao" e a dica "em revisão": o sublinhado tracejado */
-  .pecas { display: inline-flex; align-items: center; gap: 2px; min-height: 36px; padding: 3px 4px 3px 5px; border: 1px solid #BDB5A3; border-radius: 999px;
-    background: rgba(255,255,255,.6); font-size: 12px; white-space: nowrap; flex-shrink: 0; }
-  .pecas a { color: var(--primary-dark); font-weight: 600; text-decoration: none; padding: 5px 8px; border-radius: 999px; }
-  .pecas a:hover { background: #fff; text-decoration: underline; text-underline-offset: 3px; }
-  .pecas a[data-painel="revisao"] { text-decoration: underline dashed var(--error); text-underline-offset: 4px; }
-  .pecas .irma-mark { width: 24px; height: 24px; border-radius: 5px; background: var(--accent); color: var(--primary-dark);
-    font-family: var(--font-serif); font-weight: 700; font-size: 10px; display: flex; align-items: center; justify-content: center; }
-  /* até 1440px a pílula perde a segunda marca e encolhe: as abas continuam numa linha só, como antes da triangulação */
-  @media (max-width: 1440px) { .pecas { padding: 3px; } .pecas .irma-mark { display: none; } .pecas a { padding: 5px 7px; } }
+  /* a volta: a plataforma só aponta para a Sistemática, na aba que a mostra (3ª · Quem). Um botão, no lugar da pílula
+     das outras duas peças */
+  .volta-sis { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 5px 13px; border: 1px solid #BDB5A3; border-radius: 999px;
+    background: rgba(255,255,255,.6); color: var(--primary-dark); font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .volta-sis:hover { background: #fff; text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 1440px) { header nav button { letter-spacing: .07em; padding: 6px 9px; } }
   /* até 1260px o menu desce para uma linha própria: nenhuma aba fica escondida */
   @media (max-width: 1260px) {
     header.barra { flex-wrap: wrap; padding: 8px 16px; gap: 6px 12px; }
     header nav { flex: 1 1 100%; order: 3; justify-content: flex-start; }
-    .pecas { margin-left: auto; }
-  }
-  /* as outras duas peças no celular: só os nomes, sem a segunda marca H³D */
-  @media (max-width: 760px) {
-    .pecas { padding: 2px 3px; }
-    .pecas .irma-mark { display: none; }
-    .pecas a { padding: 6px 7px; }
+    .volta-sis { margin-left: auto; }
   }
   /* celular (e um pouco acima, onde as seis abas já não cabem numa linha): o menu em duas linhas de três */
   @media (max-width: 700px) {
@@ -104,15 +92,21 @@
   }
   @media (max-width: 640px) {
     header.barra { padding: 8px 12px; gap: 6px 8px; }
-    /* a marca ocupa o que sobra na primeira linha e quebra o texto se faltar espaço; o idioma fica nela, e a pílula das
-       outras duas peças desce para uma linha só dela, centrada, para não espremer a marca */
+    /* a marca ocupa o que sobra na primeira linha e quebra o texto se faltar espaço; a volta à Sistemática e o idioma
+       ficam nela, à direita */
     .brand { gap: 8px; flex: 1 1 0; }
-    .lang-switch { order: 1; }
-    .pecas { order: 2; flex: 1 1 100%; justify-content: center; margin-left: 0; }
+    .volta-sis { order: 1; margin-left: 0; padding: 4px 10px; }
+    .lang-switch { order: 2; }
     header h1 { font-size: 15px; }
     header .subtitle { font-size: 12px; white-space: normal; }
     header .subtitle .sub-marca { display: none; }
     .lang-switch button { padding: 0 9px; }
+  }
+  /* celular estreito (até 480px): a marca fica com a primeira linha inteira, para o nome não quebrar em três; a volta à
+     Sistemática e o idioma descem para a segunda, uma em cada ponta */
+  @media (max-width: 480px) {
+    .brand { flex: 1 1 100%; }
+    .lang-switch { margin-left: auto; }
   }
 
   .container { max-width: 980px; margin: 0 auto; padding: 32px 20px 60px; }
@@ -421,7 +415,7 @@
   </defs>
 </svg>
 
-<!-- uma barra só, como na Sistemática e nas peças irmãs: a marca, as abas, o atalho para as outras duas peças e o idioma -->
+<!-- uma barra só, como na Sistemática e nas peças irmãs: a marca, as abas, a volta à Sistemática e o idioma -->
 <header class="barra">
   <div class="brand">
     <div class="brand-mark" aria-hidden="true">H³D</div>
@@ -438,12 +432,9 @@
     <button type="button" data-tab="presencial"><span class="nav-p k1">P²</span><span data-i18n="navPresencial">Presencial</span></button>
     <button type="button" data-tab="cirurgia"><span class="nav-p k2">P³</span><span data-i18n="navCirurgia">Centro cirúrgico</span></button>
   </nav>
-  <!-- a triangulação: cada peça aponta para as outras duas. Na publicação, os endereços do vault viram os do site -->
-  <div class="pecas" role="group" aria-label="As outras peças do Hernia3D" data-i18n-aria="pecasAria">
-    <span class="irma-mark" aria-hidden="true">H³D</span>
-    <a href="sistematica/" data-irma>Sistemática</a>
-    <a href="caso-economico/" data-painel><span data-i18n="pecaCaso">Caso econômico</span></a>
-  </div>
+  <!-- a volta: a plataforma só aponta para a Sistemática, na aba que a mostra (3ª · Quem), na estação aberta. Na publicação,
+       o endereço do vault vira o do site -->
+  <a class="volta-sis" href="sistematica/?vista=plataforma" data-irma aria-label="Voltar à Sistemática" data-i18n-aria="voltaSis"><span aria-hidden="true">←</span> Sistemática</a>
   <div class="lang-switch" role="group" aria-label="Idioma">
     <button type="button" id="lang-pt" class="active" aria-pressed="true" lang="pt" onclick="setLanguage('pt')">PT</button>
     <button type="button" id="lang-es" aria-pressed="false" lang="es" onclick="setLanguage('es')">ES</button>
@@ -899,9 +890,7 @@ const I18N = {
     navLive: "Live",
     navPresencial: "Presencial",
     navCirurgia: "Centro cirúrgico",
-    pecasAria: "As outras peças do Hernia3D",
-    pecaCaso: "Caso econômico",
-    pecaCasoRevisao: "Em revisão: volta quando o preço for definido",
+    voltaSis: "Voltar à Sistemática",
     trilhaRot: "Seu caminho em 3Ps",
     p1Nome: "Preparar", p2Nome: "Praticar", p3Nome: "Proceder",
     trilhaDica: "As três palavras são as do próprio curso: a preparação, a prática e o procedimento.",
@@ -1066,9 +1055,7 @@ const I18N = {
     navLive: "En vivo",
     navPresencial: "Presencial",
     navCirurgia: "Quirófano",
-    pecasAria: "Las otras piezas de Hernia3D",
-    pecaCaso: "Caso económico",
-    pecaCasoRevisao: "En revisión: vuelve cuando se defina el precio",
+    voltaSis: "Volver a la Sistemática",
     trilhaRot: "Tu camino en 3P",
     p1Nome: "Preparar", p2Nome: "Practicar", p3Nome: "Proceder",
     trilhaDica: "Las tres palabras son las del propio curso: la preparación, la práctica y el procedimiento.",
@@ -1259,11 +1246,6 @@ function setLanguage(lang) {
     const key = el.getAttribute('data-i18n-aria');
     if (dict[key]) el.setAttribute('aria-label', dict[key]);
   });
-  // a dica de um link (o do caso econômico em revisão, que o publicador marca) também troca de idioma
-  document.querySelectorAll('[data-i18n-title]').forEach(el => {
-    const key = el.getAttribute('data-i18n-title');
-    if (dict[key]) el.setAttribute('title', dict[key]);
-  });
   carimbo(dict);
   renderCe();
   renderMapas();
@@ -1300,6 +1282,9 @@ function mostraAba(name) {
     if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
   marcaTrilha(name);
+  // a volta à Sistemática leva à estação aberta: a aba 3ª · Quem, no mesmo passo (a base é o endereço escrito no HTML)
+  const vs = document.querySelector('.volta-sis');
+  if (vs) { vs.dataset.base = vs.dataset.base || vs.getAttribute('href'); vs.setAttribute('href', vs.dataset.base + '&item=' + name); }
   if (focoNoTitulo) {
     focoNoTitulo = false;
     const t = document.querySelector('#tab-' + name + ' .hero h2');
