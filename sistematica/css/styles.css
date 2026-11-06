@@ -52,8 +52,13 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .f-camada i{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 3px;border-radius:9px;background:var(--cinza);color:var(--papel);
   font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:0}
 .nav-quebra+.f-camada i{background:var(--ouro-texto)}
-/* a âncora leva o losango, o mesmo da porta da maestria: na barra lê-se a cadeia, a âncora, 1, 2, 3, 4 e a síntese */
-.f-camada i.nav-los{min-width:0;width:10px;height:10px;margin:0 2px;padding:0;border-radius:0;background:var(--ouro);transform:rotate(45deg)}
+/* a âncora leva o escudo, porque ela é a segurança: na barra lê-se a cadeia, a âncora, 1, 2, 3, 4 e a síntese. O mesmo
+   escudo está na dobradiça do Sistema, na aba da âncora e na síntese. O losango fica só com a porta da maestria */
+svg.escudo,.cena svg.escudo,.duo svg.escudo{flex:none;display:block;width:14px;height:15px;min-width:0;min-height:0;margin:0;cursor:inherit;border-radius:0;overflow:visible}
+.duo svg.escudo:hover{background:none}
+.escudo path{fill:var(--ouro);stroke:var(--tinta);stroke-width:1.7;stroke-linejoin:round}
+.escudo path.esc-v{fill:none;stroke-width:2.7;stroke-linecap:round}
+.f-camada.on .escudo path:first-child{fill:#E8C66A;stroke:#E8C66A}
 .f-camada:hover{color:var(--tinta);border-color:var(--filete-forte)}
 .f-camada.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
 .f-camada.on i{background:#E8C66A;color:var(--tinta)}
@@ -131,10 +136,8 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .dobradica{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
 .dobradica p{margin:0}
 .db-rot{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta)}
-/* o símbolo da dobradiça: o losango da porta da maestria, a segurança entre o modelo e o paciente */
-.duo svg.db-losango,svg.db-losango{flex:none;display:block;width:40px;height:40px;min-width:0;cursor:default}
-.duo svg.db-losango:hover{background:none}
-.db-losango path{fill:var(--ouro);stroke:var(--tinta);stroke-width:2.4;stroke-linejoin:round}
+/* o símbolo da dobradiça: o escudo da âncora, a segurança entre o modelo e o paciente */
+#dobradica svg.escudo{width:37px;height:40px;cursor:default}
 .db-lado{font-size:11.5px;line-height:1.25;color:var(--cinza-escuro)}
 .db-lado b{display:block;font-family:var(--serif);font-size:17px;font-weight:600}
 .db-hoje b{color:var(--risco)} .db-com b{color:var(--ouro-texto)}
@@ -261,7 +264,7 @@ svg text{font-family:var(--font)}
 /* hoje, no modelo: nada (a caixa vazia, tracejada) */
 .bd-nada{fill:none;stroke:var(--filete-forte);stroke-width:2;stroke-dasharray:7 6}
 .nada-rot{font-family:var(--serif);font-style:italic;font-size:17px;fill:var(--cinza)}
-/* a porta: o losango do critério de maestria, o mesmo da dobradiça */
+/* a porta: o losango do critério de maestria */
 .porta-g .bd{fill:var(--ouro);stroke:var(--tinta);stroke-width:2.4;stroke-linejoin:round;transition:stroke-width .15s}
 .porta-g:hover .bd,.porta-g:focus-visible .bd,.porta-g.on .bd{stroke-width:4.5}
 /* a régua da segurança: o trilho, as marcas de erro (ouro no modelo, vermelho no paciente) e, tracejado, o que falta provar */
@@ -478,7 +481,7 @@ a[data-painel="revisao"]{background:none;color:var(--tinta);border:1px dashed va
 .anc-topo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px;align-items:center}
 .anc-marca{position:relative;justify-self:start;display:grid;grid-template-columns:auto auto;gap:0 14px;align-items:center;margin:0;padding:6px 18px 7px 14px;
   border:2px solid var(--ouro);border-radius:10px;background:var(--ouro-claro)}
-.anc-los{grid-row:1/3;width:22px;height:22px;margin:0 6px;background:var(--ouro);border:2.5px solid var(--tinta);transform:rotate(45deg)}
+.anc-marca svg.escudo{grid-row:1/3;width:31px;height:34px;margin:0 2px}
 .anc-marca span{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro-texto);line-height:1.3}
 .anc-marca b{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.1;color:var(--tinta)}
 .anc-marca small{font-size:12px;line-height:1.3;color:var(--cinza-escuro)}
@@ -537,7 +540,7 @@ a[data-painel="revisao"]{background:none;color:var(--tinta);border:1px dashed va
 .pc-resp{font-weight:700;color:var(--tinta);letter-spacing:.08em}
 /* a âncora, sobre a área 1 */
 .cad-anc{display:flex;align-items:center;gap:6px;margin-bottom:-4px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro-texto)}
-.cad-anc i{width:10px;height:10px;margin:0 3px;background:var(--ouro);border:2px solid var(--tinta);transform:rotate(45deg)}
+.cad-anc svg.escudo{margin:0 1px}
 .cad-anc b{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--tinta)}
 /* o quadro: como, o que e quem em cima, quanto embaixo. Cada caixa é um botão, com o número da ordem e as travas da área */
 .bmc-macro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
@@ -791,9 +794,7 @@ a[data-painel="revisao"]{background:none;color:var(--tinta);border:1px dashed va
   .f-camada{flex:1 1 auto;justify-content:center;gap:4px;min-height:36px;padding:0 4px;font-size:12px;letter-spacing:.03em}
   .f-camada i{min-width:0;width:auto;height:auto;padding:0;background:none;color:var(--ouro-texto);font-size:12px}
   .nav-quebra+.f-camada i{background:none}
-  .f-camada i.nav-los{width:9px;height:9px;background:var(--ouro)}
   .f-camada.on i{background:none;color:#E8C66A}
-  .f-camada.on i.nav-los{background:#E8C66A}
   .nav-quebra+.f-camada,.f-camada.area+.f-camada:not(.area){margin-left:0}
   /* no celular, a marca fica só com o nome, e a barra parada não cresce */
   .wm-nome small{display:none}
@@ -853,7 +854,7 @@ a[data-painel="revisao"]{background:none;color:var(--tinta);border:1px dashed va
    desenho, fica como está: maior, ele sairia pela borda de cima) */
 @media (max-width:359px){
   .f-camada{flex-direction:column;justify-content:center;gap:0;padding:2px 1px;line-height:1.15}
-  /* a âncora fica na linha das três abas sem número: o losango ao lado do nome, para o nome não descer */
+  /* a âncora fica na linha das três abas sem número: o escudo ao lado do nome, para o nome não descer */
   #aba-ancora{flex-direction:row;gap:3px}
   .p-rot,.duo .p-rot{font-size:40px}
   .zr,.duo .zr,.nada-rot,.duo .nada-rot,.regua-rot,.duo .regua-rot,.b-prova,.duo .b-prova{font-size:38px}

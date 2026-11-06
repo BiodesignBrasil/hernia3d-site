@@ -47,6 +47,12 @@
   function maiuscula(s) { s = s || ""; return s.charAt(0).toUpperCase() + s.slice(1); }
   // o número de uma área vai à tela como ordinal: 1ª, 2ª, 3ª, 4ª (a primária, a secundária…). As travas levam 1.1, 1.2
   function ord(n) { return n ? n + "ª" : ""; }
+  // o símbolo da âncora: um escudo, porque a âncora é a segurança. O losango fica só com a porta da maestria
+  function escudoIco(rotulo) {
+    return "<svg class='escudo' viewBox='0 0 24 26' " + (rotulo ? "role='img' aria-label='" + rotulo + "'" : "aria-hidden='true'") + ">" +
+      "<path d='M12 1.3 L21.6 4.6 V12.2 C21.6 18.2 17.6 22.6 12 24.7 C6.4 22.6 2.4 18.2 2.4 12.2 V4.6 Z'/>" +
+      "<path class='esc-v' d='M7.6 12.7 L10.9 16 L16.6 9.6'/></svg>";
+  }
   // fecha a frase com ponto, se ela ainda não termina em pontuação (dois-pontos abrem o que vem depois)
   function ponto(s) { s = String(s || "").trim(); return /[.!?:…]$/.test(s) ? s : s + "."; }
   var CONF_TXT = { confirmado: "confirmado", provavel: "provável", aberto: "em aberto" };
@@ -150,7 +156,7 @@
   VISTAS.forEach(function (v, i) { var volta = i === VISTAS.length - 1; PROXIMA[v.id] = [VISTAS[volta ? 0 : i + 1].id, v.elo, volta]; });
   var botoes = {}, vistaAtual = null;
   var nav = document.getElementById("camadas");
-  // só as áreas levam número, o da ordem de escoramento; a âncora leva o losango (o mesmo da porta da maestria, no
+  // só as áreas levam número, o da ordem de escoramento; a âncora leva o escudo (o mesmo da dobradiça do
   // Sistema): na barra lê-se a cadeia inteira, a âncora, 1, 2, 3, 4 e a síntese. Uma quebra separa o panorama e a
   // âncora do resto: só vale quando a barra não cabe numa linha (no celular, sempre)
   VISTAS.forEach(function (v, i) {
@@ -162,7 +168,7 @@
     var b = document.createElement("button");
     b.type = "button"; b.className = "f-camada" + (v.n ? " area" : ""); b.setAttribute("role", "tab");
     b.id = "aba-" + v.id; b.setAttribute("aria-controls", "v-" + v.id);
-    b.innerHTML = (v.n ? "<i>" + ord(v.n) + "</i>" : v.id === "ancora" ? "<i class='nav-los' aria-hidden='true'></i>" : "") + esc(v.cam.toUpperCase()); b.title = v.rot;
+    b.innerHTML = (v.n ? "<i>" + ord(v.n) + "</i>" : v.id === "ancora" ? escudoIco() : "") + esc(v.cam.toUpperCase()); b.title = v.rot;
     // o nome lido em voz alta separa o número do nome da aba ("1 · Como", e não "1Como")
     b.setAttribute("aria-label", (v.n ? ord(v.n) + " · " : "") + maiuscula(v.cam));
     b.addEventListener("click", function () { abre(v.id); });
@@ -291,7 +297,7 @@
     b.addEventListener("click", function () { escolheTempo(+b.dataset.tempo); });
   });
   /* a dobradiça entre os dois olhares é a segurança (05/11/2026), como o relógio do HDB é o tempo: o gancho da
-     diferenciação. O símbolo é o losango da porta da maestria; de um lado, o erro cai no paciente; do outro, no modelo,
+     diferenciação. O símbolo é o escudo, o mesmo da âncora; de um lado, o erro cai no paciente; do outro, no modelo,
      com dois dos critérios de maestria (nenhum erro crítico, em sessões seguidas), lidos de criterios_maestria.csv.
      "O que falta provar" abre a ficha da transferência para o paciente (o tracejado do olhar 2). A segurança é a
      âncora do projeto (sintese.csv): a Prancha 02 manda parar no Sistema e nomear a âncora, e é o que a nota faz; o
@@ -301,7 +307,7 @@
   var cErro = critDe(/erro/i), cSeguidas = critDe(/consist/i);
   var PORTA = cErro && cSeguidas ? "erros críticos: " + cErro.valor + " · " + cSeguidas.valor : "os " + D.criterios.length + " critérios de maestria";
   document.getElementById("dobradica").innerHTML = "<p class='db-rot'>A segurança</p>" +
-    "<svg class='db-losango' viewBox='0 0 48 48' role='img' aria-label='o critério de maestria, a porta entre o modelo e o paciente'><path d='M24 5 L43 24 L24 43 L5 24 Z'/></svg>" +
+    escudoIco("a segurança, a âncora do projeto") +
     "<p class='db-lado db-hoje'><b><span class='db-seta'>← </span>no paciente</b>cai o erro, hoje</p>" +
     "<p class='db-lado db-com'><b>no modelo<span class='db-seta'> →</span></b>cai o erro, com o Hernia3D<i>" + esc(PORTA) + ", antes do primeiro paciente</i></p>" +
     "<p class='db-nota'>é a âncora do projeto: o critério de maestria é a porta</p>" +
@@ -1128,7 +1134,7 @@
     }
     escreve(painel,
       "<div class='anc" + (fluxo ? " fluxo" : "") + "'>" +
-      "<div class='anc-topo'><p class='anc-marca'><i class='anc-los' aria-hidden='true'></i><span>a âncora</span><b>" + esc(S.ancora || "") + "</b></p>" +
+      "<div class='anc-topo'><p class='anc-marca'>" + escudoIco() + "<span>a âncora</span><b>" + esc(S.ancora || "") + "</b></p>" +
       "<div class='anc-pqs'>" + razao("Por que é a âncora", S.ancora_porque, "p") +
       razao("Por que pousa no " + esc(CAD[0].nome), S.ancora_pousa, "p") + "</div></div>" +
       "<div class='anc-quadro'>" + CAD.map(function (a, i) {
@@ -1259,7 +1265,7 @@
       "<div class='bmc-dir'><div class='bmc-col'>" +
       "<div class='dc-conc'><div class='rotulo'>O que a síntese conclui</div><p class='dc-frase'>" + esc(ponto(S.direcao)) + "</p></div>" +
       "<div class='rotulo'><span>O modelo de negócio · <span class='so-clique'>clique</span><span class='so-toque'>toque</span> numa área</span></div>" +
-      (S.ancora ? "<p class='cad-anc'><i aria-hidden='true'></i>âncora · <b>" + esc(S.ancora) + "</b></p>" : "") +
+      (S.ancora ? "<p class='cad-anc'>" + escudoIco() + "âncora · <b>" + esc(S.ancora) + "</b></p>" : "") +
       "<div class='bmc-macro'>" + CAD.map(caixaArea).join("") + "</div>" +
       "<p class='bmc-leg'><span><i>1ª</i> a ordem em que as áreas se escoram</span><span><i class='leg-tr'>1.1</i> a trava, na ordem dentro da área</span><span><em class='bm-nivel'><u style='width:45%'></u></em> o quanto a trava está resolvida</span>" +
       (TRAVAS.length ? "<span><em class='cad-barras' aria-hidden='true'></em> o portão de hoje: " + esc(minuscula(TRAVAS[0].aduela)) + "</span>" : "") + "</p>" +
