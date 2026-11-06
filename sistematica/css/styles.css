@@ -40,31 +40,39 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
   font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .wm-nome{display:flex;flex-direction:column;font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.05;letter-spacing:-.01em}
 .wm-nome small{font-family:var(--font);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-top:3px}
-/* as abas quebram antes de transbordar: centradas enquanto cabem; quando não cabem numa linha, duas linhas de três (classe .duas, posta pelo script) */
+/* a barra é o mapa do site: as três abas de panorama, as quatro áreas (com o número da ordem em que se escoram) e a
+   síntese. Centradas enquanto cabem numa linha; quando não cabem (classe .duas, posta pelo script), a quebra entre o
+   panorama e o resto passa a valer: o panorama em cima, as áreas e a síntese embaixo */
 .nav-links{flex:1 1 auto;min-width:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:safe center;gap:2px}
-.nav-links.duas{display:grid;grid-template-columns:repeat(3,auto);justify-content:safe center;gap:2px 4px}
-.f-camada{cursor:pointer;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);background:transparent;
-  border:1px solid transparent;border-radius:999px;padding:6px 12px;white-space:nowrap;transition:color .15s,background .15s,border-color .15s}
-.f-camada small{font-family:var(--serif);font-style:italic;font-size:12px;font-weight:500;color:var(--ouro-texto);margin-right:6px;letter-spacing:0;text-transform:none}
+.nav-quebra{display:none;flex-basis:100%;height:0}
+.nav-links.duas .nav-quebra{display:block}
+.f-camada{cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);
+  background:transparent;border:1px solid transparent;border-radius:999px;padding:6px 12px;white-space:nowrap;transition:color .15s,background .15s,border-color .15s}
+/* o número da área, num disco: a 1, onde a âncora pousa, em ouro */
+.f-camada i{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 3px;border-radius:9px;background:var(--cinza);color:var(--papel);
+  font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:0}
+.nav-quebra+.f-camada i{background:var(--ouro-texto)}
+/* a âncora leva o losango, o mesmo da porta da maestria: na barra lê-se a cadeia, a âncora, 1, 2, 3, 4 e a síntese */
+.f-camada i.nav-los{min-width:0;width:10px;height:10px;margin:0 2px;padding:0;border-radius:0;background:var(--ouro);transform:rotate(45deg)}
 .f-camada:hover{color:var(--tinta);border-color:var(--filete-forte)}
 .f-camada.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
-.f-camada.on small{color:#E8C66A}
-/* a triangulação: a marca H³D e as outras duas peças numa pílula só, a mesma da plataforma e do caso econômico.
-   Com o painel fora do ar, o publicador marca o link dele com data-painel="revisao" e a dica "em revisão": o sublinhado
-   tracejado é o mesmo da legenda do pé (em aberto, ou a confirmar) */
-.pecas{display:inline-flex;align-items:center;gap:2px;padding:3px 4px 3px 5px;border:1px solid var(--filete-forte);border-radius:999px;
-  background:rgba(255,255,255,.6);font-size:12.5px;white-space:nowrap;flex-shrink:0}
-.pecas a{color:var(--tinta);font-weight:600;text-decoration:none;padding:4px 8px;border-radius:999px;transition:background .15s}
-.pecas a:hover{background:#fff;text-decoration:underline;text-underline-offset:3px}
-.pecas a[data-painel="revisao"]{text-decoration:underline dashed var(--risco);text-underline-offset:4px}
-/* até 1440px a pílula perde a segunda marca e encolhe: as seis abas continuam numa linha só, como antes da triangulação */
-@media (max-width:1440px){.pecas{padding:3px}.pecas .irma-mark{display:none}.pecas a{padding:4px 7px;font-size:12px}}
-.irma-mark{width:24px;height:24px;border-radius:5px;background:var(--ouro);color:var(--tinta);font-family:var(--serif);font-weight:700;
-  font-size:10px;display:flex;align-items:center;justify-content:center}
-@media (max-width:1360px){.f-camada{padding:5px 9px;letter-spacing:.12em;font-size:11px}.f-camada small{margin-right:4px}}
+.f-camada.on i{background:#E8C66A;color:var(--tinta)}
+/* a primeira área vem depois de um fio: separa o panorama das áreas */
+.nav-quebra+.f-camada{margin-left:10px}
+.f-camada.area+.f-camada:not(.area){margin-left:10px}
+.nav-links.duas .nav-quebra+.f-camada{margin-left:0}
+@media (max-width:1360px){.f-camada{padding:5px 9px;letter-spacing:.12em;font-size:11px}}
 
 /* ---- palco: a altura exata da tela ---- */
 .palco{display:flex;flex-direction:column;padding:10px 24px 6px;max-width:1800px;margin:0 auto}
+/* o alto do palco: a pergunta e a manchete; nas abas 3ª e 4ª, à direita, o botão que abre a outra peça */
+/* o botão fica na primeira linha, à direita da pergunta: a manchete tem a largura toda, e não quebra por causa dele */
+.topo{flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;align-items:center}
+.topo-txt{display:contents}
+.topo .pergunta{grid-column:1;grid-row:1}
+.topo .manchete{grid-column:1/-1;grid-row:2}
+.topo .pd-abre{grid-column:2;grid-row:1;margin:0 0 4px;padding:4px 15px;font-size:13px}
+.pd-abre[hidden]{display:none}
 .pergunta{flex:0 0 auto;margin:0 0 4px;font-family:var(--serif);font-style:italic;font-size:14.5px;font-weight:400;color:var(--cinza-escuro)}
 .pergunta b{font-family:var(--font);font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta);margin-right:4px}
 .manchete{flex:0 0 auto;margin:0 0 8px;font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.3;color:var(--tinta);max-width:120ch}
@@ -73,7 +81,7 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .vista{display:none;height:100%}
 .vista.on{display:grid}
 .v-dupla.on{grid-template-columns:minmax(0,1fr) minmax(300px,30%);gap:30px}
-/* na 02 em foco, a leitura é a mais longa da peça: ganha mais largura, e a curva cabe no resto */
+/* na 02 em foco, a leitura é a mais longa da peça: ganha mais largura, e o desenho cabe no resto */
 #v-sistema.on:not(.cheia){grid-template-columns:minmax(0,1fr) minmax(320px,40%)}
 #leitura-sis .bloco{padding-bottom:9px;margin-bottom:9px}
 /* a leitura mais longa: no desktop, os rótulos pequenos em 11,5px deixam o zoom descer um pouco mais sem passar dos 10px */
@@ -113,7 +121,7 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .v-dupla:not(.cheia) .tempos button{align-items:center;padding:5px 12px}
 .v-dupla:not(.cheia) .tempos button small{display:none}
 /* o par não estica: os dois desenhos ficam na altura que pedem, e o conjunto se centra na vertical */
-.duo{flex:0 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 128px minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:12px}
+.duo{flex:0 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 166px minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:12px}
 .duo svg{width:100%;height:100%;min-height:0;display:block;cursor:pointer;border-radius:9px}
 .duo svg:hover{background:#fff}
 /* no HTML a dobradiça vem depois dos dois desenhos (a ordem da leitura e do Tab); no desktop ela fica entre eles */
@@ -123,6 +131,10 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .dobradica{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
 .dobradica p{margin:0}
 .db-rot{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta)}
+/* o símbolo da dobradiça: o losango da porta da maestria, a segurança entre o modelo e o paciente */
+.duo svg.db-losango,svg.db-losango{flex:none;display:block;width:40px;height:40px;min-width:0;cursor:default}
+.duo svg.db-losango:hover{background:none}
+.db-losango path{fill:var(--ouro);stroke:var(--tinta);stroke-width:2.4;stroke-linejoin:round}
 .db-lado{font-size:11.5px;line-height:1.25;color:var(--cinza-escuro)}
 .db-lado b{display:block;font-family:var(--serif);font-size:17px;font-weight:600}
 .db-hoje b{color:var(--risco)} .db-com b{color:var(--ouro-texto)}
@@ -139,7 +151,7 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 .dobradica .l-elo{text-align:center;font-size:13px;line-height:1.3;margin-top:6px;padding-top:8px;border-top:1px solid var(--filete)}
 .volta-duo{flex:none;display:block;cursor:pointer;background:none;border:none;padding:0;margin:0;font-family:var(--font);font-size:13px;color:var(--primary);white-space:nowrap}
 .volta-duo:hover{text-decoration:underline}
-/* a nota de pé da curva em foco, em texto da página (no desenho ela ficava pequena demais) */
+/* a nota de pé do desenho em foco, em texto da página (no desenho ela ficava pequena demais) */
 .nota-curva{flex:0 0 auto;margin:6px 0 0;font-size:12px;font-style:italic;line-height:1.35;color:var(--cinza)}
 .leitura,.painel{min-height:0;height:100%;overflow:hidden}
 .leitura{border-left:1px solid var(--filete);padding-left:24px}
@@ -224,34 +236,53 @@ nav.barra{position:sticky;top:0;z-index:50;min-height:var(--header);display:flex
 svg text{font-family:var(--font)}
 .clicavel{cursor:pointer}
 
-/* ---- 02 · a curva, nos dois olhares: a mesma moldura (duas zonas, os eixos, uma linha vertical) e uma linha em três
-   trechos clicáveis, com o nome em serifa. --k é a cor do trecho, --kt a cor do nome ---- */
+/* ---- 02 · o método, nos dois olhares (05/11/2026): a mesma moldura (duas zonas e a linha da porta), as operações do
+   método como bandas clicáveis, com o nome em serifa e o verbo, e a régua da segurança, onde o erro acontece.
+   --k é a cor da banda, --kf o fundo dela, --kt a cor do nome ---- */
 .zona-modelo{fill:var(--ouro-claro);opacity:.55}
 .zona-paciente{fill:var(--risco-claro);opacity:.55}
 .zr{font-size:14px;font-weight:700;letter-spacing:.14em}
 .zr-modelo{fill:var(--ouro-texto)} .zr-paciente{fill:var(--risco)}
-.eixo{stroke:var(--cinza-escuro);stroke-width:1}
-.eixo-rot{font-size:14px;fill:var(--cinza);font-style:italic}
 .criterio-l{stroke:var(--tinta);stroke-width:1.6;stroke-dasharray:5 4}
 /* o rótulo do critério tem um halo da cor do papel, para a linha tracejada não cortar as letras */
 .criterio-rot{font-size:14px;font-weight:600;fill:var(--tinta);paint-order:stroke;stroke:var(--papel);stroke-width:5px;stroke-linejoin:round}
-.kh{--k:var(--cinza-escuro);--kt:var(--cinza-escuro)}
-.p-seg .hit{fill:none;stroke:transparent;stroke-width:26;pointer-events:stroke}
-.p-seg .tr{fill:none;stroke:var(--k);stroke-width:6;stroke-linecap:round;transition:stroke-width .15s}
-.p-seg.hipotese .tr{stroke-dasharray:12 8}
-.p-seg:hover .tr,.p-seg:focus-visible .tr{stroke-width:8}
-.p-seg.on .tr{stroke-width:9}
+.kh{--k:var(--cinza-escuro);--kf:var(--papel-2);--kt:var(--cinza-escuro)}
+.p-seg:focus-visible{outline:none}
+/* a banda: uma operação do método. Tracejada, a que ainda é hipótese (o P³, no paciente) */
+.banda .bd{fill:var(--kf);stroke:var(--k);stroke-width:2;transition:fill .15s,stroke-width .15s}
+.banda.hipotese .bd{fill:#fff;fill-opacity:.6;stroke-dasharray:10 7}
+.banda:hover .bd,.banda:focus-visible .bd{fill:#fff;fill-opacity:1;stroke-width:3}
+.banda.on .bd{stroke-width:4.5}
 .p-rot{font-family:var(--serif);font-weight:600;font-size:27px;fill:var(--kt)}
-.p-rot-nome{font-size:17px}
+.p-rot-nome{font-size:17px;fill:var(--tinta)}
 .p-seg.on .p-rot{text-decoration:underline}
-/* hoje, no modelo: nada (plana, cinza, tracejada) */
-.t-nada{fill:none;stroke:var(--filete-forte);stroke-width:3;stroke-dasharray:7 6}
+.b-verbo{font-family:var(--serif);font-style:italic;font-size:19px;fill:var(--tinta)}
+.b-det{font-size:14px;fill:var(--cinza-escuro)}
+.b-seta{fill:var(--cinza)}
+/* hoje, no modelo: nada (a caixa vazia, tracejada) */
+.bd-nada{fill:none;stroke:var(--filete-forte);stroke-width:2;stroke-dasharray:7 6}
 .nada-rot{font-family:var(--serif);font-style:italic;font-size:17px;fill:var(--cinza)}
-/* no comparativo, cada desenho fica com metade da largura: textos maiores, e a unidade das zonas sai (a dobradiça diz) */
+/* a porta: o losango do critério de maestria, o mesmo da dobradiça */
+.porta-g .bd{fill:var(--ouro);stroke:var(--tinta);stroke-width:2.4;stroke-linejoin:round;transition:stroke-width .15s}
+.porta-g:hover .bd,.porta-g:focus-visible .bd,.porta-g.on .bd{stroke-width:4.5}
+/* a régua da segurança: o trilho, as marcas de erro (ouro no modelo, vermelho no paciente) e, tracejado, o que falta provar */
+.regua-rot{font-size:12px;font-weight:700;letter-spacing:.14em;fill:var(--tinta)}
+.regua-trilho{fill:#fff;fill-opacity:.62;stroke:var(--filete-forte);stroke-width:1}
+/* os erros, na régua: pontos que diminuem e clareiam até sumir (a opacidade vem do desenho) */
+.erro-p.em-modelo{fill:var(--ouro)} .erro-p.em-paciente{fill:var(--risco)}
+.regua-leg{font-size:13px;font-weight:600}
+.regua-leg.em-modelo{fill:var(--ouro-texto)} .regua-leg.em-paciente{fill:var(--risco)}
+.prova-g .bd{fill:#fff;fill-opacity:.5;stroke:var(--risco);stroke-width:1.6;stroke-dasharray:8 6;transition:fill-opacity .15s,stroke-width .15s}
+.prova-g:hover .bd,.prova-g:focus-visible .bd{fill-opacity:.95}
+.prova-g.on .bd{stroke-width:3.2}
+.b-prova{font-family:var(--serif);font-style:italic;font-size:15px;fill:var(--risco)}
+.prova-g.on .b-prova{text-decoration:underline}
+.plato-l{stroke:var(--cinza-escuro);stroke-width:2.6;stroke-linecap:round}
+/* no comparativo, cada desenho fica com metade da largura: textos maiores, e o detalhe das bandas fica para o olhar em foco */
 @media (min-width:1181px){
-  .duo .p-rot{font-size:29px} .duo .p-rot-nome{font-size:19px} .duo .nada-rot{font-size:21px}
-  .duo .zr{font-size:19px} .duo .criterio-rot{font-size:19px} .duo .eixo-rot{font-size:19px}
-  .duo .zr-un{display:none}
+  .duo .p-rot{font-size:31px} .duo .p-rot-nome{font-size:20px} .duo .b-verbo{font-size:23px} .duo .nada-rot{font-size:22px}
+  .duo .zr{font-size:19px} .duo .criterio-rot{font-size:19px} .duo .regua-rot{font-size:17px} .duo .regua-leg{font-size:19px}
+  .duo .b-prova{font-size:21px}
 }
 
 /* ---- os 3Ps: a abertura e os selos nas camadas ---- */
@@ -262,7 +293,7 @@ svg text{font-family:var(--font)}
 #ps .dg-sig{font-family:var(--serif);font-size:34px;font-weight:600;fill:var(--kt)}
 #ps .dg-nome{font-family:var(--serif);font-size:21px;font-weight:600;fill:var(--tinta)}
 #ps .dg-frase{font-size:13px;font-style:italic;fill:var(--cinza-escuro)}
-#ps .porta{fill:var(--papel);stroke:var(--tinta);stroke-width:2.4}
+#ps .ps-coluna{fill:var(--papel);stroke:var(--tinta);stroke-width:2.4}
 #ps .porta-diamante{fill:var(--ouro)}
 #ps .lado-rot{font-size:12.5px;font-weight:700;letter-spacing:.14em;fill:var(--cinza)}
 #ps .lado-rot.pac{fill:var(--risco)} #ps .lado-rot.porta-rot{fill:var(--tinta)}
@@ -286,7 +317,7 @@ svg text{font-family:var(--font)}
 .p-est button:hover{border-color:var(--tinta)}
 .p-volta{background:none;border:none;font:inherit;font-size:12.5px;color:var(--primary);cursor:pointer;padding:0;margin-bottom:6px}
 .leg-l{stroke-width:2.6;fill:none}
-/* o bloco dos 3Ps na leitura da 02 só aparece quando a página empilha: no desktop, os trechos da curva são esses botões */
+/* o bloco dos 3Ps na leitura da 02 só aparece quando a página empilha: no desktop, as bandas do desenho são esses botões */
 @media (min-width:1181px){.so-empilhado{display:none}}
 
 /* ---- 2 · ecossistema, no molde do HDB: três colunas, o curso como centro, as linhas fracas e só as que cruzam a borda ---- */
@@ -385,124 +416,203 @@ svg text{font-family:var(--font)}
 .chips .tag{font-size:11px;padding:0 6px}
 
 /* ---- 04 · jornadas: a legenda de leitura e o elo, no pé do blueprint ---- */
+/* no alto da operação, a trava da área: o estudo de validação, que vem antes do curso */
+.bp-topo{margin:0 0 8px;padding:5px 12px;border-left:4px solid var(--risco);border-radius:0 6px 6px 0;background:#fff;font-size:13px;line-height:1.4;color:var(--tinta)}
 .bp-pe{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:12px;font-style:italic;color:var(--cinza)}
 .bp-pe .l-elo{display:inline;width:auto;padding:0;margin-left:auto;white-space:nowrap}
 
-/* ---- 05 · direção: a conclusão, as três definições e o modelo de negócio (02/11/2026; molde: o HDB e a Longevidade) ----
-   À esquerda, pouco e grande: a conclusão em serifa, as três definições numeradas, uma linha sobre o que trava primeiro, o quadro.
-   À direita, um cartão com ar: o pedido à instituição na cor do bloco, o que temos e o que falta definir, o que já sabemos e o que falta. */
-.v-direcao.on{display:flex;flex-direction:column}
-/* os dois modos da Direção (04/11/2026): dois cartões, um sobre cada lado, no gesto dos dois olhares da 02. A aba abre com
-   os dois lado a lado; um clique num cartão ou num lado o põe em foco, e a volta ao par vem antes dos cartões */
-.modos{flex:0 0 auto;display:flex;align-items:center;gap:6px 14px;padding:0 0 8px}
-.modos-par{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.modos-par button{cursor:pointer;text-align:left;background:#fff;border:1px solid var(--filete-forte);border-left:4px solid var(--filete-forte);border-radius:9px;
-  padding:5px 12px 6px;display:flex;flex-direction:column;gap:1px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta);
-  transition:background .15s,border-color .15s}
-.modos-par button small{font-family:var(--serif);font-style:italic;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--cinza-escuro)}
-/* lado a lado, cada cartão explica o seu lado (texto corrido, em serifa); com um lado em foco, só o nome e o subtítulo curto */
-.modos-par button .so-par{font-style:normal;font-size:13.5px;line-height:1.4;margin-top:2px}
-.v-direcao[data-modo="duo"] .modos-par .so-foco,.v-direcao:not([data-modo="duo"]) .modos-par .so-par{display:none}
-.modos-par button:hover{border-color:var(--cinza)}
-.modos-par button.on{background:var(--papel-2);border-color:var(--tinta)}
-/* a faixa da esquerda tem sentido fixo: vermelho na lei dos mínimos (a restrição), tinta no modelo de negócio */
-.modos-par button[data-modo="gargalo"]{border-left-color:var(--risco)}
-.modos-par button[data-modo="modelo"]{border-left-color:var(--tinta)}
-.v-gargalo{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,46%);grid-template-rows:minmax(0,1fr);gap:26px}
-#direcao{flex:1 1 auto}
-.v-direcao[data-modo="modelo"] .v-gargalo{display:none}
-.v-direcao[data-modo="gargalo"] #direcao{display:none}
-/* o par, lado a lado (o modo que abre): à esquerda o barril, só o desenho; à direita a conclusão e o quadro do modelo, sem
-   os cartões. Um clique num lado o põe em foco. O botão de volta só aparece com um lado em foco */
-.v-direcao.on[data-modo="duo"]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:0 26px}
-.v-direcao[data-modo="duo"] .modos{grid-column:1/-1}
-.v-direcao[data-modo="duo"] .v-gargalo{display:block;min-height:0;cursor:pointer}
-.v-direcao[data-modo="duo"] #leitura-gar{display:none}
-.v-direcao[data-modo="duo"] #direcao{display:flex;align-items:center;min-height:0;cursor:pointer}
-/* à direita, só o desenho do modelo: sem a conclusão, as definições, o rótulo e os cartões */
-.v-direcao[data-modo="duo"] .pv-cards,.v-direcao[data-modo="duo"] .bmc-col .l-elo,.v-direcao[data-modo="duo"] .dc-conc,.v-direcao[data-modo="duo"] .bmc-col>.rotulo{display:none}
-.v-direcao[data-modo="duo"] #direcao>.ajusta{width:100%}
-.v-direcao[data-modo="duo"] .bmc-dir{grid-template-columns:minmax(0,1fr)}
-.v-direcao[data-modo="duo"] .modos .volta-duo{display:none}
-.modos .volta-duo{margin-right:6px}
-/* o barril ilustrado (04/11/2026): tábuas de cores claras, cada uma com a face de cima e a sombra do lado; a restrição de
-   hoje em vermelho; a água com gradiente e a legenda do que o curso entrega hoje; o aro de metal; o nome na vertical dentro
-   de cada tábua; a tábua escolhida (ou sob o mouse) ganha o contorno dourado */
-.bar-face,.bar-lado,.bar-tampo{stroke:#5E4D38;stroke-width:1;stroke-linejoin:round}
-.bar-face.c-aberto{stroke-dasharray:5 3}
-.aduela:hover .bar-face,.aduela.on .bar-face{stroke:var(--ouro);stroke-width:3}
-.aduela:focus-visible{outline:none}
-.aduela:focus-visible .bar-face{stroke:var(--ouro);stroke-width:3}
-.bar-aro-flat{stroke:#8E8878;stroke-width:1}
-.bar-aro{fill:none;stroke:var(--tinta);stroke-width:12;stroke-linecap:round;opacity:.9}
-.bar-agua{opacity:.95}
-.bar-agua-sup{stroke:#5E93C4;stroke-width:1}
-.bar-brilho{fill:#fff;opacity:.55}
-.bar-agua-linha{stroke:var(--tinta);stroke-width:1.2;stroke-dasharray:6 4}
-.bar-jorro{fill:none;stroke:#9EC4E6;stroke-width:9;stroke-linecap:round;opacity:.9}
-.bar-poca{fill:#B4D4EE;stroke:#5E93C4;stroke-width:1;opacity:.9}
-.bar-num{fill:var(--tinta)}
-.aduela.restricao .bar-num{fill:var(--risco)}
-.bar-num-t{fill:var(--papel);font-size:14.5px;font-weight:700}
-.bar-nome{font-size:15px;font-weight:700;letter-spacing:0;fill:var(--tinta)}
-.bar-nome-tras{font-size:15px;font-weight:700;letter-spacing:.02em;fill:var(--tinta)}
-.bar-chamada{stroke:var(--cinza-escuro);stroke-width:1.2}
-.aduela.restricao .bar-nome{fill:#5A1A12}
-.bar-rot{font-size:14px;font-weight:600;fill:var(--tinta)}
-.aduela.restricao .bar-rot{fill:var(--risco)}
-.bar-nivel{font-size:13px;font-style:italic;fill:var(--cinza-escuro)}
-.bar-dica{font-size:13px;font-style:italic;fill:var(--cinza)}
-/* a leitura do barril, didática: o cartão da tábua em foco (a restrição de hoje em vermelho), com rótulos em palavras
-   comuns; a ordem das restrições, cada uma com o que destrava; e o que já está de pé */
-.g-cartao{padding:10px 14px 11px;border:1px solid var(--filete);border-left:4px solid var(--tinta);border-radius:0 8px 8px 0;background:#fff}
-.g-cartao.restricao{border-left-color:var(--risco)}
-.g-cartao .rotulo{margin-bottom:5px}
-.g-cartao h3{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.2;color:var(--tinta);margin:0 0 7px}
-.g-cartao.restricao h3{color:var(--risco)}
-.g-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--papel);
-  font-family:var(--font);font-style:normal;font-size:12px;font-weight:700}
-.g-cartao.restricao .g-num{background:var(--risco)}
+/* ---- as abas 3ª e 4ª: a outra peça do site por dentro (06/11/2026; antes, só a porta). Um molde para as duas: os passos
+   da peça em botões, o palco (a tela da estação, ou a conta do passo) e a leitura ao lado; no pé, o que é da área, a
+   porta e o elo. Os palcos e as leituras ficam todos na mesma célula, para a escala não mudar de um passo para outro ---- */
+.pd{display:flex;flex-direction:column;gap:12px}
+.pd-passos{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px}
+.pd-passo{cursor:pointer;display:inline-flex;align-items:center;gap:7px;padding:5px 15px;border-radius:999px;border:1px solid var(--filete-forte);background:#fff;
+  font:inherit;font-size:14px;font-weight:600;line-height:1.35;color:var(--tinta);transition:background .15s,border-color .15s}
+.pd-passo:hover{border-color:var(--tinta)}
+.pd-passo.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.pd-passo small{font-family:var(--serif);font-size:13px;font-weight:600;color:var(--ouro-texto)}
+.pd-passo.on small{color:#E8C66A}
+.pd-seta{font-size:15px;line-height:1;color:var(--cinza)}
+.pd-los{flex:none;display:inline-block;width:11px;height:11px;margin:0 5px;background:var(--ouro);border:2px solid var(--tinta);transform:rotate(45deg)}
+.pd-corpo{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,1fr);gap:28px;align-items:stretch}
+/* com a moldura da plataforma no palco, a coluna dele fica do tamanho dela, e a leitura com o resto: sem vão entre as duas */
+.pd-corpo.tela{grid-template-columns:auto minmax(320px,1fr)}
+.pd-palcos,.pd-leituras{display:grid;min-width:0}
+.pd-palco,.pd-leitura{grid-area:1/1;min-width:0;visibility:hidden}
+.pd-palco.on,.pd-leitura.on{visibility:visible}
+/* o palco do quem e do quanto: a própria peça, numa moldura, aberta no passo escolhido (em moldura, a plataforma esconde
+   o cabeçalho, a faixa dos 3Ps e o rodapé, e o painel do caso econômico esconde a barra). A página é desenhada com 760 px de largura e reduzida para caber: fica pequena, e a
+   leitura ao lado diz o essencial. Rola por dentro, como janela que é */
+.pd-moldura{width:566px;height:330px;overflow:hidden;border:1px solid var(--filete-forte);border-radius:10px;background:#fff;box-shadow:0 8px 22px rgba(12,50,90,.10)}
+.pd-moldura iframe{display:block;width:760px;height:443px;border:0;transform:scale(.745);transform-origin:0 0}
+/* a leitura do passo */
+.pd-leitura{display:flex;flex-direction:column;gap:5px;padding:14px 20px 16px;border-radius:12px;background:#fff;border:1px solid var(--filete);border-top:6px solid var(--k,var(--tinta))}
+.pd-olho{display:flex;align-items:center;gap:8px;margin:0;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+.pd-olho .selo-p{letter-spacing:0;text-transform:none}
+.pd-tit{margin:0 0 2px;font-family:var(--serif);font-size:23px;font-weight:600;line-height:1.2;color:var(--tinta)}
+.pd-leitura .rotulo{margin:9px 0 0}
+.pd-txt{margin:0;font-size:15px;line-height:1.45;color:var(--texto)}
+.pd-aberto{margin:0;font-size:15px;line-height:1.45;color:var(--risco)}
+.pd-formula{margin:0;padding:7px 12px;border-radius:8px;background:var(--papel-2);font-family:var(--serif);font-size:16px;line-height:1.4;color:var(--tinta)}
+/* o pé: o que é da área e o elo */
+.pd-pe{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px}
+.pd-compra{display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px}
+.pd-compra .rotulo{margin:0}
+.pd-compra .pc-pontos li{font-size:14px}
+.pd-nota{margin:0;font-size:13px;line-height:1.4;color:var(--cinza-escuro)}
+.pd-abre{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:600;line-height:1.3;color:#fff;background:var(--tinta);
+  border:1px solid var(--tinta);border-radius:999px;padding:7px 18px;transition:background .15s}
+.pd-abre:hover{background:var(--primary)}
+/* com o painel fora do ar, o publicador marca o link dele com data-painel="revisao" e a dica "em revisão" */
+a[data-painel="revisao"]{background:none;color:var(--tinta);border:1px dashed var(--risco)}
+.pd-pe .l-elo{width:auto;margin-left:auto;padding:0}
+
+/* ---- síntese: o BMC macro, com as travas de cada área (05/11/2026; antes, a Direção em dois modos, com o barril) ----
+   À esquerda, pouco e grande: a conclusão em serifa, a âncora e o modelo de negócio em quatro caixas, cada uma com as suas travas.
+   À direita, um cartão com ar: o da área (as fichas das travas, o que já está de pé, os blocos) e, um clique abaixo, o de cada bloco. */
+.v-direcao.on{display:block}
+/* ---- a âncora: por que as áreas vêm nesta ordem. O quadro é o da Síntese (como, o que e quem em cima; quanto embaixo, com
+   as mesmas cores e os mesmos números): aqui, antes, com o que cada área vira e do que depende; lá, no fim, com as travas.
+   No alto, a âncora, com o fio que desce até a área 1; entre as áreas, as setas da ordem ---- */
+.v-ancora.on{display:block}
+.anc{display:flex;flex-direction:column;gap:12px}
+.anc-topo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px;align-items:center}
+.anc-marca{position:relative;justify-self:start;display:grid;grid-template-columns:auto auto;gap:0 14px;align-items:center;margin:0;padding:6px 18px 7px 14px;
+  border:2px solid var(--ouro);border-radius:10px;background:var(--ouro-claro)}
+.anc-los{grid-row:1/3;width:22px;height:22px;margin:0 6px;background:var(--ouro);border:2.5px solid var(--tinta);transform:rotate(45deg)}
+.anc-marca span{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro-texto);line-height:1.3}
+.anc-marca b{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.1;color:var(--tinta)}
+.anc-marca small{font-size:12px;line-height:1.3;color:var(--cinza-escuro)}
+/* os dois porquês da âncora, lado a lado: por que é ela, e por que pousa na área 1 */
+.anc-pqs{grid-column:2/4;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;align-items:start}
+/* um porquê: o rótulo em caixa alta e a frase. No alto, em serifa; nas áreas, no corpo do texto */
+.anc-razao{display:block;margin:0;font-size:14px;line-height:1.4;color:var(--texto)}
+.anc-razao small{display:block;margin-bottom:1px;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;line-height:1.35;color:var(--cinza)}
+.anc-pqs .anc-razao{font-family:var(--serif);font-size:17px;line-height:1.35;color:var(--tinta)}
+.anc-pqs .anc-razao small{margin-bottom:3px}
+.anc-quadro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 36px}
+.anc-area{position:relative;min-width:0;display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer;font:inherit;color:var(--tinta);padding:10px 16px 11px;
+  border-radius:10px;border:1px solid var(--filete);border-top:6px solid var(--pv);background:color-mix(in srgb,var(--pv) 13%,#fff);transition:background .15s,border-color .15s}
+.anc-area:hover{border-color:var(--filete-forte);border-top-color:var(--pv);background:color-mix(in srgb,var(--pv) 21%,#fff)}
+.anc-a,.anc-m,.anc-b{display:flex;flex-direction:column;gap:4px;min-width:0}
+/* as três camadas de uma área: o que ela vira; os dois porquês (a posição e o entregável); os blocos e a porta */
+.anc-m{gap:7px;padding-top:8px;border-top:1px solid var(--filete-forte)}
+.anc-b{flex:1 1 auto;padding-top:8px;border-top:1px solid var(--filete-forte)}
+.anc-cab{display:flex;align-items:center;gap:9px;margin-bottom:3px}
+.anc-cab i{flex:none;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--tinta);color:var(--papel);
+  font-style:normal;font-size:15px;font-weight:700}
+.anc-area:first-child .anc-cab i{background:var(--ouro-texto)}
+.anc-cab b{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.1}
+.anc-cab em{margin-left:auto;font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-escuro)}
+.anc-vira{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.25}
+.anc-pq{font-size:15px;line-height:1.35;color:var(--cinza-escuro)}
+.anc-blocos{font-size:14px;line-height:1.4}
+.anc-blocos span{white-space:nowrap}
+.anc-blocos small{display:block;margin-bottom:1px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+.anc-abre{margin-top:auto;padding-top:4px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--primary)}
+.anc-area:hover .anc-abre{color:var(--ouro-texto)}
+/* a área de baixo (quanto) é larga: as três camadas viram colunas, com os dois porquês lado a lado no meio */
+.anc-area[data-a="quanto"]{flex-direction:row;align-items:stretch;gap:28px}
+.anc-area[data-a="quanto"] .anc-a,.anc-area[data-a="quanto"] .anc-b{flex:1 1 0}
+.anc-area[data-a="quanto"] .anc-m{flex:2.2 1 0;flex-direction:row;gap:28px}
+.anc-area[data-a="quanto"] .anc-m .anc-razao{flex:1 1 0;min-width:0}
+.anc-area[data-a="quanto"] .anc-m,.anc-area[data-a="quanto"] .anc-b{padding-top:0;padding-left:18px;border-top:0;border-left:1px solid var(--filete-forte)}
+/* o fio da âncora desce até a área 1, e as setas levam de uma área à seguinte: 1 → 2 → 3, e de 3 desce para a 4 */
+.anc.fluxo .anc-marca::after{content:"";position:absolute;left:28px;top:100%;margin-top:2px;width:3px;height:12px;background:var(--ouro)}
+.anc.fluxo .anc-area[data-a="oque"]::before,.anc.fluxo .anc-area[data-a="quem"]::before{content:"→";position:absolute;left:-29px;top:50%;transform:translateY(-50%);
+  font-size:22px;line-height:1;color:var(--cinza-escuro)}
+.anc.fluxo .anc-area[data-a="quanto"]::before{content:"↓";position:absolute;right:calc((100% - 72px)/6 - 8px);top:-28px;font-size:22px;line-height:1;color:var(--cinza-escuro)}
+/* o pé: a legenda do número, a síntese (onde o mesmo quadro traz as travas) e o elo da aba */
+.anc-pe{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 28px}
+.anc-leg{display:inline-flex;align-items:center;gap:6px;margin:0;font-size:12.5px;line-height:1.35;color:var(--cinza-escuro)}
+.anc-leg i{flex:none}
+.anc-leg i{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:var(--tinta);color:var(--papel);font-style:normal;font-size:10.5px;font-weight:700}
+.anc-sint{cursor:pointer;background:none;border:0;padding:0;font:inherit;font-size:13.5px;color:var(--primary);text-decoration:underline dotted;text-underline-offset:3px;text-align:left}
+.anc-sint:hover{text-decoration-style:solid}
+.anc-pe .l-elo{width:auto;margin-left:auto;padding:0}
+.bmc-dir{display:grid;grid-template-columns:440px minmax(0,1fr);gap:26px;align-items:stretch}
+.bmc-col{display:flex;flex-direction:column;gap:10px}
+.bmc-col .l-elo{padding-top:0}
+.dc-conc{padding:0 0 2px}
+.dc-frase{font-family:var(--serif);font-size:19px;line-height:1.3;color:var(--tinta);margin:0}
+.pc-resp{font-weight:700;color:var(--tinta);letter-spacing:.08em}
+/* a âncora, sobre a área 1 */
+.cad-anc{display:flex;align-items:center;gap:6px;margin-bottom:-4px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro-texto)}
+.cad-anc i{width:10px;height:10px;margin:0 3px;background:var(--ouro);border:2px solid var(--tinta);transform:rotate(45deg)}
+.cad-anc b{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--tinta)}
+/* o quadro: como, o que e quem em cima, quanto embaixo. Cada caixa é um botão, com o número da ordem e as travas da área */
+.bmc-macro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.bm-area{position:relative;min-width:0;display:flex;flex-direction:column;gap:7px;text-align:left;cursor:pointer;padding:8px 8px 9px;border-radius:8px;
+  background:color-mix(in srgb,var(--pv) 13%,#fff);border:1px solid var(--filete);border-top:4px solid var(--pv);color:var(--tinta);transition:background .15s,border-color .15s}
+.bm-area:hover{border-color:var(--filete-forte);border-top-color:var(--pv);background:color-mix(in srgb,var(--pv) 21%,#fff)}
+.bm-area.on{background:color-mix(in srgb,var(--pv) 30%,#fff);border-color:var(--tinta);border-top-color:var(--tinta);box-shadow:0 0 0 2px rgba(12,50,90,.14)}
+.bm-cab{display:flex;align-items:center;gap:7px}
+.bm-cab i{flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--papel);
+  font-style:normal;font-size:12.5px;font-weight:700}
+.bm-area:first-child .bm-cab i{background:var(--ouro-texto)}
+.bm-cab b{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.1}
+.bm-travas{display:flex;flex-direction:column;gap:6px}
+/* a caixa de baixo (quanto) é larga: as travas ficam lado a lado */
+.bm-area[data-sx="quanto"]{flex-direction:row;align-items:center;gap:14px}
+.bm-area[data-sx="quanto"] .bm-travas{flex:1 1 auto;flex-direction:row;flex-wrap:wrap;gap:6px 14px}
+.bm-area[data-sx="quanto"] .bm-tr{flex:0 1 190px}
+.bm-tr{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 6px;align-items:center;padding:4px 6px 5px;border-radius:6px;background:rgba(255,255,255,.72);
+  border:1px solid var(--filete)}
+/* o número da trava: o da área e a ordem dentro dela (1.1), numa pílula */
+.bm-tr i{display:flex;align-items:center;justify-content:center;min-width:25px;height:17px;padding:0 5px;border-radius:9px;background:var(--tinta);color:var(--papel);
+  font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.02em}
+.bm-nome{font-size:12.5px;font-weight:600;line-height:1.2;min-width:0}
+.bm-tr .bm-nivel{grid-column:1/-1}
+.bm-tr.hoje{border-color:var(--risco)} .bm-tr.hoje i{background:var(--risco)} .bm-tr.hoje .bm-nome{color:var(--risco)}
+.bm-sem{font-size:12.5px;font-style:italic;color:var(--cinza)}
+/* a barra de quanto a trava está resolvida */
+.bm-nivel{display:block;height:4px;border-radius:2px;background:var(--filete);overflow:hidden}
+.bm-nivel u{display:block;height:100%;background:var(--tinta);text-decoration:none}
+.hoje .bm-nivel u{background:var(--risco)}
+/* o portão: depois da área da restrição de hoje, duas barras na borda da caixa */
+.bm-area.portao::after{content:"";position:absolute;right:-7px;top:22%;bottom:22%;width:6px;border-left:2px solid var(--risco);border-right:2px solid var(--risco);
+  background:var(--papel);z-index:1}
+.bmc-leg{display:flex;align-items:center;flex-wrap:wrap;gap:3px 14px;font-size:12px;line-height:1.3;color:var(--cinza-escuro)}
+.bmc-leg span{display:inline-flex;align-items:center;gap:5px}
+.bmc-leg i{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--tinta);color:var(--papel);font-style:normal;font-size:10.5px;font-weight:700}
+.bmc-leg i.leg-tr{width:auto;min-width:24px;padding:0 5px;border-radius:8px;letter-spacing:.02em}
+.bmc-leg .bm-nivel{flex:none;width:26px}
+.cad-barras{flex:none;display:inline-block;width:6px;height:13px;border-left:2px solid var(--risco);border-right:2px solid var(--risco)}
+/* no cartão: a área (no do bloco, é o botão que volta para a área) */
+.pc-area{display:inline-flex;align-items:center;gap:7px;margin-right:4px;padding:0 12px 0 0;border:0;border-right:1px solid var(--filete-forte);background:none;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--tinta)}
+.pc-area i{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--tinta);color:var(--papel);font-style:normal;font-size:11px;font-weight:700;letter-spacing:0}
+.pc-area b{font-weight:700}
+/* no cartão da área, a área vai sozinha na linha: sem o filete que a separava da frase que saiu */
+.pv-area .pc-area{padding-right:0;border-right:0}
+.pc-volta{cursor:pointer}
+.pc-volta:hover b{text-decoration:underline;text-underline-offset:3px}
+/* as fichas das travas, no cartão da área: uma aberta por vez; a restrição de hoje em vermelho */
+.sx-travas{list-style:none;display:flex;flex-direction:column;gap:6px}
+.sx-trava{border:1px solid var(--filete);border-left:4px solid var(--tinta);border-radius:0 8px 8px 0;background:#fff}
+.sx-trava.hoje{border-left-color:var(--risco)}
+.sx-tr{display:grid;grid-template-columns:auto auto auto minmax(60px,1fr);gap:0 10px;align-items:center;width:100%;text-align:left;cursor:pointer;background:none;border:0;
+  padding:7px 14px 7px 12px;color:var(--tinta)}
+.sx-tr i{display:flex;align-items:center;justify-content:center;min-width:32px;height:22px;padding:0 7px;border-radius:11px;background:var(--tinta);color:var(--papel);font-style:normal;font-size:12px;font-weight:700;letter-spacing:.02em}
+.sx-trava.hoje .sx-tr i{background:var(--risco)}
+.sx-nome{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.2}
+.sx-trava.hoje .sx-nome{color:var(--risco)}
+.sx-hoje{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--risco);border:1px dashed var(--risco);border-radius:3px;padding:0 6px;line-height:1.7;white-space:nowrap}
+.sx-tr .bm-nivel{grid-column:4;justify-self:end;width:100%;max-width:150px}
+.sx-tr:hover .sx-nome{text-decoration:underline;text-underline-offset:3px}
 .g-dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:14.5px;line-height:1.38;color:var(--texto)}
 .g-dl dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);padding-top:3px;white-space:nowrap}
 .g-dl dd{margin:0}
-.g-cartao .g-ver{padding:5px 0 0;font-size:13.5px}
-/* as sete em duas colunas, lidas em linha: cabem numa tela baixa sem encolher a leitura */
-.g-lista{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2px 8px}
-.g-ad{display:grid;grid-template-columns:22px 1fr;gap:0 9px;align-items:center;width:100%;text-align:left;cursor:pointer;background:none;border:0;
-  border-left:3px solid transparent;border-radius:0 6px 6px 0;padding:4px 8px 5px;color:var(--texto)}
-.g-ad:hover{background:var(--papel-2)}
-.g-lista li.on .g-ad{background:var(--ouro-claro);border-left-color:var(--ouro)}
-.g-ad i{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--papel);font-style:normal;font-size:12px;font-weight:700}
-.g-ad.restricao i{background:var(--risco)}
-.g-nome{font-family:var(--serif);font-size:15.5px;font-weight:600;line-height:1.2;color:var(--tinta)}
-.g-ad.restricao .g-nome{color:var(--risco)}
-.g-base{font-size:13.5px;line-height:1.4;color:var(--cinza-escuro)}
-.g-base b{font-weight:600;color:var(--tinta)}
-.bmc-dir{display:grid;grid-template-columns:440px minmax(0,1fr);gap:26px;align-items:stretch}
-.bmc-col{display:flex;flex-direction:column;gap:12px}
-.bmc-col .l-elo{padding-top:0}
-.dc-conc{padding:0 0 2px}
-.dc-frase{font-family:var(--serif);font-size:19px;line-height:1.3;color:var(--tinta);margin:0 0 10px}
-.dc-tres{list-style:none;display:flex;flex-direction:column;gap:4px}
-.dc-resp{display:grid;grid-template-columns:18px 1fr;gap:9px;align-items:start;width:100%;text-align:left;background:none;border:0;padding:2px 0;cursor:pointer;color:var(--tinta);font-size:14.5px;line-height:1.35}
-.dc-resp i{display:flex;align-items:center;justify-content:center;width:18px;height:18px;margin-top:1px;border-radius:50%;background:var(--tinta);color:var(--papel);font-style:normal;font-size:11px;font-weight:700}
-.dc-resp span{font-family:var(--serif);font-size:15.5px;font-weight:500}
-.dc-resp:hover span,.dc-resp.on span{color:var(--primary)}
-.dc-resp.on span{text-decoration:underline;text-decoration-color:var(--ouro);text-underline-offset:3px}
-.dc-tres li.minimo .dc-resp span{color:var(--risco)}
-.dc-min{display:inline-block;margin-left:6px;font-family:var(--font);font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--risco);border:1px dashed var(--risco);border-radius:3px;padding:0 6px;line-height:1.7;vertical-align:1px;white-space:nowrap}
-.dc-limite{margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--filete);font-size:13.5px;line-height:1.45;color:var(--cinza-escuro)}
-.dc-limite b{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cinza);margin-bottom:2px}
-.pc-resp{font-weight:700;color:var(--tinta);letter-spacing:.08em}
-.bmc{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:70px 70px 50px;gap:5px}
-/* o recuo lateral pequeno deixa caber "Segmentos" e "Atividades-" na caixa de duas colunas sem encostar na borda */
-.bmc-b{min-width:0;overflow:hidden;display:flex;align-items:flex-start;text-align:left;cursor:pointer;padding:6px 4px 6px 5px;border-radius:6px;
-  background:color-mix(in srgb,var(--pv) 14%,#fff);border:1px solid var(--filete);border-top:3px solid var(--pv);color:var(--tinta);transition:background .15s,border-color .15s}
-.bmc-b:hover{border-color:var(--filete-forte);border-top-color:var(--pv);background:color-mix(in srgb,var(--pv) 22%,#fff)}
-.bmc-b.on{background:color-mix(in srgb,var(--pv) 34%,#fff);border-color:var(--tinta);border-top-color:var(--tinta);box-shadow:0 0 0 2px rgba(12,50,90,.14)}
-.bmc-tit{font-size:13.5px;font-weight:600;line-height:1.2;min-width:0}
-.bmc-tit i{display:flex;align-items:center;justify-content:center;width:18px;height:18px;margin:0 0 4px;border-radius:50%;
-  background:var(--tinta);color:var(--papel);font-style:normal;font-size:11px;font-weight:700}
+.sx-trava .g-dl{display:none;padding:0 14px 10px 44px}
+.sx-trava.aberta .g-dl{display:grid}
+.sx-pe{font-size:13.5px;line-height:1.4;color:var(--cinza-escuro)}
+.sx-pe b{font-weight:600;color:var(--tinta)}
+.sx-baixo{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;padding-top:12px;border-top:1px solid var(--filete)}
+.sx-blocos{display:flex;flex-wrap:wrap;gap:6px}
+.sx-bloco{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--tinta);background:color-mix(in srgb,var(--pv) 13%,#fff);border:1px solid color-mix(in srgb,var(--pv) 55%,#fff);
+  border-radius:999px;padding:4px 13px;transition:background .15s}
+.sx-bloco:hover{background:color-mix(in srgb,var(--pv) 26%,#fff)}
+.sx-detalhe{width:auto;padding:0;font-size:14px}
 .pv-cards{display:grid}
 .pv-cards>.pv-card{grid-area:1/1;visibility:hidden}
 .pv-cards>.pv-card.on{visibility:visible}
@@ -587,7 +697,6 @@ svg text{font-family:var(--font)}
   body{overflow:auto}
   nav.barra{position:sticky;height:auto;padding:8px 16px;flex-wrap:wrap;gap:6px 14px}
   .nav-links{flex:1 1 100%;order:3}
-  .pecas{margin-left:auto}
   .palco{padding:12px 16px}
   .vista.on{display:block;height:auto}
   .cena{height:auto}
@@ -596,7 +705,7 @@ svg text{font-family:var(--font)}
   .duo{grid-template-rows:none}
   .tempos-linha{flex-wrap:wrap}
   .tempos{flex-basis:100%}
-  /* na 02 empilhada, a página segue a ordem do HTML, que é a do Tab: os dois cartões, os dois desenhos, cada um com o
+  /* no Sistema empilhado, a página segue a ordem do HTML, que é a do Tab: os dois cartões, os dois desenhos, cada um com o
      nome do olhar em cima, e a dobradiça, que fecha a comparação. As setas da dobradiça apontavam para os lados e saem */
   .v-dupla.cheia .cena{gap:10px}
   .duo-rot{display:block}
@@ -606,22 +715,45 @@ svg text{font-family:var(--font)}
   .leitura,.painel{height:auto;overflow:visible}
   .painel{overflow-x:auto}
   .pf-grade{grid-template-columns:minmax(0,1fr)}
-  /* a Direção empilhada: a grade do quadro, logo abaixo o cartão do bloco escolhido (só ele), e o elo no fim. Tudo na
-     ordem do HTML (a do Tab): os blocos já vêm na ordem da cadeia, e o elo desta tela é o que vem depois do cartão */
-  /* a Direção empilhada: as pílulas dos modos, e no modo GARGALO o barril em cima e a leitura embaixo */
-  .v-direcao.on,.v-direcao.on[data-modo="duo"]{display:block}
-  .v-gargalo{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
-  .g-lista{grid-template-columns:minmax(0,1fr)}
-  .modos{flex-wrap:wrap}
-  .modos-par{flex-basis:100%;gap:10px}
-  .modos-par button{min-height:36px;justify-content:center}
+  /* a âncora empilhada: a âncora, a frase e as quatro áreas numa coluna, na ordem, com a seta para baixo entre elas */
+  .anc-topo{grid-template-columns:minmax(0,1fr);gap:12px}
+  .anc-pqs{grid-column:auto;order:-1;grid-template-columns:minmax(0,1fr);gap:10px}
+  .anc-quadro{grid-template-columns:minmax(0,1fr);gap:30px;max-width:640px}
+  .anc-area{grid-area:auto!important;min-height:44px}
+  .anc-area[data-a="quanto"]{flex-direction:column;gap:10px}
+  .anc-area[data-a="quanto"] .anc-a,.anc-area[data-a="quanto"] .anc-m,.anc-area[data-a="quanto"] .anc-b{flex:0 0 auto}
+  .anc-area[data-a="quanto"] .anc-m{flex-direction:column;gap:8px}
+  .anc-area[data-a="quanto"] .anc-m,.anc-area[data-a="quanto"] .anc-b{padding-top:9px;padding-left:0;border-left:0;border-top:1px solid var(--filete-forte)}
+  .anc.fluxo .anc-area[data-a="oque"]::before,.anc.fluxo .anc-area[data-a="quem"]::before,.anc.fluxo .anc-area[data-a="quanto"]::before{content:"↓";left:20px;right:auto;top:-27px;transform:none}
+  .anc-pe{flex-direction:column;align-items:flex-start;gap:8px}
+  .anc-leg{align-items:flex-start}
+  .anc-sint{min-height:36px}
+  .anc-pe .l-elo{margin-left:0}
+  /* as abas com a peça por dentro, empilhadas: os passos, o palco do passo aberto, a leitura dele (só os dois), e o pé */
+  .pd-corpo{grid-template-columns:minmax(0,1fr);gap:14px}
+  .pd-palco,.pd-leitura{display:none;visibility:visible}
+  .pd-palco.on{display:block}
+  .pd-leitura.on{display:flex}
+  .pd-passo{min-height:40px}
+  .pd-pe{flex-direction:column;align-items:flex-start;gap:12px}
+  .pd-abre{min-height:44px}
+  /* empilhada, o botão desce para baixo da manchete */
+  .topo{grid-template-columns:minmax(0,1fr)}
+  .topo .pd-abre{grid-column:1;grid-row:3;justify-self:start;margin:0 0 10px}
+  .pd-corpo.tela{grid-template-columns:minmax(0,1fr)}
+  /* empilhada, a moldura ocupa a largura toda, com a página em tamanho natural: a redução só serve à versão lado a lado */
+  .pd-moldura{width:100%;height:min(460px,72vh)}
+  .pd-moldura iframe{width:100%;height:100%;transform:none}
+  .pd-pe .l-elo{margin-left:0}
+  /* a Síntese empilhada: o quadro das quatro áreas, logo abaixo o cartão aberto (só ele), e o elo no fim. Tudo na ordem
+     do HTML (a do Tab): as áreas já vêm na ordem da cadeia, e o elo desta tela é o que vem depois do cartão */
   .bmc-dir{display:flex;flex-direction:column;gap:12px}
   .bmc-col{display:contents}
   .pv-cards>.pv-card{display:none}
   .pv-cards>.pv-card.on{display:flex}
   .pc-dupla,.pc-listas{grid-template-columns:minmax(0,1fr)}
-  .bmc{grid-template-columns:1fr 1fr;grid-template-rows:none}
-  .bmc-b{grid-area:auto!important;min-height:44px}
+  .bm-area{min-height:44px}
+  .sx-tr,.sx-bloco,.pc-volta{min-height:36px}
   .pv-card{padding:14px 16px 16px}
   /* o blueprint rola de lado, com a primeira coluna (os nomes das linhas) parada */
   .bp{min-width:820px}
@@ -630,11 +762,10 @@ svg text{font-family:var(--font)}
   .bp .bp-vis span{position:sticky;left:0;right:auto;top:auto;z-index:2;display:inline-block;padding:0 8px 0 0}
   .lp-fonte{margin-left:0}
   /* alvos de toque de 36px, inclusive as abas (os tablets ficam nesta faixa) */
-  .l-elo,.volta-duo,.p-volta,.pc-ver,.p-est button,.w5-p button,.dc-resp,.db-ver,.db-prova,.f-camada{min-height:36px}
+  .l-elo,.volta-duo,.p-volta,.pc-ver,.p-est button,.w5-p button,.db-ver,.db-prova,.f-camada{min-height:36px}
   .l-elo,.volta-duo,.p-volta{display:flex;align-items:center}
   .pf-rodape .l-elo,.bp-pe .l-elo{display:inline-flex}
   .p-est button,.w5-p button,.f-camada{display:inline-flex;align-items:center}
-  .dc-resp{align-items:center}
   .db-ver{display:flex;flex-direction:column;align-items:center;justify-content:center}
   .db-prova{display:inline-flex;align-items:center}
   .pf-tit{min-height:36px;display:flex;align-items:center}
@@ -644,6 +775,8 @@ svg text{font-family:var(--font)}
 }
 /* empilhada e baixa (o celular deitado): a barra não fica parada, para sobrar tela */
 @media (max-width:1180px) and (max-height:500px){nav.barra{position:static}}
+/* abaixo de 900px os passos quebram de linha, e a seta sobraria sozinha no fim de uma delas */
+@media (max-width:900px){.pd-seta{display:none}}
 
 /* ---- celular (até 767px, o mesmo corte do script.js): versão própria. Acima disso, os desenhos largos já ficam com o
    menor texto em 10px ou mais ---- */
@@ -654,66 +787,76 @@ svg text{font-family:var(--font)}
   .wm-nome{font-size:17px}
   .wm-marca{display:none}
   .wm-nome small{font-size:12px;letter-spacing:.06em}
-  /* as seis abas em duas linhas de três, com pílulas de 36px */
-  .nav-links,.nav-links.duas{display:grid;grid-template-columns:repeat(3,auto);justify-content:stretch;gap:4px}
-  .f-camada{display:flex;align-items:center;justify-content:center;min-height:36px;padding:0 6px;font-size:12px;letter-spacing:.06em}
-  /* as outras duas peças: só os nomes, sem a segunda marca H³D */
-  .pecas{min-height:36px;padding:2px 3px;font-size:12px}
-  .pecas .irma-mark{display:none}
-  .pecas a{padding:6px}
-  /* no celular, a marca fica só com o nome: assim a pílula das peças cabe ao lado dela, e a barra parada não cresce */
+  /* as nove abas em duas linhas, com pílulas de 36px: o panorama e a âncora em cima; as quatro áreas e a síntese embaixo */
+  .nav-links,.nav-links.duas{gap:4px 2px}
+  .nav-quebra,.nav-links .nav-quebra{display:block}
+  .f-camada{flex:1 1 auto;justify-content:center;gap:4px;min-height:36px;padding:0 4px;font-size:12px;letter-spacing:.03em}
+  .f-camada i{min-width:0;width:auto;height:auto;padding:0;background:none;color:var(--ouro-texto);font-size:12px}
+  .nav-quebra+.f-camada i{background:none}
+  .f-camada i.nav-los{width:9px;height:9px;background:var(--ouro)}
+  .f-camada.on i{background:none;color:#E8C66A}
+  .f-camada.on i.nav-los{background:#E8C66A}
+  .nav-quebra+.f-camada,.f-camada.area+.f-camada:not(.area){margin-left:0}
+  /* no celular, a marca fica só com o nome, e a barra parada não cresce */
   .wm-nome small{display:none}
   .pergunta{font-size:15px}
   .pergunta b{font-size:12px}
   .manchete{font-size:18px}
   /* nada abaixo de 12px */
   .legenda-procedencia,.rotulo,.tag,.conf,.tec,.seq small,.rel .n,.rel .sentido,.pf-paga,.pf-c,.w5 dt,.bp-p,.bp .bp-zona,.bp-lin,.bp-cab small,
-  .bp-vis span,.chips .tag,.dc-resp i,.dc-min,.dc-limite b,.bmc-tit i,.pc-eyebrow,.pc-rot,.pc-rot span,.db-rot,.db-lado,.db-lado i,
+  .bp-vis span,.chips .tag,.pc-eyebrow,.pc-rot,.pc-rot span,.db-rot,.db-lado,.db-lado i,
   .lista li,.evid li,.evid b,.criterios,.p-est button,.w5-p button,.pc-ver,.pc-ul li small,.bloco .fonte,.dica,.bloco .evid-nota,.nota-curva,
-  .tempos button small,.tempos button small b,.bp-pe,.pf-rodape,.duo-rot{font-size:12px}
+  .tempos button small,.tempos button small b,.bp-pe,.pf-rodape,.duo-rot,.cad-anc,.bmc-leg,.bmc-leg i,.pc-area i,.g-dl dt,.bm-tr i,.sx-hoje,.sx-tr i,
+  .pd-olho,.anc-marca span,.anc-marca small,.anc-cab em,.anc-blocos small,.anc-razao small,.anc-leg,.anc-leg i{font-size:12px}
   .bp{font-size:12px;min-width:940px;grid-template-columns:112px repeat(7,minmax(0,1fr))}
-  .bmc-tit i,.dc-resp i{width:20px;height:20px}
-  .dc-resp{grid-template-columns:20px 1fr}
-  /* 00: os cartões no lugar dos degraus */
+  /* a síntese no celular: as quatro áreas uma embaixo da outra, na ordem, e o portão sai da borda (a legenda o diz) */
+  .bmc-macro{grid-template-columns:minmax(0,1fr)}
+  .bm-area{grid-area:auto!important}
+  .bm-area.portao::after{display:none}
+  .bm-area[data-sx="quanto"]{flex-direction:column;align-items:stretch;gap:7px}
+  .sx-tr{grid-template-columns:auto minmax(0,1fr);gap:4px 10px}
+  .sx-tr .sx-hoje{grid-column:2;justify-self:start}
+  .sx-tr .bm-nivel{grid-column:1/-1;max-width:none}
+  .sx-trava .g-dl{padding-left:14px;grid-template-columns:minmax(0,1fr)}
+  .pd-tit{font-size:20px}
+  .pd-passo{padding:5px 11px;font-size:13.5px}
+  /* no celular, a moldura sai: uma página dentro da outra, numa tela pequena, só atrapalha. Ficam a leitura e o botão.
+     A frase do pé do quanto fala da janela, e sai junto com ela */
+  .pd-corpo.tela .pd-palcos{display:none}
+  #peca-economico .pd-nota{display:none}
+  /* abertura: os cartões no lugar dos degraus */
   #ps{display:none}
   .ps-cartoes{display:flex}
-  /* 01: as listas no lugar do desenho; a leitura não fala mais "do desenho" */
+  /* ecossistema: as listas no lugar do desenho; a leitura não fala mais "do desenho" */
   #eco{display:none}
   .eco-listas{display:block}
   .so-desenho,.so-clique{display:none}
   .so-toque{display:inline}
-  /* 02: os rótulos da curva crescem (o desenho tem um terço da largura); os nomes ao lado do P e a unidade das zonas saem */
+  /* sistema: os rótulos do desenho crescem (ele tem um terço da largura); as bandas ficam só com a sigla */
   .p-rot,.duo .p-rot{font-size:36px}
-  .p-rot-nome,.zr-un{display:none}
-  /* 05: no celular o barril vira uma fileira reta de aduelas com a linha d'água; os rótulos crescem como os da curva */
-  .bar-rot{font-size:30px;font-weight:700;letter-spacing:.02em}
-  .bar-num-t{font-size:26px}
-  .bar-nivel,.bar-topo-rot{font-size:26px;letter-spacing:.06em}
-  .modos-par{gap:8px}
-  .modos-par button{padding:4px 10px;font-size:12px;letter-spacing:.06em}
-  .modos-par button small{font-size:12px}
+  .banda .bd{stroke-width:4}
+  .plato-l{stroke-width:5}
+  .regua-rot,.duo .regua-rot{font-size:34px;letter-spacing:.02em}
+  .b-prova,.duo .b-prova{font-size:34px}
   .zr,.duo .zr{font-size:34px;letter-spacing:.04em}
-  .criterio-rot,.duo .criterio-rot,.eixo-rot,.duo .eixo-rot,.nada-rot,.duo .nada-rot{font-size:34px}
+  .criterio-rot,.duo .criterio-rot,.nada-rot,.duo .nada-rot{font-size:34px}
   .criterio-rot{stroke-width:8px}
-  .p-seg .hit{stroke-width:90}
   .duo svg:hover{background:none}
   .w5{grid-template-columns:76px 1fr}
 }
-/* até 389px, a barra aperta as margens para a marca e a pílula das peças caberem numa linha só, e a barra parada não
-   passar de um sexto da tela (o subtítulo da marca já saiu no bloco do celular) */
+/* até 389px, a barra aperta as margens, para as cinco abas de baixo caberem numa linha e a barra parada não passar de
+   um sexto da tela (o subtítulo da marca já saiu no bloco do celular) */
 @media (max-width:389px){
   nav.barra{padding:8px 10px;gap:6px 10px}
-  .pecas a{padding:6px 5px}
-  /* as duas pílulas dos modos da Direção numa linha só: ficam com o nome */
-  .modos-par button small{display:none}
+  .f-camada{padding:0 2px;letter-spacing:0}
 }
-/* telas muito estreitas (abaixo de 360px): o número da aba sobe para cima do nome, para as três colunas caberem sem
-   rolagem lateral, e os rótulos da curva crescem um pouco, para não descer de 12px (o do critério, no alto do
+/* telas muito estreitas (abaixo de 360px): o número da área sobe para cima do nome, para as cinco abas de baixo caberem
+   sem rolagem lateral, e os rótulos do Sistema crescem um pouco, para não descer de 12px (o do critério, no alto do
    desenho, fica como está: maior, ele sairia pela borda de cima) */
 @media (max-width:359px){
-  .nav-links,.nav-links.duas{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .f-camada{flex-direction:column;justify-content:center;gap:0;padding:2px 3px;letter-spacing:0;line-height:1.15}
-  .f-camada small{margin-right:0}
+  .f-camada{flex-direction:column;justify-content:center;gap:0;padding:2px 1px;line-height:1.15}
+  /* a âncora fica na linha das três abas sem número: o losango ao lado do nome, para o nome não descer */
+  #aba-ancora{flex-direction:row;gap:3px}
   .p-rot,.duo .p-rot{font-size:40px}
-  .zr,.duo .zr,.eixo-rot,.duo .eixo-rot,.nada-rot,.duo .nada-rot{font-size:38px}
+  .zr,.duo .zr,.nada-rot,.duo .nada-rot,.regua-rot,.duo .regua-rot,.b-prova,.duo .b-prova{font-size:38px}
 }

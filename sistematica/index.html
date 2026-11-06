@@ -4,36 +4,42 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sistemática Hernia3D</title>
-<meta name="description" content="A curva sai do centro cirúrgico: o curso de maestria em TAPP em seis abas. Os 3Ps, quem sustenta e quem ganha, a curva de aprendizado, o que se oferece, o que o residente vive e o que falta definir para virar negócio.">
-<meta name="publicacao" content="12|2026-11-04">
+<meta name="description" content="A curva sai do centro cirúrgico: o curso de maestria em TAPP em nove abas. O panorama (os 3Ps, quem sustenta e quem ganha, o método que torna seguro), a âncora, as quatro áreas na ordem em que se escoram (como, o que, quem e quanto) e a síntese do que falta definir para virar negócio.">
+<meta name="publicacao" content="13|2026-11-06">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sistemática Hernia3D · a curva sai do centro cirúrgico">
-<meta property="og:description" content="O curso de maestria em TAPP em seis abas: os 3Ps, quem sustenta e quem ganha, a curva de aprendizado, o que se oferece, o que se vive e o que falta definir para virar negócio.">
+<meta property="og:description" content="O curso de maestria em TAPP em nove abas: o panorama, a âncora, as quatro áreas na ordem em que se escoram (como, o que, quem e quanto) e a síntese do que falta definir para virar negócio.">
 <meta property="og:image" content="https://biodesignbrasil.github.io/hernia3d-site/sistematica/img/og_curva.png">
 <meta property="og:url" content="https://biodesignbrasil.github.io/hernia3d-site/sistematica/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=pub-12">
+<link rel="stylesheet" href="css/styles.css?v=pub-13">
 </head>
 <body>
 
-<!-- uma barra só, no molde das Sistemáticas irmãs: a marca, as abas como pílulas e o atalho para as outras duas peças -->
+<!-- uma barra só, e ela é o mapa do site: três abas de panorama, a âncora (por que a ordem é esta), as quatro áreas
+     numeradas na ordem em que se escoram (como, o que, quem, quanto) e a síntese. As outras duas peças do site entram
+     pelas abas 2 e 4 -->
 <nav class="barra">
   <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">H³D</span><span class="wm-nome">Sistemática<small><span class="wm-marca">Hernia3D · </span>curso de maestria em TAPP</small></span></a>
-  <div class="nav-links" id="camadas" role="tablist" aria-label="as seis abas, da abertura à direção"></div>
-  <!-- a triangulação: cada peça aponta para as outras duas. Na publicação, os endereços do vault viram os do site -->
-  <div class="pecas" role="group" aria-label="as outras peças do Hernia3D">
-    <span class="irma-mark" aria-hidden="true">H³D</span>
-    <a href="../" data-irma title="Plataforma do residente">Plataforma</a>
-    <a href="../caso-economico/" data-painel>Caso econômico</a>
-  </div>
+  <div class="nav-links" id="camadas" role="tablist" aria-label="as nove abas: o panorama, a âncora, as quatro áreas na ordem em que se escoram, e a síntese"></div>
 </nav>
 
 <main class="palco">
-  <h1 class="pergunta" id="pergunta"></h1>
-  <h2 class="manchete" id="manchete"></h2>
+  <!-- a pergunta e a manchete da aba. Nas abas que mostram outra peça por dentro (3ª e 4ª), à direita fica o botão que
+       a abre. Os dois links ficam escritos aqui, com o endereço do vault: na publicação, o publicador os troca pelos do
+       site; o script mostra o da aba aberta e acrescenta o passo escolhido. Abrem em outra aba do navegador, para a
+       Sistemática continuar aberta. O do caso econômico é o único atalho para o painel -->
+  <div class="topo">
+    <div class="topo-txt">
+      <h1 class="pergunta" id="pergunta"></h1>
+      <h2 class="manchete" id="manchete"></h2>
+    </div>
+    <a class="pd-abre" id="porta-plataforma" href="../" data-irma target="_blank" rel="noopener" hidden><span id="porta-plataforma-botao">abrir a plataforma</span> →</a>
+    <a class="pd-abre" id="porta-economico" href="../caso-economico/" data-painel target="_blank" rel="noopener" hidden><span id="porta-economico-botao">abrir o caso econômico</span> →</a>
+  </div>
   <!-- o leitor de tela ouve só o título da ficha que abre, e não a leitura inteira -->
   <p class="so-leitor" id="anuncio" aria-live="polite"></p>
 
@@ -57,33 +63,48 @@
         <!-- a ordem aqui é a da leitura e a do Tab: os dois desenhos, depois a dobradiça, que fecha a comparação.
              No desktop, o CSS põe a dobradiça entre os dois; empilhada, cada desenho ganha o nome do olhar em cima -->
         <div class="duo" id="duo" aria-label="os dois olhares, lado a lado">
-          <p class="duo-rot" aria-hidden="true">Olhar 1 · hoje, no paciente</p>
-          <svg id="sis1" viewBox="0 0 900 470" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Hoje, no paciente: a subida inteira acontece no paciente"></svg>
-          <p class="duo-rot" aria-hidden="true">Olhar 2 · com o Hernia3D, no modelo</p>
-          <svg id="sis2" viewBox="0 0 900 470" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Com o Hernia3D, no modelo: a parte íngreme fica no modelo, em três passos"></svg>
+          <p class="duo-rot" aria-hidden="true">Olhar 1 · hoje, ver um, fazer um</p>
+          <svg id="sis1" viewBox="0 0 900 470" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Hoje, ver um, fazer um: nenhuma operação antes do paciente, a entrada sem critério, e o erro acontece no paciente"></svg>
+          <p class="duo-rot" aria-hidden="true">Olhar 2 · com o Hernia3D, os 3Ps</p>
+          <svg id="sis2" viewBox="0 0 900 470" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Com o Hernia3D, os 3Ps: preparar e praticar no modelo, o critério de maestria, proceder no paciente; o erro acontece no modelo"></svg>
           <div class="dobradica" id="dobradica"></div>
         </div>
-        <svg id="curva" viewBox="0 0 900 470" role="group" aria-label="A curva de aprendizado do TAPP, no olhar em foco"></svg>
+        <svg id="curva" viewBox="0 0 900 470" role="group" aria-label="O método, no olhar em foco"></svg>
         <p class="nota-curva" id="nota-curva"></p>
       </div>
       <aside class="leitura" id="leitura-sis"></aside>
     </section>
 
-    <section class="vista v-cheia" id="v-servicos" role="tabpanel" aria-label="Serviços">
+    <!-- a âncora: por que as áreas vêm nesta ordem. O mesmo quadro da síntese (como, o que e quem em cima; quanto
+         embaixo): aqui, com o que cada área vira e do que depende; lá, com as travas de cada uma -->
+    <section class="vista v-ancora" id="v-ancora" role="tabpanel" aria-label="A âncora">
+      <div class="painel" id="ancora" data-piso="0.55" data-cresce="1.35"></div>
+    </section>
+
+    <!-- 2 · o que: o portfólio, as três ofertas e o que cada uma entrega -->
+    <section class="vista v-cheia" id="v-servicos" role="tabpanel" aria-label="O que: o portfólio">
       <div class="painel" id="portfolio" data-cresce="1.5"></div>
     </section>
 
-    <section class="vista v-jornadas" id="v-jornadas" role="tabpanel" aria-label="Jornadas">
+    <!-- 3ª · quem: a plataforma do residente por dentro, estação por estação, e quem pode comprar. O botão que a abre
+         fica ao lado do subtítulo, no alto -->
+    <section class="vista v-cheia" id="v-plataforma" role="tabpanel" aria-label="Quem: o residente, na plataforma">
+      <div class="painel" id="peca-plataforma" data-piso="0.55" data-cresce="1.3"></div>
+    </section>
+
+    <!-- 1 · como: a operação, etapa por etapa (o blueprint: o que o residente vive e, abaixo da linha, o que roda por trás) -->
+    <section class="vista v-jornadas" id="v-jornadas" role="tabpanel" aria-label="Como: a operação">
       <div class="painel" id="blueprint" data-cresce="1.5"></div>
     </section>
 
-    <section class="vista v-direcao" id="v-direcao" role="tabpanel" aria-label="Direção">
-      <!-- dois modos, como a 02 tem dois olhares: GARGALO abre primeiro (o barril: o que limita agora); MODELO são os nove blocos -->
-      <div class="modos" id="modos" role="tablist" aria-label="os dois modos da direção"></div>
-      <div class="v-gargalo" id="v-gargalo">
-        <div class="cena"><svg id="barril" viewBox="0 0 900 500" role="group" aria-label="O barril: cada aduela é uma restrição do curso, na ordem em que vão aparecer; a água para na mais baixa, a restrição de hoje"></svg></div>
-        <aside class="leitura" id="leitura-gar" data-cresce="1.3"></aside>
-      </div>
+    <!-- 4ª · quanto: o caso econômico por dentro, passo a passo: o próprio painel numa moldura, com a leitura ao lado. É a
+         única parte desta peça que mostra valores em reais. O botão que abre o painel fica ao lado do subtítulo, no alto -->
+    <section class="vista v-cheia" id="v-economico" role="tabpanel" aria-label="Quanto: o caso econômico">
+      <div class="painel" id="peca-economico" data-piso="0.55" data-cresce="1.3"></div>
+    </section>
+
+    <!-- a síntese: o BMC macro em quatro áreas, com as travas de cada uma; os nove blocos ficam um clique abaixo -->
+    <section class="vista v-direcao" id="v-direcao" role="tabpanel" aria-label="Síntese">
       <div class="painel" id="direcao" data-piso="0.55" data-cresce="1.25"></div>
     </section>
   </div>
@@ -92,11 +113,11 @@
     <span class="lp lp-ok">confirmado</span>
     <span class="lp lp-prov">provável, ou leitura nossa</span>
     <span class="lp lp-aberto">em aberto, ou a confirmar</span>
-    <span class="lp-fonte" id="carimbo">Base: vault do projeto Hernia3D. Sem valores em reais nesta peça.</span>
+    <span class="lp-fonte" id="carimbo">Base: vault do projeto Hernia3D. Valores em reais, só na janela do caso econômico (aba 4ª).</span>
   </p>
 </main>
 
-<script src="js/data.js?v=pub-12"></script>
-<script src="js/script.js?v=pub-12"></script>
+<script src="js/data.js?v=pub-13"></script>
+<script src="js/script.js?v=pub-13"></script>
 </body>
 </html>

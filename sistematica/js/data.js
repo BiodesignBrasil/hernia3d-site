@@ -532,7 +532,7 @@ window.H3D = {
   {
    "chave": "quanto",
    "pergunta": "Quanto",
-   "resposta": "em definição (ver a 05)"
+   "resposta": "em definição (ver a síntese)"
   }
  ],
  "ps": [
@@ -542,6 +542,9 @@ window.H3D = {
    "frase": "conhecer a anatomia e nomeá-la antes de cortar",
    "onde": "na teoria e nos pré-módulos, e depois na primeira sessão com o modelo",
    "passa": "90% ou mais no teste teórico",
+   "verbo": "nivela",
+   "mede": "o teste teórico",
+   "entrega": "a base nivelada",
    "etapas": [
     "E0",
     "E1"
@@ -553,6 +556,9 @@ window.H3D = {
    "frase": "o TAPP inteiro no modelo, de novo, até passar",
    "onde": "no modelo, com checklist, por 16 sessões ou mais (número do protocolo, a validar) · depois, numa live e num encontro com o preceptor",
    "passa": "os 5 critérios de maestria",
+   "verbo": "repete e mede",
+   "mede": "cada sessão, pelo checklist",
+   "entrega": "as sessões medidas",
    "etapas": [
     "E2",
     "G",
@@ -566,6 +572,9 @@ window.H3D = {
    "frase": "operar o paciente, com o preceptor cada vez mais longe",
    "onde": "no centro cirúrgico",
    "passa": "metas por fase: A, B e C",
+   "verbo": "acompanha",
+   "mede": "as metas de cada fase",
+   "entrega": "autonomia, fase a fase",
    "etapas": [
     "E4"
    ]
@@ -1017,7 +1026,7 @@ window.H3D = {
   {
    "camada": "sistema",
    "titulo": "A curva sai do centro cirúrgico",
-   "texto": "hoje o residente aprende o TAPP no paciente, ao longo de 37,5 casos em mediana. O curso leva a parte íngreme da curva para o modelo",
+   "texto": "hoje a curva de aprendizado do TAPP acontece no paciente, ao longo de 37,5 casos em mediana. O método leva a parte íngreme para o modelo, antes do critério de maestria",
    "componente": [
     "proposta"
    ]
@@ -1141,7 +1150,7 @@ window.H3D = {
  "camadas": [
   {
    "id": "abertura",
-   "n": "00",
+   "n": "",
    "rotulo": "Abertura",
    "cam": "abertura",
    "pergunta": "A curva sai do centro cirúrgico.",
@@ -1151,51 +1160,81 @@ window.H3D = {
   },
   {
    "id": "ecossistema",
-   "n": "01",
+   "n": "",
    "rotulo": "Quem sustenta, quem ganha",
    "cam": "ecossistema",
    "pergunta": "Quem paga para deslocar a curva, e quem colhe o ganho?",
    "manchete": "O dinheiro entra pela esquerda, o ganho esperado sai pela direita e não volta a quem pagou.",
-   "elo": "e que curva é essa que o curso desloca?",
+   "elo": "e como o método torna isso seguro?",
    "livro": ""
   },
   {
    "id": "sistema",
-   "n": "02",
-   "rotulo": "A curva",
+   "n": "",
+   "rotulo": "O método",
    "cam": "sistema",
-   "pergunta": "Onde o residente aprende o TAPP, hoje e com o Hernia3D?",
-   "manchete": "A parte íngreme da curva sai do paciente e vai para o modelo.",
-   "elo": "o que, exatamente, se oferece?",
+   "pergunta": "Como se chega ao paciente com segurança, hoje e com o Hernia3D?",
+   "manchete": "O erro sai do paciente e vai para o modelo: só opera quem cumpriu o critério de maestria.",
+   "elo": "por que as áreas vêm nesta ordem?",
    "livro": ""
   },
   {
-   "id": "servicos",
-   "n": "03",
-   "rotulo": "O que se oferece",
-   "cam": "serviços",
-   "pergunta": "O que entra em cada oferta, e quem paga?",
-   "manchete": "Três ofertas, na ordem em que o residente as encontra: o kit em três portas, os pré-módulos que nivelam e o curso.",
-   "elo": "como o residente vive isso, etapa por etapa?",
+   "id": "ancora",
+   "n": "",
+   "rotulo": "A âncora",
+   "cam": "âncora",
+   "pergunta": "Por que as áreas vêm nesta ordem?",
+   "manchete": "A segurança é a âncora: ela pousa no como, e cada área depende da anterior.",
+   "elo": "como o método acontece, etapa por etapa?",
    "livro": ""
   },
   {
    "id": "jornadas",
-   "n": "04",
-   "rotulo": "O que se vive",
-   "cam": "jornadas",
-   "pergunta": "O que o residente vive, e o que roda por trás?",
+   "n": "1",
+   "rotulo": "Como: a operação",
+   "cam": "como",
+   "pergunta": "Como o método acontece, etapa por etapa, e o que roda por trás?",
    "manchete": "Até doze semanas no modelo, sem preceptor a cada sessão: ele entra depois da maestria.",
+   "elo": "o que o curso entrega?",
+   "livro": ""
+  },
+  {
+   "id": "servicos",
+   "n": "2",
+   "rotulo": "O que: o portfólio",
+   "cam": "o que",
+   "pergunta": "O que o curso entrega, e quem paga cada parte?",
+   "manchete": "Três ofertas, na ordem em que o residente as encontra: o kit em três portas, os pré-módulos que nivelam e o curso.",
+   "elo": "quem vive o curso, e quem compra?",
+   "livro": ""
+  },
+  {
+   "id": "plataforma",
+   "n": "3",
+   "rotulo": "Quem: o residente, na plataforma",
+   "cam": "quem",
+   "pergunta": "Quem vive o curso, e quem compra?",
+   "manchete": "O curso na voz do residente, estação por estação. Quem compra ainda está em aberto.",
+   "elo": "quanto custa, e quem paga a soma?",
+   "livro": ""
+  },
+  {
+   "id": "economico",
+   "n": "4",
+   "rotulo": "Quanto: o caso econômico",
+   "cam": "quanto",
+   "pergunta": "Quanto custa, e quem paga a soma?",
+   "manchete": "O curso se paga quando uma complicação custa, a quem paga a cirurgia, mais do que o curso gasta para evitar cada uma.",
    "elo": "o que falta definir para virar negócio?",
    "livro": ""
   },
   {
    "id": "direcao",
-   "n": "05",
-   "rotulo": "O que decidir",
-   "cam": "direção",
+   "n": "",
+   "rotulo": "A síntese",
+   "cam": "síntese",
    "pergunta": "O que falta definir para o curso virar negócio?",
-   "manchete": "Nove blocos do modelo de negócio: em cada um, o que já temos, o que pedimos e o que falta definir.",
+   "manchete": "Quatro áreas, amarradas na segurança, com as travas de cada uma.",
    "elo": "ao começo: a abertura",
    "livro": "sim"
   }
@@ -1436,165 +1475,346 @@ window.H3D = {
  ],
  "sintese": {
   "direcao": "O curso fica de pé com três definições: quem paga, o tempo do preceptor e a prova no TAPP",
-  "fator_minimo": "A prova no TAPP",
-  "limite": "o estudo de validação vem antes de tudo: é a evidência que o comprador pede. Depois, falta quem pague. O recurso mais escasso é o tempo do preceptor, e a frota do piloto ainda precisa ser paga",
-  "gargalo": "Uma restrição por vez: hoje, o estudo de validação. Até ele subir, as outras esperam",
-  "duo": "Dois olhares para decidir: a lei dos mínimos, o que limita agora, e o modelo de negócio, os nove blocos"
+  "gargalo": "Uma restrição por vez: hoje, o estudo de validação. Até ele fechar, as outras áreas esperam",
+  "ancora": "a segurança",
+  "ancora_porque": "É o que diferencia o curso do que se faz hoje. Sem ela provada, nada do resto se sustenta",
+  "ancora_pousa": "A segurança não se promete, se produz. Quem a produz é o método, e quem a prova é o estudo de validação",
+  "promessa": "O curso promete a maestria no modelo. A prova no paciente operado por TAPP depende do ensaio clínico"
  },
  "gargalo": [
   {
    "id": "estudo",
    "lado": "frente",
    "aduela": "Estudo de validação",
-   "curto": "ESTUDO",
    "oque": "o estudo no Einstein que testa a versão nova do modelo com residentes e cirurgiões: se ele distingue quem já domina a técnica de quem está aprendendo",
    "fluxo": "do protótipo à evidência que o comprador pede para aprovar o piloto",
    "alavanca": "a aprovação ética e a coleta com os residentes do estudo",
    "quem": "o responsável clínico do projeto, com o comitê de ética",
    "prazo": "coleta depois da aprovação ética, data a confirmar",
    "confianca": "provavel",
-   "bloco": "proposta",
+   "area": "como",
    "altura": 8
   },
   {
    "id": "modelo",
    "lado": "tras",
    "aduela": "Modelo 3D em comodato",
-   "curto": "MODELO 3D",
    "oque": "o modelo impresso da região inguinal, emprestado ao residente durante o curso",
    "fluxo": "",
    "alavanca": "",
    "quem": "",
    "prazo": "",
    "confianca": "confirmado",
-   "bloco": "recursos",
+   "area": "como",
    "altura": 100
   },
   {
    "id": "comprador",
    "lado": "frente",
    "aduela": "Quem compra",
-   "curto": "QUEM COMPRA",
    "oque": "quem paga a taxa do curso: o programa de residência, o hospital de ensino, o Einstein ou o próprio residente · hoje, nenhum confirmado",
    "fluxo": "de zero a uma turma de 6",
    "alavanca": "uma carta de intenção de um programa, com valor e rubrica",
    "quem": "a coordenação do projeto, com quem compra",
    "prazo": "antes do piloto",
    "confianca": "aberto",
-   "bloco": "segmentos",
+   "area": "quem",
    "altura": 15
   },
   {
    "id": "protocolo",
    "lado": "tras",
    "aduela": "Protocolo de maestria",
-   "curto": "PROTOCOLO",
    "oque": "o protocolo de maestria: repetir no modelo até cumprir os cinco critérios",
    "fluxo": "",
    "alavanca": "",
    "quem": "",
    "prazo": "",
    "confianca": "confirmado",
-   "bloco": "atividades",
+   "area": "como",
    "altura": 100
   },
   {
    "id": "preceptor",
    "lado": "frente",
    "aduela": "Formato do preceptor",
-   "curto": "PRECEPTOR",
    "oque": "como o preceptor entra no curso: quatro encontros por ano, com a live e o presencial só para quem chegou à maestria · é o recurso mais escasso",
    "fluxo": "de uma turma a 45 aprovados por ano",
    "alavanca": "o preceptor confirma os quatro encontros por ano, com a live e o presencial só para quem chega à maestria",
    "quem": "o responsável clínico do projeto",
    "prazo": "antes do piloto",
    "confianca": "provavel",
-   "bloco": "recursos",
+   "area": "como",
    "altura": 55
   },
   {
    "id": "ps",
    "lado": "tras",
    "aduela": "Os 3Ps do curso",
-   "curto": "3PS",
    "oque": "o desenho do curso em três passos: preparar, praticar, proceder",
    "fluxo": "",
    "alavanca": "",
    "quem": "",
    "prazo": "",
    "confianca": "confirmado",
-   "bloco": "proposta",
+   "area": "oque",
    "altura": 100
   },
   {
    "id": "entrada",
    "lado": "frente",
    "aduela": "Entrada em casa",
-   "curto": "EM CASA",
    "oque": "o que o residente precisa para começar a treinar em casa: o modelo emprestado, o kit de instrumental numa das três portas e os pré-módulos de nivelamento",
    "fluxo": "a turma inteira treinando já na primeira semana",
    "alavanca": "o aluguel do kit com preço e logística, e os três pré-módulos de nivelamento prontos",
    "quem": "a coordenação do projeto, com o fornecedor do kit",
    "prazo": "antes do piloto",
    "confianca": "aberto",
-   "bloco": "canais",
+   "area": "oque",
    "altura": 30
   },
   {
    "id": "einstein",
    "lado": "tras",
    "aduela": "Einstein, casa do estudo",
-   "curto": "EINSTEIN",
    "oque": "a casa do estudo de validação, com centro de treinamento próprio",
    "fluxo": "",
    "alavanca": "",
    "quem": "",
    "prazo": "",
    "confianca": "confirmado",
-   "bloco": "parcerias",
+   "area": "como",
    "altura": 100
   },
   {
    "id": "frota",
    "lado": "frente",
    "aduela": "Frota de modelos",
-   "curto": "MODELOS",
    "oque": "quantos modelos impressos o piloto precisa, e quem paga por eles: o modelo se imprime sob demanda, mas a frota do piloto ainda não tem dono",
    "fluxo": "8 modelos para 45 aprovados por ano · 13 com o modelo doze semanas em casa",
    "alavanca": "definir quem paga os modelos e os kits do piloto",
    "quem": "a coordenação do projeto",
    "prazo": "antes do piloto",
    "confianca": "aberto",
-   "bloco": "recursos",
+   "area": "quanto",
    "altura": 30
   },
   {
    "id": "prova",
    "lado": "frente",
    "aduela": "Prova no paciente",
-   "curto": "PROVA",
    "oque": "o ensaio clínico que vai medir se o paciente operado por quem treinou no modelo tem menos complicação · hoje a prova existe só para a outra técnica, a TEP",
    "fluxo": "do programa que compra a quem paga a cirurgia: o SUS e as operadoras",
    "alavanca": "o ensaio clínico de transferência, depois do estudo de validação",
    "quem": "o responsável clínico do projeto, pelo ensaio clínico",
    "prazo": "18 a 24 meses depois do estudo de validação",
    "confianca": "aberto",
-   "bloco": "proposta",
+   "area": "oque",
    "altura": 20
   },
   {
    "id": "plataforma",
    "lado": "frente",
    "aduela": "Plataforma do residente",
-   "curto": "PLATAFORMA",
    "oque": "o site onde o residente acompanha o curso: hoje mostra o caminho e os critérios, mas ainda não registra as sessões de cada um",
    "fluxo": "de uma turma a muitas: cada residente com o seu registro de sessões e de critérios",
    "alavanca": "o registro das sessões e dos cinco critérios dentro da própria plataforma, antes da segunda turma",
    "quem": "a coordenação do projeto",
    "prazo": "depois da primeira turma",
    "confianca": "provavel",
-   "bloco": "canais",
+   "area": "quem",
    "altura": 60
+  }
+ ],
+ "cadeia": [
+  {
+   "area": "como",
+   "nome": "como",
+   "vira": "o método que torna seguro",
+   "porque": "a segurança depende do método",
+   "porque_ordem": "A âncora pousa aqui: o método produz a segurança, e o estudo de validação a prova. Sem isso, não há o que prometer",
+   "entregavel": "a operação, etapa por etapa",
+   "porque_aba": "É onde se vê quem faz o quê, com o quê e em que ordem: onde o critério barra e onde o preceptor entra",
+   "aba": "jornadas",
+   "blocos": [
+    "atividades",
+    "recursos",
+    "parcerias"
+   ]
+  },
+  {
+   "area": "oque",
+   "nome": "o que",
+   "vira": "o curso que a prova permite",
+   "porque": "a promessa depende da prova",
+   "porque_ordem": "Só se promete o que o método provou. O que entra no curso, e o que fica de fora, sai do que ele garante",
+   "entregavel": "o portfólio",
+   "porque_aba": "A promessa só existe como oferta: o kit, os pré-módulos e o curso, cada um com o que entrega e quem paga",
+   "aba": "servicos",
+   "blocos": [
+    "proposta"
+   ]
+  },
+  {
+   "area": "quem",
+   "nome": "quem",
+   "vira": "quem usa e quem compra",
+   "porque": "a venda depende da promessa",
+   "porque_ordem": "É a oferta definida que se leva a alguém: só com ela se sabe quem usa, quem compra e por onde o curso chega",
+   "entregavel": "a plataforma do residente",
+   "porque_aba": "É o curso na voz de quem o vive: por onde chega e o que faz continuar. Quem compra ainda está em aberto",
+   "aba": "plataforma",
+   "blocos": [
+    "segmentos",
+    "canais",
+    "relacionamento"
+   ]
+  },
+  {
+   "area": "quanto",
+   "nome": "quanto",
+   "vira": "quem paga a soma",
+   "porque": "a conta depende de quem compra",
+   "porque_ordem": "A conta confere tudo o que veio antes, e só fecha quando se sabe quem compra",
+   "entregavel": "o caso econômico",
+   "porque_aba": "Os valores ficam numa peça própria, com a conta de cada número: o custo, o preço e o retorno",
+   "aba": "economico",
+   "blocos": [
+    "receita",
+    "custos"
+   ]
+  }
+ ],
+ "pecas": {
+  "plataforma": {
+   "botao": "abrir a plataforma",
+   "pe": ""
+  },
+  "economico": {
+   "botao": "abrir o caso econômico",
+   "pe": "a janela é o próprio caso econômico, com os valores em reais: cada número sublinhado abre a sua conta e diz de onde vem"
+  }
+ },
+ "estacoes": [
+  {
+   "id": "kit",
+   "p": "",
+   "nome": "Kit",
+   "titulo": "Kit de instrumentos: três formas de montar o seu",
+   "faz": "recebe o modelo 3D emprestado com o curso e escolhe como ter o instrumental para treinar em casa",
+   "aberto": "preço, envio e devolução do aluguel",
+   "porta": false,
+   "encontra": [
+    "Aluguel do kit completo",
+    "Liberdade guiada, com lista curada",
+    "Por sua conta"
+   ]
+  },
+  {
+   "id": "preparacao",
+   "p": "P1",
+   "nome": "Preparação",
+   "titulo": "Antes da prática: a teoria, a primeira sessão e, se faltar base, os pré-módulos",
+   "faz": "estuda a teoria do TAPP e precisa de 90% no teste, com tentativas ilimitadas. Depois faz a primeira sessão no modelo, que não vale nota",
+   "aberto": "os três pré-módulos de nivelamento estão em produção",
+   "porta": false,
+   "encontra": [
+    "A teoria do TAPP, com teste",
+    "A primeira sessão no modelo",
+    "A anatomia que vai nomear",
+    "Três pré-módulos de nivelamento"
+   ]
+  },
+  {
+   "id": "curso",
+   "p": "P2",
+   "nome": "Curso TAPP",
+   "titulo": "Hérnia inguinal por videolaparoscopia (TAPP)",
+   "faz": "repete o TAPP no modelo, 16 sessões ou mais, 2 por semana, em até 12 semanas, e se autoavalia a cada sessão. A meta são os 5 critérios de maestria",
+   "aberto": "o número de sessões e os critérios ainda vão ao painel de especialistas",
+   "porta": true,
+   "encontra": [
+    "A sequência até o centro cirúrgico",
+    "Os 5 critérios de maestria",
+    "As cinco macroetapas do TAPP",
+    "O checklist dos 8 erros críticos"
+   ]
+  },
+  {
+   "id": "live",
+   "p": "P2",
+   "nome": "Live",
+   "titulo": "Sessão de correção técnica com o preceptor",
+   "faz": "só entra quem chegou à maestria. O preceptor corrige ao vivo, à distância, o que o checklist não pega",
+   "aberto": "data a definir",
+   "porta": false,
+   "encontra": [
+    "Quem participa",
+    "A próxima edição",
+    "O formato da sessão"
+   ]
+  },
+  {
+   "id": "presencial",
+   "p": "P2",
+   "nome": "Presencial",
+   "titulo": "Encontro presencial",
+   "faz": "quem passou pela live encontra o preceptor e os pares: discussão de casos e acompanhamento individual",
+   "aberto": "data e local a confirmar",
+   "porta": false,
+   "encontra": [
+    "Quem participa",
+    "O que o encontro inclui",
+    "Data e local"
+   ]
+  },
+  {
+   "id": "cirurgia",
+   "p": "P3",
+   "nome": "Centro cirúrgico",
+   "titulo": "Centro cirúrgico",
+   "faz": "só chega quem tem o certificado de maestria. Opera os primeiros 10 a 15 casos com supervisão que diminui por fase",
+   "aberto": "o ensaio que mede o efeito no paciente ainda não tem data",
+   "porta": false,
+   "encontra": [
+    "As zonas de perigo, no paciente",
+    "A supervisão em três fases",
+    "O que ainda não se sabe"
+   ]
+  }
+ ],
+ "conta": [
+  {
+   "id": "residente",
+   "nome": "Residente",
+   "pergunta": "O que o curso muda para cada residente treinado?",
+   "diz": "quem treina no modelo até a maestria chega aos primeiros casos com 2,24 complicações a menos. Como 80% chegam à maestria e todos pagam, a conta é feita por matrícula",
+   "conta": "taxa do curso ÷ complicações evitadas por matrícula = quanto custa evitar cada uma",
+   "falta": "se o efeito se repete no TAPP: ele foi medido na TEP, a outra técnica por vídeo"
+  },
+  {
+   "id": "pagador",
+   "nome": "Quem paga",
+   "pergunta": "Quem paga o curso, e quem fica com a economia?",
+   "diz": "quem compra o curso paga a taxa e não recebe de volta: a economia fica com quem paga a cirurgia. Conforme o custo de uma complicação, ela cobre 46% da taxa, iguala a taxa ou chega a 2,4 vezes a taxa",
+   "conta": "complicações evitadas por matrícula × custo de uma complicação = economia de quem paga a cirurgia",
+   "falta": "quanto custa uma complicação para quem paga a cirurgia: é o dado que decide se o curso se paga"
+  },
+  {
+   "id": "empresa",
+   "nome": "Quem entrega",
+   "pergunta": "Quem entrega o curso se sustenta?",
+   "diz": "a taxa paga a entrega com folga. Dentro dela estão o modelo em comodato, os consumíveis, a plataforma e o tempo do preceptor, que é o que mais pesa",
+   "conta": "taxa − custo de entregar − operação e impostos = o que sobra para quem entrega",
+   "falta": "a que preço o curso fecha para cada comprador, e quem produz os pré-módulos"
+  },
+  {
+   "id": "escala",
+   "nome": "Escala",
+   "pergunta": "Quantos o curso forma por ano, e o que limita?",
+   "diz": "na agenda de hoje, o curso forma até 45 por ano, em 4 encontros, com 8 modelos. O teto é a agenda do preceptor, e não o modelo. No Brasil entram 1.537 novos residentes por ano",
+   "conta": "tempo do preceptor no ano ÷ tempo por aprovado = aprovados por ano",
+   "falta": "quem paga os modelos e os kits do piloto"
   }
  ]
 };

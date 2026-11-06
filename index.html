@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plataforma do residente · Hernia3D</title>
 <meta name="description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D. Teoria, prática autoguiada, live e encontro presencial com o preceptor.">
-<meta name="publicacao" content="12|2026-11-04">
+<meta name="publicacao" content="13|2026-11-06">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Plataforma do residente · Hernia3D">
 <meta property="og:description" content="Domine o TAPP antes do primeiro paciente: curso de maestria em hérnia inguinal por videolaparoscopia, num modelo impresso em 3D.">
@@ -403,7 +403,11 @@
     .sources, .site-footer p, .site-footer .footer-note, .mapa-nota, .lang-switch button { font-size: 12px; }
     .trilha-p .rot, .evidence-badge, .live-card .tag, .bonus-card .tag, .crit li::before, .leg-mob b { font-size: 11px; }
   }
+  /* em moldura: a página aberta dentro de outra (a aba Quem da Sistemática mostra uma estação por vez). Saem o
+     cabeçalho, a faixa dos 3Ps e o rodapé: o menu é o de quem emoldura. Liga com ?moldura no endereço */
+  .em-moldura header.barra, .em-moldura .trilha-p, .em-moldura footer.site-footer { display: none; }
 </style>
+<script>if (/[?&]moldura\b/.test(location.search)) document.documentElement.classList.add('em-moldura');</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
